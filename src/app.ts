@@ -6,21 +6,19 @@ import connect from './utils/connect';
 import responseTime from 'response-time';
 import {restResponseTimeHistogram, startMetricsServer} from './utils/metrics';
 import swaggerDocs from './utils/swagger';
-import deserializeUser from './middlewares/deserialize-user';
-import router from './routers/base-router';
+import privateRouter from './routers/private-router';
 import {NotFoundError} from './utils/errors';
 import errorResponse from './middlewares/error-response';
+import publicRouter from './routers/public-router';
 
 dotenv.config();
 
-const port = config.get<number>('port');
+const port = config.get<number>('PORT');
 
 const app = express();
 
 
 app.use(express.json());
-
-app.use(deserializeUser);
 
 app.use(
     responseTime((req: Request, res: Response, time: number) => {
@@ -37,7 +35,8 @@ app.use(
     })
 );
 
-app.use(router);
+app.use(privateRouter);
+app.use(publicRouter);
 
 app.all('*', async (req: Request, res: Response, next: NextFunction) => {
     // in an async function we must use next(error) instead of throw syntax

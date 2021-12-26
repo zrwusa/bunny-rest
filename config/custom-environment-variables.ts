@@ -3,6 +3,6 @@ export default {
     accessTokenPublicKey: 'ACCESS_TOKEN_PUBLIC_KEY',
     refreshTokenPrivateKey: 'REFRESH_PRIVATE_KEY',
     refreshTokenPublicKey: 'REFRESH_PUBLIC_KEY',
-    dbUri: 'DB_CONNECTION',
+    DB_URI: 'DB_CONNECTION',
     port: 'PORT',
 };

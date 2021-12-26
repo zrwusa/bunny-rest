@@ -2,24 +2,31 @@ import {get} from 'lodash';
 import {NextFunction, Request, Response} from 'express';
 import {verifyJwt} from '../utils/jwt';
 import {reIssueAccessToken} from '../services/session-service';
+import {UnauthorizedError} from '../utils/errors';
 
 const deserializeUser = async (
     req: Request,
     res: Response,
     next: NextFunction
 ) => {
-    const accessToken = get(req, 'headers.authorization', '').replace(
-        /^Bearer\s/,
-        ''
-    );
+    const accessToken = get(req, 'headers.authorization', '')
+        .replace(/^Bearer\s/, '');
 
     const refreshToken = get(req, 'headers.x-refresh');
 
     if (!accessToken) {
-        return next();
+        const err = new UnauthorizedError();
+        res.status(parseInt(err.code)).send({
+            type: err.constructor.name,
+            code: err.code,
+            message: err.message,
+            stack: err.stack
+        });
+        return;
     }
 
-    const {decoded, expired} = verifyJwt(accessToken, 'accessTokenPublicKey');
+    const {decoded, expired} = verifyJwt(accessToken);
+    console.log('xxx', decoded, expired);
 
     if (decoded) {
         res.locals.user = decoded;
@@ -33,7 +40,7 @@ const deserializeUser = async (
             res.setHeader('x-access-token', newAccessToken);
         }
 
-        const result = verifyJwt(newAccessToken as string, 'accessTokenPublicKey');
+        const result = verifyJwt(newAccessToken as string);
 
         res.locals.user = result.decoded;
         return next();

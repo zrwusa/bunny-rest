@@ -1,11 +1,9 @@
-import {Request, Response} from 'express';
+import {NextFunction, Request, Response} from 'express';
 import {CreateProductInput, UpdateProductInput,} from '../schemas/product-schema';
 import {createProduct, deleteProduct, findAndUpdateProduct, findProduct,} from '../services/product-service';
+import {NotFoundError} from '../utils/errors';
 
-export async function createProductHandler(
-    req: Request<{}, {}, CreateProductInput['body']>,
-    res: Response
-) {
+export async function createProductHandler(req: Request<{}, {}, CreateProductInput['body']>, res: Response) {
     const userId = res.locals.user._id;
 
     const body = req.body;
@@ -15,10 +13,7 @@ export async function createProductHandler(
     return res.send(product);
 }
 
-export async function updateProductHandler(
-    req: Request<UpdateProductInput['params']>,
-    res: Response
-) {
+export async function updateProductHandler(req: Request<UpdateProductInput['params']>, res: Response) {
     const userId = res.locals.user._id;
 
     const productId = req.params.productId;
@@ -41,24 +36,18 @@ export async function updateProductHandler(
     return res.send(updatedProduct);
 }
 
-export async function getProductHandler(
-    req: Request<UpdateProductInput['params']>,
-    res: Response
-) {
+export async function getProductHandler(req: Request<UpdateProductInput['params']>, res: Response, next: NextFunction) {
     const productId = req.params.productId;
     const product = await findProduct({productId});
 
     if (!product) {
-        return res.sendStatus(404);
+        return next(new NotFoundError());
     }
 
     return res.send(product);
 }
 
-export async function deleteProductHandler(
-    req: Request<UpdateProductInput['params']>,
-    res: Response
-) {
+export async function deleteProductHandler(req: Request<UpdateProductInput['params']>, res: Response) {
     const userId = res.locals.user._id;
     const productId = req.params.productId;
 

@@ -5,10 +5,10 @@ import logger from './logger';
 // import logger from "./logger";
 
 async function connect() {
-    const dbUri = config.get<string>('dbUri');
+    const DB_URI = config.get<string>('DB_URI');
 
     try {
-        await mongoose.connect(dbUri);
+        await mongoose.connect(DB_URI);
         logger.info('DB connected');
     } catch (error) {
         logger.error('Could not connect to db');
