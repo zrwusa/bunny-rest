@@ -77,3 +77,10 @@ On android emulator,you may use Charles APP or modify the emulator hosts by your
 
 
 On real devices,you may use Charles APP or modify the devices hosts by yourself.
+
+
+```shell script
+ssh-keygen -t rsa -b 4096 -m PEM -f bunny-private.key
+openssl rsa -in private.key -pubout -outform PEM -out bunny-public.pem
+```
+

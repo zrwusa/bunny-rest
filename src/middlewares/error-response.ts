@@ -4,9 +4,15 @@ import logger from '../utils/logger';
 export const errorResponse = (err: any, req: Request, res: Response, next: NextFunction) => {
     logger.error(err);
 
-    res.status(err.code || 500).json({
+    const status = err.code || err.statusCode;
+    let statusCode = parseInt(status);
+    if (statusCode < 100 || statusCode > 599) {
+        statusCode = 500;
+    }
+
+    res.status(statusCode || 500).send({
         type: err.constructor.name,
-        code: err.code || 500,
+        code: status.toString() || 'unknown',
         message: err.message,
         stack: err.stack
     });
