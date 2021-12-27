@@ -1,6 +1,6 @@
 import express, {Request, Response} from 'express';
 import {createUserHandler} from '../controllers/user-controller';
-import validateResource from '../middlewares/validate-resource';
+import validateResource from '../middlewares/validate-schema';
 import {createUserSchema} from '../schemas/user-schema';
 import {createSessionSchema} from '../schemas/session-schema';
 import {

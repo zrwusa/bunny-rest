@@ -1,5 +1,5 @@
 import express from 'express';
-import validateResource from '../middlewares/validate-resource';
+import validateResource from '../middlewares/validate-schema';
 import requireUser from '../middlewares/require-user';
 import {
     createProductSchema,
