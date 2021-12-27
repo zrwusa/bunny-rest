@@ -1,8 +1,8 @@
 import {NextFunction, Request, Response} from 'express';
-import {CreateUserInput} from '../schemas/user-schema';
 import {createUser} from '../services/user-service';
+import {UserInput} from '../models/user-model';
 
-export async function createUserHandler(req: Request<{}, {}, CreateUserInput['body']>, res: Response, next: NextFunction) {
+export async function createUserHandler(req: Request<{}, {}, UserInput>, res: Response, next: NextFunction) {
     try {
         const user = await createUser(req.body);
         return res.send(user);

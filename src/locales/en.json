@@ -36,5 +36,6 @@
   "INVALID_PASSWORD_RESET_LINK_OR_EXPIRED": "Invalid password reset link or expired,This link is valid for 60 minutes from password reset email be sent.",
   "INVALID_USERNAME_OR_EMAIL": "Invalid username or email",
   "RESOURCE_NOT_FOUND": "Resource not found",
-  "NO_CUR_PRICE": "No cur price"
+  "NO_CUR_PRICE": "No cur price",
+  "PING": "PING"
 }

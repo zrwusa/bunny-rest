@@ -1,5 +1,6 @@
-import {object, string, TypeOf} from 'zod';
+import {object, string} from 'zod';
 
+// TODO need implement i18n for zod
 /**
  * @openapi
  * components:
@@ -60,5 +61,3 @@ export const createUserSchema = object({
             path: ['passwordConfirmation'],
         }),
 });
-
-export type CreateUserInput = Omit<TypeOf<typeof createUserSchema>, 'body.passwordConfirmation'>;

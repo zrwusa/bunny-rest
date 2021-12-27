@@ -1,9 +1,10 @@
 import {NextFunction, Request, Response} from 'express';
-import {CreateProductInput, UpdateProductInput,} from '../schemas/product-schema';
 import {createProduct, deleteProduct, findAndUpdateProduct, findProduct,} from '../services/product-service';
 import {NotFoundError} from '../utils/errors';
+import {ProductDocument, ProductInput} from '../models/product-model';
+import {FilterQuery} from 'mongoose';
 
-export async function createProductHandler(req: Request<{}, {}, CreateProductInput['body']>, res: Response) {
+export async function createProductHandler(req: Request<{}, {}, ProductInput>, res: Response) {
     const userId = res.locals.user._id;
 
     const body = req.body;
@@ -13,7 +14,7 @@ export async function createProductHandler(req: Request<{}, {}, CreateProductInp
     return res.send(product);
 }
 
-export async function updateProductHandler(req: Request<UpdateProductInput['params']>, res: Response) {
+export async function updateProductHandler(req: Request<FilterQuery<ProductDocument>>, res: Response) {
     const userId = res.locals.user._id;
 
     const productId = req.params.productId;
@@ -36,7 +37,7 @@ export async function updateProductHandler(req: Request<UpdateProductInput['para
     return res.send(updatedProduct);
 }
 
-export async function getProductHandler(req: Request<UpdateProductInput['params']>, res: Response, next: NextFunction) {
+export async function getProductHandler(req: Request, res: Response, next: NextFunction) {
     const productId = req.params.productId;
     const product = await findProduct({productId});
 
@@ -47,7 +48,7 @@ export async function getProductHandler(req: Request<UpdateProductInput['params'
     return res.send(product);
 }
 
-export async function deleteProductHandler(req: Request<UpdateProductInput['params']>, res: Response) {
+export async function deleteProductHandler(req: Request<FilterQuery<ProductDocument>>, res: Response) {
     const userId = res.locals.user._id;
     const productId = req.params.productId;
 
