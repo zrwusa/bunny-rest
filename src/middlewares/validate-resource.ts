@@ -1,6 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
 import {AnyZodObject} from 'zod';
 
+// TODO need to modify the return format
 const validate = (schema: AnyZodObject) =>
     (req: Request, res: Response, next: NextFunction) => {
         const {body, query, params} = req;

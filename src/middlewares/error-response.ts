@@ -12,7 +12,7 @@ export const errorResponse = (err: any, req: Request, res: Response, next: NextF
 
     res.status(statusCode || 500).send({
         type: err.constructor.name,
-        code: status.toString() || 'unknown',
+        code: status && status.toString() || 'unknown',
         message: err.message,
         stack: err.stack
     });

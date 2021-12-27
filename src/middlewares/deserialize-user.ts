@@ -4,13 +4,9 @@ import {verifyJwt} from '../utils/jwt';
 import {reIssueAccessToken} from '../services/session-service';
 import {UnauthorizedError} from '../utils/errors';
 
-const deserializeUser = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
-    const accessToken = get(req, 'headers.authorization', '')
-        .replace(/^Bearer\s/, '');
+// TODO There is some issues with the judgment logic and process
+const deserializeUser = async (req: Request, res: Response, next: NextFunction) => {
+    const accessToken = get(req, 'headers.authorization', '').replace(/^Bearer\s/, '');
 
     const refreshToken = get(req, 'headers.x-refresh');
 
@@ -26,7 +22,6 @@ const deserializeUser = async (
     }
 
     const {decoded, expired} = verifyJwt(accessToken);
-    console.log('xxx', decoded, expired);
 
     if (decoded) {
         res.locals.user = decoded;

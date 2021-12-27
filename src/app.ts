@@ -10,13 +10,21 @@ import privateRouter from './routers/private-router';
 import {NotFoundError} from './utils/errors';
 import errorResponse from './middlewares/error-response';
 import publicRouter from './routers/public-router';
+import {I18n} from 'i18n';
+import path from 'path';
 
+const i18n = new I18n();
+i18n.configure({
+    locales: ['en', 'zh', 'es'],
+    directory: path.join(__dirname, '/locales')
+});
 dotenv.config();
 
 const port = config.get<number>('PORT');
 
 const app = express();
 
+app.use(i18n.init);
 
 app.use(express.json());
 

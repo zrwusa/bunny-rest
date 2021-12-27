@@ -23,7 +23,9 @@ const publicRouter = express.Router();
  *       200:
  *         description: App is up and running
  */
-publicRouter.get('/ping', (req: Request, res: Response) => res.status(200).send('pong'));
+publicRouter.get('/ping', (req: Request, res: Response) => {
+    res.status(200).send(res.__('PONG'));
+});
 
 /**
  * @openapi
