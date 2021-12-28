@@ -7,10 +7,11 @@ import responseTime from 'response-time';
 import {restResponseTimeHistogram, startMetricsServer} from './utils/metrics';
 import swaggerDocs from './utils/swagger';
 import privateRouter from './routers/private-router';
-import {NotFoundError} from './utils/errors';
 import errorResponse from './middlewares/error-response';
 import publicRouter from './routers/public-router';
 import i18n from './helpers/i18n';
+import {wrapSend} from './helpers/protocol';
+import {notFound} from './utils/rest-maker';
 
 dotenv.config();
 
@@ -42,7 +43,7 @@ app.use('/api/public', publicRouter);
 
 app.all('*', async (req: Request, res: Response, next: NextFunction) => {
     // in an async function we must use next(error) instead of throw syntax
-    next(new NotFoundError('Not found'));
+    wrapSend(res, notFound({}));
 });
 
 app.use(errorResponse);

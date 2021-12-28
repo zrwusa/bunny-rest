@@ -2,8 +2,8 @@ import {get} from 'lodash';
 import {NextFunction, Request, Response} from 'express';
 import {verifyJwt} from '../utils/jwt';
 import {reIssueAccessToken} from '../services/session-service';
-import {UnauthorizedError} from '../utils/errors';
-import {sendProtocol} from '../helpers/protocol';
+import {unauthorized} from '../utils/rest-maker';
+import {wrapSend} from '../helpers/protocol';
 
 const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
     const accessToken = get(req, 'headers.authorization', '').replace(/^Bearer\s/, '');
@@ -18,8 +18,7 @@ const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
             if (refreshToken) {
                 const {expired} = verifyJwt(refreshToken);
                 if (expired) {
-                    const err = new UnauthorizedError(res.__('REFRESH_TOKEN_EXPIRED'));
-                    return sendProtocol(res, err);
+                    return wrapSend(res, unauthorized({bizLogicMessage: res.__('REFRESH_TOKEN_EXPIRED')}));
                 }
 
                 const newAccessToken = await reIssueAccessToken({refreshToken});
@@ -30,22 +29,22 @@ const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
                     res.locals.user = result.decoded;
                     return next();
                 } else {
-                    const err = new UnauthorizedError(res.__('REISSUE_ACCESS_TOKEN_FAILED'));
-                    return sendProtocol(res, err);
+                    return wrapSend(res, unauthorized({bizLogicMessage: res.__('REISSUE_ACCESS_TOKEN_FAILED')}));
+
                 }
 
 
             } else {
-                const err = new UnauthorizedError(res.__('REFRESH_TOKEN_NOT_PROVIDED'));
-                return sendProtocol(res, err);
+                return wrapSend(res, unauthorized({bizLogicMessage: res.__('REFRESH_TOKEN_NOT_PROVIDED')}));
+
             }
         } else {
-            const err = new UnauthorizedError(res.__('REFRESH_TOKEN_MALFORMED'));
-            return sendProtocol(res, err);
+            return wrapSend(res, unauthorized({bizLogicMessage: res.__('REFRESH_TOKEN_MALFORMED')}));
+
         }
     } else {
-        const err = new UnauthorizedError(res.__('ACCESS_TOKEN_NOT_PROVIDED'));
-        return sendProtocol(res, err);
+        return wrapSend(res, unauthorized({bizLogicMessage: res.__('ACCESS_TOKEN_NOT_PROVIDED')}));
+
     }
 
 

@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import logger from './logger';
 import fs from 'fs';
 
 export function signJwt(object: object, options?: jwt.SignOptions) {
@@ -24,7 +23,6 @@ export function verifyJwt(token: string) {
             decoded,
         };
     } catch (e: any) {
-        logger.error(e);
         return {
             valid: false,
             expired: e.message === 'jwt expired',

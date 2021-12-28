@@ -4,6 +4,8 @@ import validateResource from '../middlewares/validate-schema';
 import {createUserSchema} from '../schemas/user-schema';
 import {createSessionSchema} from '../schemas/session-schema';
 import {createUserSessionHandler} from '../controllers/session-controller';
+import {ok} from '../utils/rest-maker';
+import {wrapSend} from '../helpers/protocol';
 
 const publicRouter = express.Router();
 
@@ -19,7 +21,7 @@ const publicRouter = express.Router();
  *         description: App is up and running
  */
 publicRouter.get('/ping', (req: Request, res: Response) => {
-    res.status(200).send(res.__('PONG'));
+    wrapSend(res, ok(), res.__('PONG'));
 });
 
 /**

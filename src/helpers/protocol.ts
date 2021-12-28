@@ -1,10 +1,6 @@
 import {Response} from 'express';
+import {RestProtocol} from '../utils/rest-maker';
 
-export const sendProtocol = (res: Response, err: any) => {
-    res.status(parseInt(err.code)).send({
-        type: err.constructor.name,
-        code: err.code,
-        message: err.message,
-        stack: err.stack
-    });
+export const wrapSend = (res: Response, protocol: RestProtocol, resData?: any) => {
+    return res.status(protocol.httpCode).send({...protocol, resData}).end();
 };

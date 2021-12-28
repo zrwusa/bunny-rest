@@ -6,6 +6,7 @@
   "REGISTER_SUCCESS": "Register success",
   "LOGIN_SUCCESS": "Login success",
   "LOGOUT_SUCCESS": "Logout success",
+  "LOGOUT_FAILED": "Logout failed",
   "REFRESH_ACCESS_TOKEN_SUCCESS": "Refresh access token success",
   "FIND_ONE_USER_SUCCESS": "Find on user success",
   "FIND_INFLUENCERS_SUCCESS": "Find influencers success",

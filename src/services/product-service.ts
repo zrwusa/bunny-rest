@@ -33,7 +33,6 @@ export async function findProduct(
         return result;
     } catch (e) {
         timer({...metricsLabels, success: 'false'});
-
         throw e;
     }
 }

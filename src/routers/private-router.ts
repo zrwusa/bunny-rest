@@ -14,6 +14,7 @@ import {
 } from '../controllers/product-controller';
 import jwtAuth from '../middlewares/jwt-auth';
 import {deleteSessionHandler, getUserSessionsHandler} from '../controllers/session-controller';
+import {deleteUserHandler} from '../controllers/user-controller';
 
 const privateRouter = express.Router();
 privateRouter.use(jwtAuth);
@@ -67,6 +68,8 @@ privateRouter.delete(
     [validateResource(deleteProductSchema)],
     deleteProductHandler
 );
+
+privateRouter.delete('/users/:userId', deleteUserHandler);
 
 
 export default privateRouter;
