@@ -37,8 +37,8 @@ app.use(
     })
 );
 
-app.use(privateRouter);
-app.use(publicRouter);
+app.use('/api/private', privateRouter);
+app.use('/api/public', publicRouter);
 
 app.all('*', async (req: Request, res: Response, next: NextFunction) => {
     // in an async function we must use next(error) instead of throw syntax

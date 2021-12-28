@@ -28,8 +28,10 @@ export async function createUserSessionHandler(req: Request, res: Response, next
                 {expiresIn: config.get('REFRESH_TOKEN_TTL')}
             );
 
-            // return access & refresh tokens
-            return res.send({accessToken, refreshToken});
+            // return access & refresh tokens through header
+            res.setHeader('x-access-token', accessToken);
+            res.setHeader('x-refresh-token', refreshToken);
+            return res.send(res.__('LOGIN_SUCCESS'));
         } catch (e: any) {
             next(e);
         }
@@ -49,8 +51,7 @@ export async function deleteSessionHandler(req: Request, res: Response) {
 
     await updateSession({_id: sessionId}, {valid: false});
 
-    return res.send({
-        accessToken: null,
-        refreshToken: null,
-    });
+    res.setHeader('x-access-token', '');
+    res.setHeader('x-refresh-token', '');
+    return res.send(res.__('LOGOUT_SUCCESS'));
 }

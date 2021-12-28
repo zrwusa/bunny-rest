@@ -1,6 +1,5 @@
 import express from 'express';
 import validateResource from '../middlewares/validate-schema';
-import requireUser from '../middlewares/require-user';
 import {
     createProductSchema,
     deleteProductSchema,
@@ -13,26 +12,31 @@ import {
     getProductHandler,
     updateProductHandler
 } from '../controllers/product-controller';
-import deserializeUser from '../middlewares/deserialize-user';
+import jwtAuth from '../middlewares/jwt-auth';
+import {deleteSessionHandler, getUserSessionsHandler} from '../controllers/session-controller';
 
 const privateRouter = express.Router();
-privateRouter.use(deserializeUser);
+privateRouter.use(jwtAuth);
+
+privateRouter.get('/sessions', getUserSessionsHandler);
+
+privateRouter.delete('/sessions', deleteSessionHandler);
 
 privateRouter.post(
-    '/api/products',
-    [requireUser, validateResource(createProductSchema)],
+    '/products',
+    [validateResource(createProductSchema)],
     createProductHandler
 );
 
 
 privateRouter.put(
-    '/api/products/:productId',
-    [requireUser, validateResource(updateProductSchema)],
+    '/products/:productId',
+    [validateResource(updateProductSchema)],
     updateProductHandler
 );
 /**
  * @openapi
- * '/api/products/{productId}':
+ * '/api/private/products/{productId}':
  *  get:
  *     tags:
  *     - Products
@@ -53,15 +57,16 @@ privateRouter.put(
  *         description: Product not found
  */
 privateRouter.get(
-    '/api/products/:productId',
+    '/products/:productId',
     validateResource(getProductSchema),
     getProductHandler
 );
 
 privateRouter.delete(
-    '/api/products/:productId',
-    [requireUser, validateResource(deleteProductSchema)],
+    '/products/:productId',
+    [validateResource(deleteProductSchema)],
     deleteProductHandler
 );
+
 
 export default privateRouter;

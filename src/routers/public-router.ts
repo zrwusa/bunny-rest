@@ -3,12 +3,7 @@ import {createUserHandler} from '../controllers/user-controller';
 import validateResource from '../middlewares/validate-schema';
 import {createUserSchema} from '../schemas/user-schema';
 import {createSessionSchema} from '../schemas/session-schema';
-import {
-    createUserSessionHandler,
-    deleteSessionHandler,
-    getUserSessionsHandler
-} from '../controllers/session-controller';
-import requireUser from '../middlewares/require-user';
+import {createUserSessionHandler} from '../controllers/session-controller';
 
 const publicRouter = express.Router();
 
@@ -29,7 +24,7 @@ publicRouter.get('/ping', (req: Request, res: Response) => {
 
 /**
  * @openapi
- * '/api/users':
+ * '/api/public/users':
  *  post:
  *     tags:
  *     - User
@@ -52,11 +47,11 @@ publicRouter.get('/ping', (req: Request, res: Response) => {
  *      400:
  *        description: Bad request
  */
-publicRouter.post('/api/users', validateResource(createUserSchema), createUserHandler);
+publicRouter.post('/users', validateResource(createUserSchema), createUserHandler);
 
 /**
  * @openapi
- * '/api/sessions':
+ * '/api/public/sessions':
  *  post:
  *     tags:
  *     - Session
@@ -79,11 +74,7 @@ publicRouter.post('/api/users', validateResource(createUserSchema), createUserHa
  *      400:
  *        description: Bad request
  */
-publicRouter.post('/api/sessions', validateResource(createSessionSchema), createUserSessionHandler);
-
-publicRouter.get('/api/sessions', requireUser, getUserSessionsHandler);
-
-publicRouter.delete('/api/sessions', requireUser, deleteSessionHandler);
+publicRouter.post('/sessions', validateResource(createSessionSchema), createUserSessionHandler);
 
 
 export default publicRouter;
