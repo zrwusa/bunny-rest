@@ -12,7 +12,7 @@ COPY . ./
 
 RUN yarn build
 
-EXPOSE 8080
+EXPOSE $PORT
 
 # for developemnt
 CMD ["yarn", "dev"]

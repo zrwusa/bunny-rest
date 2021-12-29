@@ -54,22 +54,32 @@ docker image ls
 ```
 ## start docker container
 ```shell script
-docker run -d -p 49162:8080 --name bunny-rest bunny-rest-image
+docker run -d --env-file ./.env -p 49162:8080 --name bunny-rest bunny-rest-image
 ```
 
 ##  start docker container, for development sync modified dir by using -v $(pwd),but windows -v %cd% or -v ${pwd}
 ```shell script
-docker run -v $(pwd)/src:/bunny-rest/src -p 49162:8080 -d --name bunny-rest bunny-rest-image
+docker run -v $(pwd)/src:/bunny-rest/src:ro --env-file ./.env -p 49162:8080 -d --name bunny-rest bunny-rest-image
 
+```
+
+or
+```shell script
+docker run -v $(pwd):/bunny-rest:ro -v /bunny-rest/node_modules -p 49162:8080 -d --name bunny-rest bunny-rest-image
 ```
 
 ##  start docker container for production daemon
 ```shell script
 docker run -d -p 49162:8080 --name bunny-rest --restart unless-stopped bunny-rest-image
 ```
-## docker ps(containers)
+## docker ps(running containers)
 ```shell script
 docker ps
+```
+
+## docker ps(all containers)
+```shell script
+docker ps -a
 ```
 
 ## delete container

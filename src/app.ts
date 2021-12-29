@@ -11,6 +11,7 @@ import publicRouter from './routers/public-router';
 import i18n from './helpers/i18n';
 import {wrapSend} from './helpers/protocol';
 import {notFound} from './utils/rest-maker';
+import connect from './utils/connect';
 
 dotenv.config();
 
