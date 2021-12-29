@@ -87,7 +87,7 @@ docker image rm bunny-rest-image
 docker logs bunny-rest
 ```
 
-## docker image bash
+## docker container bash
 ```shell script
 docker exec -it bunny-rest /bin/bash
 ```
