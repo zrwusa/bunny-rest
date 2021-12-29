@@ -2,7 +2,6 @@ import express, {NextFunction, Request, Response} from 'express';
 import dotenv from 'dotenv';
 import config from 'config';
 import logger from './utils/logger';
-import connect from './utils/connect';
 import responseTime from 'response-time';
 import {restResponseTimeHistogram, startMetricsServer} from './utils/metrics';
 import swaggerDocs from './utils/swagger';
@@ -51,7 +50,7 @@ app.use(errorResponse);
 app.listen(port, async () => {
     logger.info(`App is running at http://localhost:${port}`);
 
-    await connect();
+    // await connect();
 
     startMetricsServer();
 
