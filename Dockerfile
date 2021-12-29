@@ -1,21 +1,21 @@
 FROM node:16
 
-ADD package.json /tmp/package.json
+WORKDIR /bunny-rest
 
-ADD yarn.lock /tmp/yarn.lock
+COPY package.json ./
 
-RUN rm -rf build
+COPY yarn.lock ./
 
-RUN cd /tmp && yarn install
+RUN yarn install
 
-ADD ./ /src
-
-RUN rm -rf src/node_modules && cp -a /tmp/node_modules /src/
-
-WORKDIR /src
+COPY . ./
 
 RUN yarn build
 
 EXPOSE 8080
 
-CMD ["node", "build/src/app.js"]
+# for developemnt
+CMD ["yarn", "dev"]
+
+# for production
+#CMD ["node", "build/src/app.js"]

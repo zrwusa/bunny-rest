@@ -10,6 +10,8 @@ npm-debug.*
 # macOS
 .DS_Store
 
+# custom
+build/
 .idea/
 backup/
 __tests__/
