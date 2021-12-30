@@ -1,6 +1,11 @@
-version: '3.7'
 services:
   bunny-rest:
+    image: bunny-rest
+    container_name: bunny-rest
+    build:
+      context: ./
+      args:
+        NODE_ENV: production
     ports:
       - "80:80"
       - "90:90"

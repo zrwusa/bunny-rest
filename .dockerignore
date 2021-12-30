@@ -24,3 +24,10 @@ yarn-error.log
 error.log
 Dockerfile
 .dockerignore
+docker-compose*
+Caddyfile*
+deploy.sh
+BunnyServerTS.postman_collection.json
+.env.test
+.env.development
+diagrams

@@ -1,6 +1,1 @@
 version: '3.7'
-services:
-  bunny-rest:
-    container_name: bunny-rest
-    build:
-      context: ./

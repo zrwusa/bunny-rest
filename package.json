@@ -8,30 +8,10 @@
     "dev:ts-node": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only index.ts",
     "build": "cp -R certs build/ && cross-env NODE_ENV=production tsc",
     "serve": "cross-env NODE_ENV=production node build/index.js",
-    "test": "cross-env NODE_ENV=test nodemon index.ts"
+    "test": "cross-env NODE_ENV=test node build/index.js"
   },
   "dependencies": {
     "@types/i18n": "^0.13.2",
-    "bcrypt": "^5.0.1",
-    "config": "^3.3.6",
-    "cors": "^2.8.5",
-    "cross-env": "^7.0.3",
-    "dayjs": "^1.10.7",
-    "dotenv-flow": "^3.2.0",
-    "express": "^4.17.2",
-    "i18n": "^0.13.3",
-    "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.21",
-    "mongoose": "^6.1.3",
-    "nanoid": "^3.1.30",
-    "pino": "^7.6.1",
-    "pino-pretty": "^7.3.0",
-    "prom-client": "^14.0.1",
-    "response-time": "^2.3.2",
-    "yup": "^0.32.11",
-    "zod": "^3.11.6"
-  },
-  "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/body-parser": "^1.19.2",
     "@types/config": "^0.0.40",
@@ -51,11 +31,31 @@
     "@types/swagger-jsdoc": "^6.0.1",
     "@types/swagger-ui-express": "^4.1.3",
     "@types/yup": "^0.29.13",
-    "nodemon": "^2.0.15",
+    "bcrypt": "^5.0.1",
+    "config": "^3.3.6",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dayjs": "^1.10.7",
+    "dotenv-flow": "^3.2.0",
+    "express": "^4.17.2",
+    "i18n": "^0.13.3",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "mongoose": "^6.1.3",
+    "nanoid": "^3.1.30",
+    "pino": "^7.6.1",
+    "pino-pretty": "^7.3.0",
+    "prom-client": "^14.0.1",
+    "response-time": "^2.3.2",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.3.0",
     "ts-node": "^10.4.0",
     "ts-node-dev": "^1.1.8",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.4",
+    "yup": "^0.32.11",
+    "zod": "^3.11.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }

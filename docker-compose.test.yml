@@ -1,9 +1,15 @@
-version: '3.7'
 services:
-  bunny-rest:
+  bunny-rest-test:
+    image: bunny-rest-test-image
+    container_name: bunny-rest-test
+    build:
+      context: ./
+      args:
+        NODE_ENV: test
     ports:
       - "8181:8181"
       - "9191:9191"
+    restart: unless-stopped
     env_file:
       - .env.test
     command: yarn test
