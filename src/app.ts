@@ -1,21 +1,13 @@
 import express, {NextFunction, Request, Response} from 'express';
-import dotenv from 'dotenv';
-import config from 'config';
-import logger from './utils/logger';
 import responseTime from 'response-time';
-import {restResponseTimeHistogram, startMetricsServer} from './utils/metrics';
-import swaggerDocs from './utils/swagger';
+import {restResponseTimeHistogram} from './utils/metrics';
 import privateRouter from './routers/private-router';
 import errorResponse from './middlewares/error-response';
 import publicRouter from './routers/public-router';
 import i18n from './helpers/i18n';
 import {wrapSend} from './helpers/protocol';
 import {notFound} from './utils/rest-maker';
-import connect from './utils/connect';
 
-dotenv.config();
-
-const port = config.get<number>('PORT');
 
 const app = express();
 
@@ -48,12 +40,5 @@ app.all('*', async (req: Request, res: Response, next: NextFunction) => {
 
 app.use(errorResponse);
 
-app.listen(port, async () => {
-    logger.info(`App is running at http://localhost:${port}`);
 
-    // await connect();
-
-    startMetricsServer();
-
-    swaggerDocs(app, port);
-});
+export default app;

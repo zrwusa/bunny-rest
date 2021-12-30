@@ -410,12 +410,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:9100/metrics",
-							"protocol": "http",
+							"raw": "{{metricsEndpoint}}/metrics",
 							"host": [
-								"localhost"
+								"{{metricsEndpoint}}"
 							],
-							"port": "9100",
 							"path": [
 								"metrics"
 							]
@@ -564,6 +562,10 @@
 		{
 			"key": "productId",
 			"value": "<productId will be set when you create a session>"
+		},
+		{
+			"key": "metricsEndpoint",
+			"value": "http://localhost:9090"
 		}
 	]
 }

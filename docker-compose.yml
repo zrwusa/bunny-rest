@@ -2,25 +2,13 @@ version: '3.7'
 services:
   bunny-rest:
     container_name: bunny-rest
+    ports:
+      - "49162:8080"
     restart: unless-stopped
-    environment:
-      - NODE_ENV=production
+    volumes:
+      - ./:/bunny-rest:ro
+      - /bunny-rest/node_modules
+    env_file:
+      - ./.env
     build:
       context: ./
-
-  caddy:
-    image: caddy/caddy:2.2.1-alpine
-    container_name: caddy-service
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - $PWD/Caddyfile:/etc/caddy/Caddyfile
-      - $PWD/site:/srv
-      - caddy_data:/data
-      - caddy_config:/config
-
-volumes:
-  caddy_data:
-  caddy_config:

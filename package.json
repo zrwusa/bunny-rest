@@ -4,17 +4,20 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --config nodemon.json src/app.ts",
-    "dev:ts-node": "ts-node-dev --respawn --transpile-only src/app.ts",
-    "build": "tsc"
+    "dev": "cross-env NODE_ENV=development nodemon index.ts",
+    "dev:ts-node": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only index.ts",
+    "build": "cp -R certs build/ && tsc",
+    "serve": "cross-env NODE_ENV=production node build/index.js",
+    "test": "cross-env NODE_ENV=test nodemon index.ts"
   },
   "dependencies": {
     "@types/i18n": "^0.13.2",
     "bcrypt": "^5.0.1",
     "config": "^3.3.6",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dayjs": "^1.10.7",
-    "dotenv": "^10.0.0",
+    "dotenv-flow": "^3.2.0",
     "express": "^4.17.2",
     "i18n": "^0.13.3",
     "jsonwebtoken": "^8.5.1",
@@ -33,6 +36,7 @@
     "@types/body-parser": "^1.19.2",
     "@types/config": "^0.0.40",
     "@types/cors": "^2.8.12",
+    "@types/dotenv-flow": "^3.2.0",
     "@types/express": "^4.17.13",
     "@types/i18next": "^13.0.0",
     "@types/i18next-express-middleware": "^1.7.0",
