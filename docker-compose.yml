@@ -2,13 +2,5 @@ version: '3.7'
 services:
   bunny-rest:
     container_name: bunny-rest
-    ports:
-      - "49162:8080"
-    restart: unless-stopped
-    volumes:
-      - ./:/bunny-rest:ro
-      - /bunny-rest/node_modules
-    env_file:
-      - ./.env
     build:
       context: ./

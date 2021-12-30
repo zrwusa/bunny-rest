@@ -11,11 +11,3 @@ RUN yarn install
 COPY . ./
 
 RUN yarn build
-
-EXPOSE $PORT
-
-# for developemnt
-CMD ["yarn", "dev"]
-
-# for production
-#CMD ["node", "build/src/app.js"]

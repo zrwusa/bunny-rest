@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  bunny-rest:
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    volumes:
+      - ./:/bunny-rest:ro
+      - /bunny-rest/node_modules
+    env_file:
+      - .env.development
+    command: yarn dev
+    expose:
+      - "8080"
+      - "9090"
