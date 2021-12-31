@@ -6,11 +6,9 @@ COPY package.json ./
 
 COPY yarn.lock ./
 
-#RUN yarn install
+ARG PKG_INSTALL_ENV
 
-ARG NODE_ENV
-
-RUN if [ "$NODE_ENV" = "development" ]; \
+RUN if [ "$PKG_INSTALL_ENV" = "development" ]; \
         then yarn install; \
         else yarn install --production; \
         fi

@@ -5,7 +5,7 @@ services:
     build:
       context: ./
       args:
-        NODE_ENV: development
+        PKG_INSTALL_ENV: development
     ports:
       - "8080:8080"
       - "9090:9090"
@@ -18,3 +18,15 @@ services:
     expose:
       - "8080"
       - "9090"
+
+  mongo:
+    image: mongo
+    container_name: mongo-dev
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root_dev
+      - MONGO_INITDB_ROOT_PASSWORD=root_dev_password
+    volumes:
+      - mongo-dev:/data/db
+
+volumes:
+  mongo-dev:

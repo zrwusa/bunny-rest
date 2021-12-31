@@ -5,7 +5,7 @@ services:
     build:
       context: ./
       args:
-        NODE_ENV: test
+        PKG_INSTALL_ENV: test
     ports:
       - "8181:8181"
       - "9191:9191"

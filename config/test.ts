@@ -1,10 +1,4 @@
-import dotenvFlow from 'dotenv-flow';
 
-const result = dotenvFlow.config();
-
-if (result.error) {
-    console.error(result.error);
-}
 
 const {PORT, DB_URI, SALT_WORK_FACTOR, ACCESS_TOKEN_TTL, REFRESH_TOKEN_TTL, METRICS_PORT} = process.env;
 
