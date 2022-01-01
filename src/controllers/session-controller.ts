@@ -54,7 +54,9 @@ export async function deleteSessionHandler(req: Request, res: Response, next: Ne
     const sessionId = res.locals.user.session;
     try {
         // await updateSession({_id: sessionId}, {valid: false});
-        const {deletedCount} = await deleteSession({_id: sessionId});
+        // const {deletedCount} = await deleteSession({_id: sessionId});
+        const deletedCount = await deleteSession({_id: sessionId});
+        // console.log('---deletedCount', deletedCount);
         if (deletedCount > 0) {
             res.setHeader('x-access-token', '');
             res.setHeader('x-refresh-token', '');

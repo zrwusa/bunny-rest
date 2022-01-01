@@ -1,12 +1,16 @@
 import express, {NextFunction, Request, Response} from 'express';
 import responseTime from 'response-time';
-import {restResponseTimeHistogram} from './utils/metrics';
-import privateRouter from './routers/private-router';
+import {restResponseTimeHistogram, startMetricsServer} from './utils/metrics';
 import errorResponse from './middlewares/error-response';
-import publicRouter from './routers/public-router';
+import routerV1 from './routes/router-v1';
 import i18n from './helpers/i18n';
 import {wrapSend} from './helpers/protocol';
 import {notFound} from './utils/rest-maker';
+import config from 'config';
+import logger from './utils/logger';
+import mongoConnect from './utils/mongo-connect';
+import redisClient, {redisConnect} from './utils/redis-client';
+import swaggerDocs from './utils/swagger';
 
 
 const app = express();
@@ -30,8 +34,7 @@ app.use(
     })
 );
 
-app.use('/api/private', privateRouter);
-app.use('/api/public', publicRouter);
+app.use('/api/v1', routerV1);
 
 app.all('*', async (req: Request, res: Response, next: NextFunction) => {
     // in an async function we must use next(error) instead of throw syntax
@@ -40,5 +43,18 @@ app.all('*', async (req: Request, res: Response, next: NextFunction) => {
 
 app.use(errorResponse);
 
+const port = config.get<number>('PORT');
+
+app.listen(port, async () => {
+    logger.info(`App is running at http://localhost:${port}`);
+
+    await mongoConnect();
+
+    await redisConnect();
+
+    startMetricsServer();
+
+    swaggerDocs(app, port);
+});
 
 export default app;

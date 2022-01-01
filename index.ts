@@ -1,24 +1,10 @@
-import logger from './src/utils/logger';
-import {startMetricsServer} from './src/utils/metrics';
-import swaggerDocs from './src/utils/swagger';
-import app from './src/app';
-import config from 'config';
-import connect from './src/utils/connect';
-import dotenvFlow from 'dotenv-flow';
+import dotEnvFlow from 'dotenv-flow';
 
-const result = dotenvFlow.config();
+const result = dotEnvFlow.config();
 
 if (result.error) {
     console.error(result.error);
 }
-const port = config.get<number>('PORT');
 
-app.listen(port, async () => {
-    logger.info(`App is running at http://localhost:${port}`);
+import './src/app';
 
-    await connect();
-
-    startMetricsServer();
-
-    swaggerDocs(app, port);
-});

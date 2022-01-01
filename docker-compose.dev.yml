@@ -18,6 +18,8 @@ services:
     expose:
       - "8080"
       - "9090"
+    depends_on:
+      - mongo
 
   mongo:
     image: mongo
@@ -27,6 +29,10 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=root_dev_password
     volumes:
       - mongo-dev:/data/db
+
+  redis:
+    image: redis
+    container_name: redis-dev
 
 volumes:
   mongo-dev:
