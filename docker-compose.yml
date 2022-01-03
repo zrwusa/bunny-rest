@@ -1,1 +1,10 @@
 version: '3.7'
+services:
+  nginx:
+    image: nginx:stable-alpine
+
+  mongo:
+    image: mongo
+
+  redis:
+    image: redis

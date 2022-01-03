@@ -23,6 +23,7 @@ import {
     getProductHandler,
     updateProductHandler
 } from '../controllers/product-controller';
+import logger from '../utils/logger';
 
 const routerV1 = express.Router();
 
@@ -38,6 +39,7 @@ const routerV1 = express.Router();
  *         description: App is up and running
  */
 routerV1.get('/ping', (req: Request, res: Response) => {
+    logger.info('yeah it ran');
     wrapSend(res, ok(), res.__('PONG'));
 });
 

@@ -9,11 +9,13 @@ import {notFound} from './utils/rest-maker';
 import config from 'config';
 import logger from './utils/logger';
 import mongoConnect from './utils/mongo-connect';
-import redisClient, {redisConnect} from './utils/redis-client';
+import {redisConnect} from './utils/redis-client';
 import swaggerDocs from './utils/swagger';
 
 
 const app = express();
+
+app.enable('trust proxy');
 
 app.use(i18n.init);
 

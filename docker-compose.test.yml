@@ -1,18 +1,46 @@
 services:
-  bunny-rest-test:
-    image: bunny-rest-test-image
-    container_name: bunny-rest-test
-    build:
-      context: ./
-      args:
-        PKG_INSTALL_ENV: test
+  nginx:
+    container_name: nginx-test
     ports:
       - "8181:8181"
       - "9191:9191"
+    volumes:
+      - ./nginx/default.test.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - bunny-rest-test
+
+  bunny-rest-test:
+    image: bunny-rest-test
+    build:
+      context: ./
+      args:
+        PKG_INSTALL_ENV: production
     restart: unless-stopped
-    env_file:
-      - .env.test
-    command: yarn test
+    environment:
+      - PORT=8181
+      - MONGO_DB_URI=mongodb://root_test:root_test_password@mongo:27017/bunny-rest?authSource=admin
+      - SALT_WORK_FACTOR=10
+      - ACCESS_TOKEN_TTL=15m
+      - REFRESH_TOKEN_TTL=1y
+      - METRICS_PORT=9191
+      - REDIS_URI=redis://@redis:6379
+    command: yarn serve
     expose:
       - "8181"
       - "9191"
+    depends_on:
+      - mongo
+
+  mongo:
+    container_name: mongo-test
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root_test
+      - MONGO_INITDB_ROOT_PASSWORD=root_test_password
+    volumes:
+      - mongo-test:/data/db
+
+  redis:
+    container_name: redis-test
+
+volumes:
+  mongo-test:

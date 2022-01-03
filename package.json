@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
     "dev:ts-node": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only index.ts",
     "build": "cp -R certs build/ && cross-env NODE_ENV=production tsc",
-    "serve": "cross-env NODE_ENV=production node build/index.js",
+    "serve": "yarn build && cross-env NODE_ENV=production node build/index.js",
     "test": "cross-env NODE_ENV=test node build/index.js"
   },
   "dependencies": {
