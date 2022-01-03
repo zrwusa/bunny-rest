@@ -40,7 +40,7 @@ const routerV1 = express.Router();
  */
 routerV1.get('/ping', (req: Request, res: Response) => {
     logger.info('yeah it ran');
-    wrapSend(res, ok(), res.__('PONG!'));
+    wrapSend(res, ok(), res.__('PONG'));
 });
 
 /**
