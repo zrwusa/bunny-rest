@@ -1,5 +1,7 @@
+version: '3.7'
 services:
   nginx:
+    image: nginx:stable-alpine
     container_name: nginx-test
     ports:
       - "8181:8181"
@@ -32,6 +34,7 @@ services:
       - mongo
 
   mongo:
+    image: mongo
     container_name: mongo-test
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root_test
@@ -40,6 +43,7 @@ services:
       - mongo-test:/data/db
 
   redis:
+    image: redis
     container_name: redis-test
 
 volumes:

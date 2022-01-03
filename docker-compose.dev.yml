@@ -1,5 +1,7 @@
+version: '3.7'
 services:
   nginx:
+    image: nginx:stable-alpine
     container_name: nginx-dev
     ports:
       - "8080:8080"
@@ -34,6 +36,7 @@ services:
       - mongo
 
   mongo:
+    image: mongo
     container_name: mongo-dev
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root_dev
@@ -42,6 +45,7 @@ services:
       - mongo-dev:/data/db
 
   redis:
+    image: redis
     container_name: redis-dev
 
 volumes:
