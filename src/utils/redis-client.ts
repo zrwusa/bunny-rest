@@ -6,7 +6,7 @@ const redisClient = createClient({
     url: config.get<string>('REDIS_URI')
 });
 
-console.log(config.get<string>('REDIS_URI'))
+console.log(config.get<string>('REDIS_URI'));
 
 async function redisConnect() {
     try {

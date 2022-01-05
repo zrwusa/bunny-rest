@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  nginx:
+  nginx-dev:
     image: nginx:stable-alpine
     container_name: nginx-dev
     ports:
@@ -35,7 +35,7 @@ services:
     depends_on:
       - mongo
 
-  mongo:
+  mongo-dev:
     image: mongo
     container_name: mongo-dev
     environment:
@@ -44,7 +44,7 @@ services:
     volumes:
       - mongo-dev:/data/db
 
-  redis:
+  redis-dev:
     image: redis
     container_name: redis-dev
 

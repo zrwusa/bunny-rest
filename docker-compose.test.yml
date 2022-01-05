@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  nginx:
+  nginx-test:
     image: nginx:stable-alpine
     container_name: nginx-test
     ports:
@@ -33,7 +33,7 @@ services:
     depends_on:
       - mongo
 
-  mongo:
+  mongo-test:
     image: mongo
     container_name: mongo-test
     environment:
@@ -42,7 +42,7 @@ services:
     volumes:
       - mongo-test:/data/db
 
-  redis:
+  redis-test:
     image: redis
     container_name: redis-test
 
