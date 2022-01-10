@@ -5,17 +5,30 @@
 <tr><td>Development, test, production environment</td><td></td></tr>
 <tr><td>JWT Auth</td><td>  </td></tr>
 <tr><td>RESTFul & API protocol</td><td></td></tr>
-<tr><td>Mysql Sequelize</td><td></td></tr>
+<tr><td>Docker</td><td></td></tr>
+<tr><td>Postgres Sequelize</td><td></td></tr>
 <tr><td>MongoDB Mongoose</td><td></td></tr>
 <tr><td>Redis</td><td></td></tr>
 <tr><td>Mailer</td><td></td></tr>
-<tr><td>Push Notification</td><td></td></tr>
-<tr><td>Https localhost Self Signed Certification</td><td></td></tr>
 </tbody>
 </table>
 
-# Architecture principles
+#Development
 
+## develop
+```shell script
+yarn install
+yarn dev
+```
+
+## Docker development
+```shell script
+docker-compose -f docker-compose.dev.yml up -d --build
+```
+
+
+# Architecture principles
+Understand the optimization process, but don't optimize prematurely
 ## Separation of Concern
 
 ## Feature Encapsulation
@@ -34,14 +47,6 @@ The primary purpose of Unit-test is not to detect incorrect grammar but to valid
 <!--## Simple Deployability
 Dockerfile and docker-compose.yml to simplify the deployment of the application. It is also possible to manually deploy the application.-->
 
-
-#Development
-
-## develop
-```shell script
-yarn install
-yarn dev
-```
 
 
 

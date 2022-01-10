@@ -399,31 +399,6 @@
 			]
 		},
 		{
-			"name": "Metrics",
-			"item": [
-				{
-					"name": "Get metrics",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{metricsEndpoint}}/metrics",
-							"host": [
-								"{{metricsEndpoint}}"
-							],
-							"path": [
-								"metrics"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Logout",
 			"item": [
 				{
@@ -496,6 +471,31 @@
 								"api",
 								"v1",
 								"sessions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Metrics",
+			"item": [
+				{
+					"name": "Get metrics",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{metricsEndpoint}}/metrics",
+							"host": [
+								"{{metricsEndpoint}}"
+							],
+							"path": [
+								"metrics"
 							]
 						}
 					},
