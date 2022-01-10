@@ -16,14 +16,46 @@
 #Development
 
 ## develop
+
+### prepare, create .env file, then config it
+```dotenv
+PORT=8080
+MONGO_DB_URI=mongodb://localhost:27017/bunny-rest
+SALT_WORK_FACTOR=10
+ACCESS_TOKEN_TTL=0.5m
+REFRESH_TOKEN_TTL=1y
+METRICS_PORT=9090
+REDIS_URI=redis://@localhost:6379
+```
+
+### start
 ```shell script
 yarn install
 yarn dev
 ```
 
 ## Docker development
+
+### prepare, config below in your docker-compose.dev.yml
+```dockerfile
+...
+    environment:
+      - PORT=8080
+      - MONGO_DB_URI=mongodb://root_dev:root_dev_password@mongo:27017/bunny-rest?authSource=admin
+      - SALT_WORK_FACTOR=10
+      - ACCESS_TOKEN_TTL=0.5m
+      - REFRESH_TOKEN_TTL=1y
+      - METRICS_PORT=9090
+      - REDIS_URI=redis://@redis:6379
+...
+```
+### start
 ```shell script
 docker-compose -f docker-compose.dev.yml up -d --build
+```
+### stop
+```shell script
+docker-compose -f docker-compose.dev.yml down
 ```
 
 
