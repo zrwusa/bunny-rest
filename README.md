@@ -6,9 +6,10 @@
 <tr><td>JWT Auth</td><td>  </td></tr>
 <tr><td>RESTFul & API protocol</td><td></td></tr>
 <tr><td>Docker</td><td></td></tr>
-<tr><td>Postgres Sequelize</td><td></td></tr>
-<tr><td>MongoDB Mongoose</td><td></td></tr>
+<tr><td>Postgres</td><td>RDB</td></tr>
+<tr><td>MongoDB</td><td>NoSQL</td></tr>
 <tr><td>Redis</td><td></td></tr>
+<tr><td>Nginx</td><td>Load Balancing</td></tr>
 <tr><td>Mailer</td><td></td></tr>
 </tbody>
 </table>
@@ -31,6 +32,7 @@ REDIS_URI=redis://@localhost:6379
 ### start
 ```shell script
 yarn install
+docker-compose -f docker-compose.dev.yml up -d --build
 yarn dev
 ```
 
@@ -41,7 +43,7 @@ yarn dev
 ...
     environment:
       - PORT=8080
-      - MONGO_DB_URI=mongodb://root_dev:root_dev_password@mongo:27017/bunny-rest?authSource=admin
+      - MONGO_DB_URI=mongodb://root_dev:root_dev_password@mongo:27017/bunny_rest_dev?authSource=admin
       - SALT_WORK_FACTOR=10
       - ACCESS_TOKEN_TTL=0.5m
       - REFRESH_TOKEN_TTL=1y
@@ -49,10 +51,17 @@ yarn dev
       - REDIS_URI=redis://@redis:6379
 ...
 ```
-### start
+### start(all services including Nginx as loading balance, Postgres, MongoDB, Redis)
+```shell script
+docker-compose -f docker-compose.all-in.dev.yml up -d --build
+```
+
+### start(not including Nginx as loading balance, neither bunny-rest)
 ```shell script
 docker-compose -f docker-compose.dev.yml up -d --build
+yarn dev
 ```
+
 ### stop
 ```shell script
 docker-compose -f docker-compose.dev.yml down

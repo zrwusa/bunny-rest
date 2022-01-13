@@ -26,6 +26,7 @@
   "REISSUE_ACCESS_TOKEN_FAILED": "Reissue access token failed",
   "INAPPROPRIATE_REFRESH_TOKEN": "Inappropriate refresh token",
   "REFRESH_TOKEN_EXPIRED": "Refresh token expired",
+  "SESSION_NOT_EXIST": "Session does not exist",
   "REFRESH_TOKEN_MALFORMED": "Refresh token malformed",
   "REFRESH_TOKEN_NOT_BEFORE": "Refresh token not before",
   "REFRESH_TOKEN_VERIFY_UNKNOWN": "Refresh token verify unknown",

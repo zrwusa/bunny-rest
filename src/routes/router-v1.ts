@@ -1,13 +1,9 @@
 import express, {Request, Response} from 'express';
 import {createUserHandler, deleteUserHandler} from '../controllers/user-controller';
 import validateResource from '../middlewares/validate-schema';
-import {createUserSchema} from '../schemas/user-schema';
-import {createSessionSchema} from '../schemas/session-schema';
-import {
-    createUserSessionHandler,
-    deleteSessionHandler,
-    getUserSessionsHandler
-} from '../controllers/session-controller';
+import {createUserSchema} from '../validation-schemas/user-schema';
+import {createSessionSchema} from '../validation-schemas/session-schema';
+import {createUserSessionHandler, deleteSessionHandler, getUserSessionHandler} from '../controllers/session-controller';
 import {ok} from '../utils/rest-maker';
 import {wrapSend} from '../helpers/protocol';
 import jwtAuth from '../middlewares/jwt-auth';
@@ -16,7 +12,7 @@ import {
     deleteProductSchema,
     getProductSchema,
     updateProductSchema
-} from '../schemas/product-schema';
+} from '../validation-schemas/product-schema';
 import {
     createProductHandler,
     deleteProductHandler,
@@ -24,6 +20,7 @@ import {
     updateProductHandler
 } from '../controllers/product-controller';
 import logger from '../utils/logger';
+import {createOrderHandler} from '../controllers/order-controller';
 
 const routerV1 = express.Router();
 
@@ -99,7 +96,7 @@ routerV1.delete('/users/:userId', deleteUserHandler);
 routerV1.post('/sessions', validateResource(createSessionSchema), createUserSessionHandler);
 
 
-routerV1.get('/sessions', jwtAuth, getUserSessionsHandler);
+routerV1.get('/sessions', jwtAuth, getUserSessionHandler);
 
 routerV1.delete('/sessions', jwtAuth, deleteSessionHandler);
 
@@ -147,6 +144,13 @@ routerV1.delete(
     '/products/:productId',
     [jwtAuth, validateResource(deleteProductSchema)],
     deleteProductHandler
+);
+
+
+routerV1.post(
+    '/orders',
+    // [jwtAuth],
+    createOrderHandler
 );
 
 

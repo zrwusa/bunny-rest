@@ -1,38 +1,43 @@
-import {FilterQuery} from 'mongoose';
 import {omit} from 'lodash';
-import UserModel, {UserDocument, UserInput} from '../models/user-model';
+import {User} from '../entities/user-entity';
+import bcrypt from 'bcrypt';
+import {getPgRepo} from '../utils/get-pg-repo';
 
 export interface AuthUserInput {
     email: string;
     password: string;
 }
 
-export async function createUser(input: UserInput) {
-    const user = await UserModel.create(input);
-
-    return omit(user.toJSON(), 'password');
+export async function createUser(input: User) {
+    const userRepo = getPgRepo(User);
+    const user = await userRepo.save(userRepo.create(input));
+    return omit(user, 'password');
 }
 
-export async function findUser(query: FilterQuery<UserDocument>) {
-    return UserModel.findOne(query).lean();
+export async function findUser(query: Partial<User>) {
+    const userRepo = getPgRepo(User);
+    return userRepo.findOne(query);
 }
 
-export async function deleteUser(query: FilterQuery<UserDocument>) {
-    return UserModel.deleteMany(query).lean();
+export async function deleteUser(query: Pick<User, 'id'>) {
+    const userRepo = getPgRepo(User);
+    return await userRepo.delete(query);
 
 }
 
 export async function validatePassword({email, password}: AuthUserInput) {
-    const user = await UserModel.findOne({email});
+    const userRepo = getPgRepo(User);
+    const user = await userRepo.findOne({email});
 
     if (!user) {
         return;
     }
 
-    const isValid = await user.comparePassword(password);
+    const isValid = bcrypt.compare(password, user.password).catch(e => false);
+
 
     if (!isValid) return;
 
-    return omit(user.toJSON(), 'password') as UserDocument;
+    return omit(user, 'password') as User;
 }
 

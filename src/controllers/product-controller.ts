@@ -1,42 +1,31 @@
 import {NextFunction, Request, Response} from 'express';
 import {createProduct, deleteProduct, findAndUpdateProduct, findProduct,} from '../services/product-service';
-import {forbidden, notFound, ok} from '../utils/rest-maker';
-import {ProductDocument, ProductInput} from '../models/product-model';
-import {FilterQuery} from 'mongoose';
+import {notFound, ok} from '../utils/rest-maker';
 import {wrapSend} from '../helpers/protocol';
 
-export async function createProductHandler(req: Request<{}, {}, ProductInput>, res: Response, next: NextFunction) {
-    const userId = res.locals.user._id;
+export async function createProductHandler(req: Request, res: Response, next: NextFunction) {
     const body = req.body;
 
     try {
-        const product = await createProduct({...body, user: userId});
+        const product = await createProduct(body);
         return wrapSend(res, ok(), product);
     } catch (e) {
         next(e);
     }
 }
 
-export async function updateProductHandler(req: Request<FilterQuery<ProductDocument>>, res: Response, next: NextFunction) {
-    const userId = res.locals.user._id;
-
+export async function updateProductHandler(req: Request, res: Response, next: NextFunction) {
     const productId = req.params.productId;
     const update = req.body;
 
     try {
-        const product = await findProduct({productId});
+        const product = await findProduct({id: productId});
 
         if (!product) {
             return wrapSend(res, notFound());
         }
 
-        if (String(product.user) !== userId) {
-            return wrapSend(res, forbidden());
-        }
-
-        const updatedProduct = await findAndUpdateProduct({productId}, update, {
-            new: true,
-        });
+        const updatedProduct = await findAndUpdateProduct({id: productId}, update);
 
         return wrapSend(res, ok(), updatedProduct);
     } catch (e) {
@@ -48,7 +37,7 @@ export async function updateProductHandler(req: Request<FilterQuery<ProductDocum
 export async function getProductHandler(req: Request, res: Response, next: NextFunction) {
     const productId = req.params.productId;
     try {
-        const product = await findProduct({productId});
+        const product = await findProduct({id: productId});
         if (!product) {
             return wrapSend(res, notFound());
         }
@@ -58,22 +47,16 @@ export async function getProductHandler(req: Request, res: Response, next: NextF
     }
 }
 
-export async function deleteProductHandler(req: Request<FilterQuery<ProductDocument>>, res: Response, next: NextFunction) {
-    const userId = res.locals.user._id;
+export async function deleteProductHandler(req: Request, res: Response, next: NextFunction) {
     const productId = req.params.productId;
-
     try {
-        const product = await findProduct({productId});
+        const product = await findProduct({id: productId});
 
         if (!product) {
             return wrapSend(res, notFound());
         }
 
-        if (String(product.user) !== userId) {
-            return wrapSend(res, forbidden());
-        }
-
-        const deletedProduct = await deleteProduct({productId});
+        const deletedProduct = await deleteProduct({id: productId});
 
         return wrapSend(res, ok(), deletedProduct);
     } catch (e) {

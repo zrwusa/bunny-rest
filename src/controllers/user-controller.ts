@@ -1,11 +1,10 @@
 import {NextFunction, Request, Response} from 'express';
 import {createUser, deleteUser, findUser} from '../services/user-service';
-import {UserDocument, UserInput} from '../models/user-model';
 import {wrapSend} from '../helpers/protocol';
 import {notFound, ok} from '../utils/rest-maker';
-import {FilterQuery} from 'mongoose';
+import {User} from '../entities/user-entity';
 
-export async function createUserHandler(req: Request<{}, {}, UserInput>, res: Response, next: NextFunction) {
+export async function createUserHandler(req: Request<{}, {}, User>, res: Response, next: NextFunction) {
     try {
         const user = await createUser(req.body);
         return wrapSend(res, ok(), user);
@@ -14,16 +13,16 @@ export async function createUserHandler(req: Request<{}, {}, UserInput>, res: Re
     }
 }
 
-export async function deleteUserHandler(req: Request<FilterQuery<UserDocument>>, res: Response, next: NextFunction) {
+export async function deleteUserHandler(req: Request, res: Response, next: NextFunction) {
     const userId = req.params.userId;
     try {
-        const user = await findUser({userId});
+        const user = await findUser({id: userId});
 
         if (!user) {
             return wrapSend(res, notFound());
         }
 
-        const deletedUser = await deleteUser({userId});
+        const deletedUser = await deleteUser({id: userId});
 
         return wrapSend(res, ok(), deletedUser);
     } catch (e) {

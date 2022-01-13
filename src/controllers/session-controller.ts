@@ -13,23 +13,22 @@ export async function createUserSessionHandler(req: Request, res: Response, next
     if (!user) {
         wrapSend(res, unauthorized({bizLogicMessage: res.__('INCORRECT_EMAIL_OR_PASSWORD')}));
     } else {
-        // create a session
-        const session = await createSession(user._id, req.get('user-agent') || '');
-
         try {
             // create an access token
             const accessToken = signJwt(
-                {...user, session: session._id},
+                {...user},
                 {expiresIn: config.get('ACCESS_TOKEN_TTL')}
             );
 
             // create a refresh token
             const refreshToken = signJwt(
-                {...user, session: session._id},
+                {...user},
                 {expiresIn: config.get('REFRESH_TOKEN_TTL')}
             );
 
-            // return access & refresh tokens through header
+            // create a session
+            await createSession(user.id, req.get('user-agent') || '');
+
             res.setHeader('x-access-token', accessToken);
             res.setHeader('x-refresh-token', refreshToken);
             return wrapSend(res, ok(), res.__('LOGIN_SUCCESS'));
@@ -39,24 +38,21 @@ export async function createUserSessionHandler(req: Request, res: Response, next
     }
 }
 
-export async function getUserSessionsHandler(req: Request, res: Response, next: NextFunction) {
-    const userId = res.locals.user._id;
+export async function getUserSessionHandler(req: Request, res: Response, next: NextFunction) {
+    const userId = res.locals.user.id;
 
     try {
-        const sessions = await findSessions({user: userId, valid: true});
-        wrapSend(res, ok(), sessions);
+        const userSession = await findSessions({user_id: userId});
+        wrapSend(res, ok(), userSession);
     } catch (e) {
         next(e);
     }
 }
 
 export async function deleteSessionHandler(req: Request, res: Response, next: NextFunction) {
-    const sessionId = res.locals.user.session;
+    const userId = res.locals.user.id;
     try {
-        // await updateSession({_id: sessionId}, {valid: false});
-        // const {deletedCount} = await deleteSession({_id: sessionId});
-        const deletedCount = await deleteSession({_id: sessionId});
-        // console.log('---deletedCount', deletedCount);
+        const deletedCount = await deleteSession({id: userId});
         if (deletedCount > 0) {
             res.setHeader('x-access-token', '');
             res.setHeader('x-refresh-token', '');

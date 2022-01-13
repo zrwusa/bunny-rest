@@ -16,22 +16,34 @@ services:
     build:
       context: ./
       args:
-        PKG_INSTALL_ENV: production
-    restart: unless-stopped
+        PKG_INSTALL_ENV: development
+    volumes:
+      - ./:/bunny-rest:ro
+      - /bunny-rest/node_modules
     environment:
       - PORT=8181
-      - MONGO_DB_URI=mongodb://root_test:root_test_password@mongo:27017/bunny-rest?authSource=admin
+      - MONGO_DB_URI=mongodb://root_test:root_test_password@mongo-test:27017/bunny_rest_test?authSource=admin
       - SALT_WORK_FACTOR=10
       - ACCESS_TOKEN_TTL=15m
       - REFRESH_TOKEN_TTL=1y
       - METRICS_PORT=9191
-      - REDIS_URI=redis://@redis:6379
+      - REDIS_URI=redis://@redis-test:6379
+      - POSTGRES_URI=postgresql://postgres:root_test_password@postgres-test:5432/bunny_rest_test
     command: yarn serve
     expose:
       - "8181"
       - "9191"
     depends_on:
-      - mongo
+      - mongo-test
+
+  postgres-test:
+    image: postgres
+    container_name: postgres-test
+    environment:
+      - POSTGRES_PASSWORD=root_test_password
+      - POSTGRES_DB=bunny_rest_test
+    volumes:
+      - postgres-test:/var/lib/postgresql/data
 
   mongo-test:
     image: mongo
@@ -45,16 +57,11 @@ services:
   redis-test:
     image: redis
     container_name: redis-test
+    volumes:
+      - redis-test:/data
 
-  postgres-test:
-    image: postgres
-    container_name: postgres-test
-    environment:
-      - POSTGRES_PASSWORD=root_test_password
-    ports:
-      - "5432:5432"
-    expose:
-      - "5432"
 
 volumes:
+  postgres-test:
   mongo-test:
+  redis-test:

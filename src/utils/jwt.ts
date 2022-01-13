@@ -4,8 +4,6 @@ import fs from 'fs';
 export function signJwt(object: object, options?: jwt.SignOptions) {
     const secretKey = fs.readFileSync(__dirname + '/../../certs/bunny-private.key');
 
-    // const secretKey = Buffer.from(config.get<string>(keyName), 'base64').toString('ascii');
-
     return jwt.sign(object, secretKey, {
         ...options,
         algorithm: 'RS256',

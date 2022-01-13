@@ -1,4 +1,4 @@
-import {number, object, string, TypeOf} from 'zod';
+import {number, object, string} from 'zod';
 
 /**
  * @openapi
@@ -63,8 +63,3 @@ export const deleteProductSchema = object({
 export const getProductSchema = object({
     ...params,
 });
-
-export type CreateProductInput = TypeOf<typeof createProductSchema>;
-export type UpdateProductInput = TypeOf<typeof updateProductSchema>;
-export type ReadProductInput = TypeOf<typeof getProductSchema>;
-export type DeleteProductInput = TypeOf<typeof deleteProductSchema>;

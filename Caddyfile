@@ -1,5 +1,0 @@
-bunny-rest.fatpomelo.io {
-    reverse_proxy bunny-rest:8080 {
-        header_down Strict-Transport-Security max-age=31536000;
-    }
-}

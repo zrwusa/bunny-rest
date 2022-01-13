@@ -97,7 +97,7 @@ const foo = () => ({
 
 type ReturnTypeFoo = ReturnType<typeof foo>;
 
-class User {
+class Owner {
     constructor(name: string) {
     }
 }
@@ -121,17 +121,17 @@ function deletable<BaseClass extends Constructable<{}>>(Base: BaseClass) {
     };
 }
 
-const DeletableUser = deletable(User);
+const DeletableOwner = deletable(Owner);
 const DeletableCar = deletable(Car);
 
 
 class Profile {
-    user?: InstanceType<typeof DeletableUser>;
+    owner?: InstanceType<typeof DeletableOwner>;
     car?: InstanceType<typeof DeletableCar>;
 }
 
 const profile = new Profile();
-profile.user = new DeletableUser('John');
+profile.owner = new DeletableOwner('John');
 profile.car = new DeletableCar('Ferrari');
 
 

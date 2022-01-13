@@ -11,6 +11,7 @@ import logger from './utils/logger';
 import mongoConnect from './utils/mongo-connect';
 import {redisConnect} from './utils/redis-client';
 import swaggerDocs from './utils/swagger';
+import {postgresConnect} from './utils/postgres-connect';
 
 
 const app = express();
@@ -49,6 +50,7 @@ const port = config.get<number>('PORT');
 
 app.listen(port, async () => {
     logger.info(`App is running at http://localhost:${port}`);
+    await postgresConnect();
 
     await mongoConnect();
 
