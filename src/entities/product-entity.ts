@@ -27,6 +27,10 @@ export class Product extends CommonEntity {
     })
     image!: string;
 
-    @ManyToMany(() => Order)
+    @ManyToMany(() => Order,
+        {
+            // cascade: true means delete connected data while main data is being deleted
+            cascade: true
+        })
     orders!: Order[];
 }

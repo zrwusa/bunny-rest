@@ -1,6 +1,6 @@
 import express, {Request, Response} from 'express';
-import {createUserHandler, deleteUserHandler} from '../controllers/user-controller';
-import validateResource from '../middlewares/validate-schema';
+import {createUserAddressHandler, createUserHandler, deleteUserHandler} from '../controllers/user-controller';
+import validateRequest from '../middlewares/validate-request';
 import {createUserSchema} from '../validation-schemas/user-schema';
 import {createSessionSchema} from '../validation-schemas/session-schema';
 import {createUserSessionHandler, deleteSessionHandler, getUserSessionHandler} from '../controllers/session-controller';
@@ -20,7 +20,11 @@ import {
     updateProductHandler
 } from '../controllers/product-controller';
 import logger from '../utils/logger';
-import {createOrderHandler} from '../controllers/order-controller';
+import {createOrderHandler, getOrdersHandler} from '../controllers/order-controller';
+import {createUserAddressesSchema} from '../validation-schemas/users-addresses-schema';
+import {createOrderProductsSchema, getOrdersProductsSchema} from '../validation-schemas/orders-products-schema';
+import {getOrdersProductsHandler} from '../controllers/orders-pruducts-controller';
+import {createOrderProductsHandler} from '../controllers/order-pruducts-controller';
 
 const routerV1 = express.Router();
 
@@ -65,8 +69,11 @@ routerV1.get('/ping', (req: Request, res: Response) => {
  *      400:
  *        description: Bad request
  */
-routerV1.post('/users', validateResource(createUserSchema), createUserHandler);
-routerV1.delete('/users/:userId', deleteUserHandler);
+routerV1.post('/users', validateRequest(createUserSchema), createUserHandler);
+
+routerV1.delete('/users/:id', deleteUserHandler);
+
+routerV1.post('/users/:id/addresses', [validateRequest(createUserAddressesSchema), jwtAuth], createUserAddressHandler);
 
 /**
  * @openapi
@@ -93,7 +100,7 @@ routerV1.delete('/users/:userId', deleteUserHandler);
  *      400:
  *        description: Bad request
  */
-routerV1.post('/sessions', validateResource(createSessionSchema), createUserSessionHandler);
+routerV1.post('/sessions', validateRequest(createSessionSchema), createUserSessionHandler);
 
 
 routerV1.get('/sessions', jwtAuth, getUserSessionHandler);
@@ -102,14 +109,14 @@ routerV1.delete('/sessions', jwtAuth, deleteSessionHandler);
 
 routerV1.post(
     '/products',
-    [jwtAuth, validateResource(createProductSchema)],
+    [jwtAuth, validateRequest(createProductSchema)],
     createProductHandler
 );
 
 
 routerV1.put(
     '/products/:productId',
-    [jwtAuth, validateResource(updateProductSchema)],
+    [jwtAuth, validateRequest(updateProductSchema)],
     updateProductHandler
 );
 /**
@@ -136,22 +143,32 @@ routerV1.put(
  */
 routerV1.get(
     '/products/:productId',
-    [jwtAuth, validateResource(getProductSchema)],
+    [jwtAuth, validateRequest(getProductSchema)],
     getProductHandler
 );
 
 routerV1.delete(
     '/products/:productId',
-    [jwtAuth, validateResource(deleteProductSchema)],
+    [jwtAuth, validateRequest(deleteProductSchema)],
     deleteProductHandler
 );
 
 
 routerV1.post(
     '/orders',
-    // [jwtAuth],
+    [jwtAuth],
     createOrderHandler
 );
 
+routerV1.get(
+    '/orders',
+    [jwtAuth],
+    getOrdersHandler
+);
+
+routerV1.post('/orders/:id/products', [validateRequest(createOrderProductsSchema), jwtAuth], createOrderProductsHandler);
+
+
+routerV1.get('/orders/products', [validateRequest(getOrdersProductsSchema), jwtAuth], getOrdersProductsHandler);
 
 export default routerV1;

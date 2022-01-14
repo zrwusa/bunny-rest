@@ -17,6 +17,7 @@ export const postgresConnect = async () => {
             url: url,
             entities: [User, Order, Address, Product],
             synchronize: true,
+            logging: ['error', 'warn'],
         });
         logger.info(`Successfully connected to Postgres`);
     } catch (e) {

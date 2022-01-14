@@ -20,7 +20,11 @@ export class Order extends CommonEntity {
     amount!: number;
 
 
-    @ManyToMany(() => Product)
+    @ManyToMany(() => Product,
+        {
+            // cascade: true means delete connected data while main data is being deleted
+            cascade: true
+        })
     @JoinTable({
         name: 'orders_products',
         joinColumn: {

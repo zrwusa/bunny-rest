@@ -3,7 +3,7 @@ import {AnyZodObject} from 'zod';
 import {wrapSend} from '../helpers/protocol';
 import {unprocessableEntity} from '../utils/rest-maker';
 
-const validateSchema = (schema: AnyZodObject) =>
+const validateRequest = (schema: AnyZodObject) =>
     (req: Request, res: Response, next: NextFunction) => {
         const {body, query, params} = req;
         try {
@@ -28,4 +28,4 @@ const validateSchema = (schema: AnyZodObject) =>
         }
     };
 
-export default validateSchema;
+export default validateRequest;

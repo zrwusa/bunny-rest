@@ -36,10 +36,16 @@ export class Address extends CommonEntity {
     })
     cate: string = AddressCate.HOME;
 
-    @ManyToOne(() => User, user => user.addresses)
+    @ManyToOne(() => User,
+        user => user.addresses,
+        // CASCADE means delete foreign data while main data is being deleted,
+        // otherwise you can use other options
+        {
+            onDelete: 'CASCADE'
+        })
 
     @JoinColumn({
         name: 'user_id'
     })
-    user: User | undefined;
+    user!: User;
 }

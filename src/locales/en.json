@@ -41,5 +41,6 @@
   "INVALID_USERNAME_OR_EMAIL": "Invalid username or email",
   "RESOURCE_NOT_FOUND": "Resource not found",
   "NO_CUR_PRICE": "No cur price",
-  "PING": "PING"
+  "PING": "PING",
+  "ORDER_NOT_EXIST": "ORDER_NOT_EXIST"
 }

@@ -22,44 +22,40 @@ import {number, object, string} from 'zod';
  *           type: string
  */
 
-const payload = {
-    body: object({
-        title: string({
-            required_error: 'Title is required',
-        }),
-        description: string({
-            required_error: 'Description is required',
-        }).min(120, 'Description should be at least 120 characters long'),
-        price: number({
-            required_error: 'Price is required',
-        }),
-        image: string({
-            required_error: 'Image is required',
-        }),
+const productBody = object({
+    title: string({
+        required_error: 'Title is required',
     }),
-};
+    description: string({
+        required_error: 'Description is required',
+    }).min(120, 'Description should be at least 120 characters long'),
+    price: number({
+        required_error: 'Price is required',
+    }),
+    image: string({
+        required_error: 'Image is required',
+    }),
+});
 
-const params = {
-    params: object({
-        productId: string({
-            required_error: 'productId is required',
-        }),
+const productParams = object({
+    productId: string({
+        required_error: 'productId is required',
     }),
-};
+});
 
 export const createProductSchema = object({
-    ...payload,
+    body: productBody,
 });
 
 export const updateProductSchema = object({
-    ...payload,
-    ...params,
+    body: productBody,
+    params: productParams
 });
 
 export const deleteProductSchema = object({
-    ...params,
+    params: productParams
 });
 
 export const getProductSchema = object({
-    ...params,
+    params: productParams
 });
