@@ -10,6 +10,8 @@
 <tr><td>MongoDB</td><td>NoSQL</td></tr>
 <tr><td>Redis</td><td></td></tr>
 <tr><td>Nginx</td><td>Load Balancing</td></tr>
+<tr><td>Swagger</td><td>API docs</td></tr>
+<tr><td>Prom-client</td><td>Monitoring with Prometheus</td></tr>
 <tr><td>Mailer</td><td></td></tr>
 </tbody>
 </table>
