@@ -5,7 +5,7 @@ import {wrapSend} from '../helpers/protocol';
 import {Order} from '../entities/order-entity';
 import {getPgRepo} from '../helpers/get-pg-repo';
 import {ParamsDictionary} from '../types/express-enhanced';
-import {CreateOrderBody} from '../schemas/order-schema';
+import {CreateOrderBody, DeleteOrderParam} from '../schemas/order-schema';
 
 export async function createOrderCtrl(req: Request<ParamsDictionary, any, CreateOrderBody>, res: Response, next: NextFunction) {
     const {body} = req;
@@ -23,6 +23,17 @@ export async function getOrdersCtrl(req: Request, res: Response, next: NextFunct
     const orderRepo = getPgRepo(Order);
     try {
         const orders = await orderRepo.find();
+        return wrapSend(res, ok(), orders);
+    } catch (e) {
+        next(e);
+    }
+}
+
+export async function deleteOrdersCtrl(req: Request<DeleteOrderParam>, res: Response, next: NextFunction) {
+    const orderRepo = getPgRepo(Order);
+    const {id} = req.params;
+    try {
+        const orders = await orderRepo.delete(id);
         return wrapSend(res, ok(), orders);
     } catch (e) {
         next(e);

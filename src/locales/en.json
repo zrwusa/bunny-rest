@@ -43,5 +43,5 @@
   "NO_CUR_PRICE": "No cur price",
   "PING": "PING",
   "ORDER_NOT_EXIST": "Order does not exist",
-  "URL_NOT_FOUND": "This url is not found"
+  "URL_NOT_FOUND": "The resource for this Url was not found"
 }

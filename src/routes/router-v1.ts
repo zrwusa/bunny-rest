@@ -20,7 +20,7 @@ import {
     updateProductCtrl
 } from '../controllers/product-controller';
 import logger from '../helpers/logger';
-import {createOrderCtrl, getOrdersCtrl} from '../controllers/order-controller';
+import {createOrderCtrl, deleteOrdersCtrl, getOrdersCtrl} from '../controllers/order-controller';
 import {createUserAddressesSchema} from '../schemas/user-addresses-schema';
 import {getOrdersProductsSchema} from '../schemas/orders-products-schema';
 import {getOrdersProductsCtrl} from '../controllers/orders-products-controller';
@@ -48,7 +48,7 @@ routerV1.get('/ping', (req: Request, res: Response) => {
 
 /**
  * @openapi
- * '/api/public/users':
+ * 'api/v1/users':
  *  post:
  *     tags:
  *     - User
@@ -58,7 +58,7 @@ routerV1.get('/ping', (req: Request, res: Response) => {
  *      content:
  *        application/json:
  *           schema:
- *              $ref: '#/components/schemas/CreateUserInput'
+ *              $ref: '#/components/schemas/CreateUserBody'
  *     responses:
  *      200:
  *        description: Success
@@ -79,7 +79,7 @@ routerV1.post('/users/:id/addresses', [validateRequest(createUserAddressesSchema
 
 /**
  * @openapi
- * '/api/public/sessions':
+ * 'api/v1/sessions':
  *  post:
  *     tags:
  *     - Session
@@ -104,26 +104,17 @@ routerV1.post('/users/:id/addresses', [validateRequest(createUserAddressesSchema
  */
 routerV1.post('/sessions', validateRequest(createSessionSchema), createUserSessionCtrl);
 
-
 routerV1.get('/sessions', jwtAuth, getUserSessionCtrl);
 
 routerV1.delete('/sessions', jwtAuth, deleteSessionCtrl);
 
-routerV1.post(
-    '/products',
-    [jwtAuth, validateRequest(createProductSchema)],
-    createProductCtrl
-);
 
+routerV1.post('/products', [jwtAuth, validateRequest(createProductSchema)], createProductCtrl);
 
-routerV1.put(
-    '/products/:id',
-    [jwtAuth, validateRequest(updateProductSchema)],
-    updateProductCtrl
-);
+routerV1.put('/products/:id', [jwtAuth, validateRequest(updateProductSchema)], updateProductCtrl);
 /**
  * @openapi
- * '/api/private/products/{id}':
+ * 'api/v1/products/{id}':
  *  get:
  *     tags:
  *     - Products
@@ -143,33 +134,18 @@ routerV1.put(
  *       404:
  *         description: Product not found
  */
-routerV1.get(
-    '/products/:id',
-    [jwtAuth, validateRequest(getProductSchema)],
-    getProductCtrl
-);
+routerV1.get('/products/:id', [jwtAuth, validateRequest(getProductSchema)], getProductCtrl);
 
-routerV1.delete(
-    '/products/:id',
-    [jwtAuth, validateRequest(deleteProductSchema)],
-    deleteProductCtrl
-);
+routerV1.delete('/products/:id', [jwtAuth, validateRequest(deleteProductSchema)], deleteProductCtrl);
 
 
-routerV1.post(
-    '/orders',
-    [jwtAuth],
-    createOrderCtrl
-);
+routerV1.post('/orders', [jwtAuth], createOrderCtrl);
 
-routerV1.get(
-    '/orders',
-    [jwtAuth],
-    getOrdersCtrl
-);
+routerV1.get('/orders', [jwtAuth], getOrdersCtrl);
+
+routerV1.delete('/orders/:id', [jwtAuth], deleteOrdersCtrl);
 
 routerV1.post('/orders/:id/products', [validateRequest(createOrderProductsSchema), jwtAuth], createOrderProductsCtrl);
-
 
 routerV1.get('/orders/products', [validateRequest(getOrdersProductsSchema), jwtAuth], getOrdersProductsCtrl);
 

@@ -8,7 +8,7 @@ const options: swaggerJsdoc.Options = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'REST API Docs',
+            title: 'Bunny Rest API Docs',
             version,
         },
         components: {
@@ -26,7 +26,7 @@ const options: swaggerJsdoc.Options = {
             },
         ],
     },
-    apis: ['./src/routes.ts', './src/schema/*.ts'],
+    apis: ['./src/routes/*.ts', './src/schemas/*.ts'],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

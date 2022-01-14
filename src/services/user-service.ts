@@ -3,11 +3,6 @@ import {User} from '../entities/user-entity';
 import bcrypt from 'bcrypt';
 import {getPgRepo} from '../helpers/get-pg-repo';
 
-export interface AuthUserInput {
-    email: string;
-    password: string;
-}
-
 export async function createUser(input: Partial<User>) {
     const userRepo = getPgRepo(User);
     const user = await userRepo.save(userRepo.create(input));
@@ -25,7 +20,7 @@ export async function deleteUser(query: Pick<User, 'id'>) {
 
 }
 
-export async function validatePassword({email, password}: AuthUserInput) {
+export async function validatePassword({email, password}: Pick<User, 'email' | 'password'>) {
     const userRepo = getPgRepo(User);
     const user = await userRepo.findOne({email});
 
@@ -34,7 +29,6 @@ export async function validatePassword({email, password}: AuthUserInput) {
     }
 
     const isValid = bcrypt.compare(password, user.password).catch(e => false);
-
 
     if (!isValid) return;
 

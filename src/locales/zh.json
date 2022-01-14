@@ -42,5 +42,5 @@
   "RESOURCE_NOT_FOUND": "未找到资源",
   "NO_CUR_PRICE": "没有当前价格",
   "ORDER_NOT_EXIST": "不存在这个订单",
-  "URL_NOT_FOUND": "这个url未找到"
+  "URL_NOT_FOUND": "这个url未定义资源"
 }

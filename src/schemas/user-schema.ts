@@ -1,39 +1,10 @@
 import {object, string, TypeOf} from 'zod';
 
-const body = object({
-    name: string({
-        required_error: 'Name is required',
-    }),
-    password: string({
-        required_error: 'Password is required',
-    })
-        .min(6, 'Password too short - should be 6 chars minimum'),
-    passwordConfirmation: string({
-        required_error: 'passwordConfirmation is required',
-    }),
-    email: string({
-        required_error: 'Email is required',
-    })
-        .email('Not a valid email'),
-})
-    .refine((data) => data.password === data.passwordConfirmation, {
-        message: 'Passwords do not match',
-        path: ['passwordConfirmation'],
-    });
-
-const params = object({
-    id: string({
-        required_error: 'user id is required',
-    }),
-});
-
-
-// TODO need implement i18n for zod
 /**
  * @openapi
  * components:
  *  schemas:
- *    CreateUserInput:
+ *    CreateUserBody:
  *      type: object
  *      required:
  *        - email
@@ -67,6 +38,36 @@ const params = object({
  *        updatedAt:
  *          type: string
  */
+
+const body = object({
+    name: string({
+        required_error: 'Name is required',
+    }),
+    password: string({
+        required_error: 'Password is required',
+    })
+        .min(6, 'Password too short - should be 6 chars minimum'),
+    passwordConfirmation: string({
+        required_error: 'passwordConfirmation is required',
+    }),
+    email: string({
+        required_error: 'Email is required',
+    })
+        .email('Not a valid email'),
+})
+    .refine((data) => data.password === data.passwordConfirmation, {
+        message: 'Passwords do not match',
+        path: ['passwordConfirmation'],
+    });
+
+const params = object({
+    id: string({
+        required_error: 'user id is required',
+    }),
+});
+
+
+// TODO need implement i18n for zod
 export const createUserSchema = object({
     body,
 });

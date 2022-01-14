@@ -33,3 +33,5 @@ export const getOrdersSchema = object({
 
 
 export type CreateOrderBody = TypeOf<typeof body>;
+
+export type DeleteOrderParam = TypeOf<typeof params>;

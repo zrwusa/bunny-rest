@@ -40,9 +40,6 @@ app.use(
 
 app.use('/api/v1', routerV1);
 
-app.all('*', async (req: Request, res: Response) => {
-    wrapSend(res, notFound({bizLogicMessage: res.__('URL_NOT_FOUND')}));
-});
 
 app.use(errorResponse);
 
@@ -59,6 +56,10 @@ app.listen(port, async () => {
     startMetricsServer();
 
     swaggerDocs(app, port);
+
+    app.all('*', async (req: Request, res: Response) => {
+        wrapSend(res, notFound({bizLogicMessage: res.__('URL_NOT_FOUND')}));
+    });
 });
 
 export default app;
