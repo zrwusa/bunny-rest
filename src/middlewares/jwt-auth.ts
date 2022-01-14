@@ -1,8 +1,8 @@
 import {get} from 'lodash';
 import {NextFunction, Request, Response} from 'express';
-import {verifyJwt} from '../utils/jwt';
+import {verifyJwt} from '../helpers/jwt';
 import {findSessions, reIssueAccessToken} from '../services/session-service';
-import {unauthorized} from '../utils/rest-maker';
+import {unauthorized} from '../helpers/rest-maker';
 import {wrapSend} from '../helpers/protocol';
 
 const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {

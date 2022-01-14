@@ -1,8 +1,8 @@
-import {databaseResponseTimeHistogram} from '../utils/metrics';
+import {databaseResponseTimeHistogram} from '../helpers/metrics';
 import {Product} from '../entities/product-entity';
-import {getPgRepo} from '../utils/get-pg-repo';
+import {getPgRepo} from '../helpers/get-pg-repo';
 
-export async function createProduct(input: Product) {
+export async function createProduct(input: Partial<Product>) {
     const metricsLabels = {
         operation: 'createProduct',
     };
@@ -39,10 +39,7 @@ export async function findProduct(
     }
 }
 
-export async function findAndUpdateProduct(
-    query: Pick<Product, 'id'>,
-    update: Partial<Product>
-) {
+export async function findAndUpdateProduct(query: Pick<Product, 'id'>, update: Partial<Product>) {
     const productRepo = getPgRepo(Product);
 
     return productRepo.save({id: query.id, ...update});

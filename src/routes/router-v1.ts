@@ -1,10 +1,10 @@
 import express, {Request, Response} from 'express';
-import {createUserAddressHandler, createUserHandler, deleteUserHandler} from '../controllers/user-controller';
+import {createUserCtrl, deleteUserCtrl} from '../controllers/user-controller';
 import validateRequest from '../middlewares/validate-request';
-import {createUserSchema} from '../validation-schemas/user-schema';
-import {createSessionSchema} from '../validation-schemas/session-schema';
-import {createUserSessionHandler, deleteSessionHandler, getUserSessionHandler} from '../controllers/session-controller';
-import {ok} from '../utils/rest-maker';
+import {createUserSchema} from '../schemas/user-schema';
+import {createSessionSchema} from '../schemas/session-schema';
+import {createUserSessionCtrl, deleteSessionCtrl, getUserSessionCtrl} from '../controllers/session-controller';
+import {ok} from '../helpers/rest-maker';
 import {wrapSend} from '../helpers/protocol';
 import jwtAuth from '../middlewares/jwt-auth';
 import {
@@ -12,19 +12,21 @@ import {
     deleteProductSchema,
     getProductSchema,
     updateProductSchema
-} from '../validation-schemas/product-schema';
+} from '../schemas/product-schema';
 import {
-    createProductHandler,
-    deleteProductHandler,
-    getProductHandler,
-    updateProductHandler
+    createProductCtrl,
+    deleteProductCtrl,
+    getProductCtrl,
+    updateProductCtrl
 } from '../controllers/product-controller';
-import logger from '../utils/logger';
-import {createOrderHandler, getOrdersHandler} from '../controllers/order-controller';
-import {createUserAddressesSchema} from '../validation-schemas/users-addresses-schema';
-import {createOrderProductsSchema, getOrdersProductsSchema} from '../validation-schemas/orders-products-schema';
-import {getOrdersProductsHandler} from '../controllers/orders-pruducts-controller';
-import {createOrderProductsHandler} from '../controllers/order-pruducts-controller';
+import logger from '../helpers/logger';
+import {createOrderCtrl, getOrdersCtrl} from '../controllers/order-controller';
+import {createUserAddressesSchema} from '../schemas/user-addresses-schema';
+import {getOrdersProductsSchema} from '../schemas/orders-products-schema';
+import {getOrdersProductsCtrl} from '../controllers/orders-products-controller';
+import {createOrderProductsCtrl} from '../controllers/order-pruducts-controller';
+import {createUserAddressesCtrl} from '../controllers/user-addresses-controller';
+import {createOrderProductsSchema} from '../schemas/order-products-schema';
 
 const routerV1 = express.Router();
 
@@ -69,11 +71,11 @@ routerV1.get('/ping', (req: Request, res: Response) => {
  *      400:
  *        description: Bad request
  */
-routerV1.post('/users', validateRequest(createUserSchema), createUserHandler);
+routerV1.post('/users', validateRequest(createUserSchema), createUserCtrl);
 
-routerV1.delete('/users/:id', deleteUserHandler);
+routerV1.delete('/users/:id', deleteUserCtrl);
 
-routerV1.post('/users/:id/addresses', [validateRequest(createUserAddressesSchema), jwtAuth], createUserAddressHandler);
+routerV1.post('/users/:id/addresses', [validateRequest(createUserAddressesSchema), jwtAuth], createUserAddressesCtrl);
 
 /**
  * @openapi
@@ -100,34 +102,34 @@ routerV1.post('/users/:id/addresses', [validateRequest(createUserAddressesSchema
  *      400:
  *        description: Bad request
  */
-routerV1.post('/sessions', validateRequest(createSessionSchema), createUserSessionHandler);
+routerV1.post('/sessions', validateRequest(createSessionSchema), createUserSessionCtrl);
 
 
-routerV1.get('/sessions', jwtAuth, getUserSessionHandler);
+routerV1.get('/sessions', jwtAuth, getUserSessionCtrl);
 
-routerV1.delete('/sessions', jwtAuth, deleteSessionHandler);
+routerV1.delete('/sessions', jwtAuth, deleteSessionCtrl);
 
 routerV1.post(
     '/products',
     [jwtAuth, validateRequest(createProductSchema)],
-    createProductHandler
+    createProductCtrl
 );
 
 
 routerV1.put(
-    '/products/:productId',
+    '/products/:id',
     [jwtAuth, validateRequest(updateProductSchema)],
-    updateProductHandler
+    updateProductCtrl
 );
 /**
  * @openapi
- * '/api/private/products/{productId}':
+ * '/api/private/products/{id}':
  *  get:
  *     tags:
  *     - Products
- *     summary: Get a single product by the productId
+ *     summary: Get a single product by the id
  *     parameters:
- *      - name: productId
+ *      - name: id
  *        in: path
  *        description: The id of the product
  *        required: true
@@ -142,33 +144,33 @@ routerV1.put(
  *         description: Product not found
  */
 routerV1.get(
-    '/products/:productId',
+    '/products/:id',
     [jwtAuth, validateRequest(getProductSchema)],
-    getProductHandler
+    getProductCtrl
 );
 
 routerV1.delete(
-    '/products/:productId',
+    '/products/:id',
     [jwtAuth, validateRequest(deleteProductSchema)],
-    deleteProductHandler
+    deleteProductCtrl
 );
 
 
 routerV1.post(
     '/orders',
     [jwtAuth],
-    createOrderHandler
+    createOrderCtrl
 );
 
 routerV1.get(
     '/orders',
     [jwtAuth],
-    getOrdersHandler
+    getOrdersCtrl
 );
 
-routerV1.post('/orders/:id/products', [validateRequest(createOrderProductsSchema), jwtAuth], createOrderProductsHandler);
+routerV1.post('/orders/:id/products', [validateRequest(createOrderProductsSchema), jwtAuth], createOrderProductsCtrl);
 
 
-routerV1.get('/orders/products', [validateRequest(getOrdersProductsSchema), jwtAuth], getOrdersProductsHandler);
+routerV1.get('/orders/products', [validateRequest(getOrdersProductsSchema), jwtAuth], getOrdersProductsCtrl);
 
 export default routerV1;

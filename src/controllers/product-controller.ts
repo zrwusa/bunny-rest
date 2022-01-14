@@ -1,10 +1,18 @@
 import {NextFunction, Request, Response} from 'express';
 import {createProduct, deleteProduct, findAndUpdateProduct, findProduct,} from '../services/product-service';
-import {notFound, ok} from '../utils/rest-maker';
+import {notFound, ok} from '../helpers/rest-maker';
 import {wrapSend} from '../helpers/protocol';
+import {
+    CreateProductBody,
+    DeleteProductParams,
+    GetProductParams,
+    UpdateProductBody,
+    UpdateProductParams
+} from '../schemas/product-schema';
+import {ParamsDictionary} from 'express-serve-static-core';
 
-export async function createProductHandler(req: Request, res: Response, next: NextFunction) {
-    const body = req.body;
+export async function createProductCtrl(req: Request<ParamsDictionary, any, CreateProductBody>, res: Response, next: NextFunction) {
+    const {body} = req;
 
     try {
         const product = await createProduct(body);
@@ -14,18 +22,18 @@ export async function createProductHandler(req: Request, res: Response, next: Ne
     }
 }
 
-export async function updateProductHandler(req: Request, res: Response, next: NextFunction) {
-    const productId = req.params.productId;
-    const update = req.body;
+export async function updateProductCtrl(req: Request<UpdateProductParams, any, UpdateProductBody>, res: Response, next: NextFunction) {
+    const {id} = req.params;
+    const {body} = req;
 
     try {
-        const product = await findProduct({id: productId});
+        const product = await findProduct({id});
 
         if (!product) {
             return wrapSend(res, notFound());
         }
 
-        const updatedProduct = await findAndUpdateProduct({id: productId}, update);
+        const updatedProduct = await findAndUpdateProduct({id}, body);
 
         return wrapSend(res, ok(), updatedProduct);
     } catch (e) {
@@ -34,10 +42,10 @@ export async function updateProductHandler(req: Request, res: Response, next: Ne
 
 }
 
-export async function getProductHandler(req: Request, res: Response, next: NextFunction) {
-    const productId = req.params.productId;
+export async function getProductCtrl(req: Request<GetProductParams, any, any>, res: Response, next: NextFunction) {
+    const {id} = req.params;
     try {
-        const product = await findProduct({id: productId});
+        const product = await findProduct({id});
         if (!product) {
             return wrapSend(res, notFound());
         }
@@ -47,16 +55,16 @@ export async function getProductHandler(req: Request, res: Response, next: NextF
     }
 }
 
-export async function deleteProductHandler(req: Request, res: Response, next: NextFunction) {
-    const productId = req.params.productId;
+export async function deleteProductCtrl(req: Request<DeleteProductParams, any, any>, res: Response, next: NextFunction) {
+    const {id} = req.params;
     try {
-        const product = await findProduct({id: productId});
+        const product = await findProduct({id});
 
         if (!product) {
             return wrapSend(res, notFound());
         }
 
-        const deletedProduct = await deleteProduct({id: productId});
+        const deletedProduct = await deleteProduct({id});
 
         return wrapSend(res, ok(), deletedProduct);
     } catch (e) {

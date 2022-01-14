@@ -1,21 +1,22 @@
 import {NextFunction, Request, Response} from 'express';
 import {createUser, deleteUser, findUser} from '../services/user-service';
 import {wrapSend} from '../helpers/protocol';
-import {notFound, ok} from '../utils/rest-maker';
-import {User} from '../entities/user-entity';
-import {Address} from '../entities/address-entity';
-import {getPgRepo} from '../utils/get-pg-repo';
+import {notFound, ok} from '../helpers/rest-maker';
+import {CreateUserBody, DeleteUserParams} from '../schemas/user-schema';
+import {ParamsDictionary} from '../types/express-enhanced';
 
-export async function createUserHandler(req: Request<{}, {}, User>, res: Response, next: NextFunction) {
+
+export async function createUserCtrl(req: Request<ParamsDictionary, any, CreateUserBody>, res: Response, next: NextFunction) {
+    const {body} = req;
     try {
-        const user = await createUser(req.body);
+        const user = await createUser(body);
         return wrapSend(res, ok(), user);
     } catch (e: any) {
         next(e);
     }
 }
 
-export async function deleteUserHandler(req: Request, res: Response, next: NextFunction) {
+export async function deleteUserCtrl(req: Request<DeleteUserParams>, res: Response, next: NextFunction) {
     const {id} = req.params;
     try {
         const user = await findUser({id});
@@ -31,34 +32,4 @@ export async function deleteUserHandler(req: Request, res: Response, next: NextF
         next(e);
     }
 
-}
-
-export async function createUserAddressHandler(req: Request, res: Response, next: NextFunction) {
-    const {id: userId} = req.params;
-    const {lineA, lineB, lineC, postCode, category} = req.body;
-
-    const userRepo = getPgRepo(User);
-    const user = await userRepo.findOne(userId);
-
-    if (!user) {
-        return wrapSend(res, notFound({bizLogicMessage: res.__('NULL_USER')}));
-    } else {
-        const addressRepo = getPgRepo(Address);
-        try {
-            const address = await addressRepo.save(addressRepo.create({
-                line_a: lineA,
-                line_b: lineB,
-                line_c: lineC,
-                post_code: postCode,
-                cate: category,
-                user
-            }));
-            return wrapSend(res, ok(), address);
-
-        } catch (e) {
-            next(e);
-        }
-
-
-    }
 }

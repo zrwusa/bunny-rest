@@ -2,11 +2,11 @@ import {NextFunction, Request, Response} from 'express';
 import config from 'config';
 import {createSession, deleteSession, findSessions,} from '../services/session-service';
 import {validatePassword} from '../services/user-service';
-import {signJwt} from '../utils/jwt';
+import {signJwt} from '../helpers/jwt';
 import {wrapSend} from '../helpers/protocol';
-import {ok, unauthorized, unprocessableEntity} from '../utils/rest-maker';
+import {ok, unauthorized, unprocessableEntity} from '../helpers/rest-maker';
 
-export async function createUserSessionHandler(req: Request, res: Response, next: NextFunction) {
+export async function createUserSessionCtrl(req: Request, res: Response, next: NextFunction) {
     // Validate the user's password
     const user = await validatePassword(req.body);
 
@@ -38,7 +38,7 @@ export async function createUserSessionHandler(req: Request, res: Response, next
     }
 }
 
-export async function getUserSessionHandler(req: Request, res: Response, next: NextFunction) {
+export async function getUserSessionCtrl(req: Request, res: Response, next: NextFunction) {
     const userId = res.locals.user.id;
 
     try {
@@ -49,7 +49,7 @@ export async function getUserSessionHandler(req: Request, res: Response, next: N
     }
 }
 
-export async function deleteSessionHandler(req: Request, res: Response, next: NextFunction) {
+export async function deleteSessionCtrl(req: Request, res: Response, next: NextFunction) {
     const userId = res.locals.user.id;
     try {
         const deletedCount = await deleteSession({id: userId});

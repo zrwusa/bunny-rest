@@ -1,4 +1,4 @@
-import {number, object, string} from 'zod';
+import {number, object, string, TypeOf} from 'zod';
 
 const body = object({
     lineA: string({
@@ -28,3 +28,7 @@ export const createUserAddressesSchema = object({
     params,
     body,
 });
+
+export type CreateUserAddressParams = TypeOf<typeof params>;
+
+export type CreateUserAddressBody = TypeOf<typeof body>;

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import config from 'config';
-import {signJwt, verifyJwt} from '../utils/jwt';
+import {signJwt, verifyJwt} from '../helpers/jwt';
 import {findUser} from './user-service';
-import redisClient from '../utils/redis-client';
+import redisClient from '../helpers/redis-client';
 import {Session} from '../entities/session-entity';
 import {randomUUID} from 'crypto';
 import {User} from '../entities/user-entity';

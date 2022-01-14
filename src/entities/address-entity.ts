@@ -13,28 +13,28 @@ export class Address extends CommonEntity {
     @Column({
         type: 'text',
     })
-    line_a!: string;
+    lineA!: string;
 
     @Column({
         type: 'text',
     })
-    line_b!: string;
+    lineB!: string;
 
     @Column({
         type: 'text',
     })
-    line_c!: string;
+    lineC!: string;
 
     @Column({
         type: 'int4',
     })
-    post_code!: number;
+    postCode!: number;
 
     @Column({
         type: 'enum',
         enum: AddressCate,
     })
-    cate: string = AddressCate.HOME;
+    category: string = AddressCate.HOME;
 
     @ManyToOne(() => User,
         user => user.addresses,

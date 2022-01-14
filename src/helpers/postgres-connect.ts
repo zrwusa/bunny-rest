@@ -6,6 +6,7 @@ import {User} from '../entities/user-entity';
 import {Order} from '../entities/order-entity';
 import {Address} from '../entities/address-entity';
 import {Product} from '../entities/product-entity';
+import {SnakeNamingStrategy} from 'typeorm-naming-strategies';
 
 // todo may need retry connecting
 export const postgresConnect = async () => {
@@ -18,6 +19,7 @@ export const postgresConnect = async () => {
             entities: [User, Order, Address, Product],
             synchronize: true,
             logging: ['error', 'warn'],
+            namingStrategy: new SnakeNamingStrategy()
         });
         logger.info(`Successfully connected to Postgres`);
     } catch (e) {

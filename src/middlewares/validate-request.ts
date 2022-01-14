@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
 import {AnyZodObject} from 'zod';
 import {wrapSend} from '../helpers/protocol';
-import {unprocessableEntity} from '../utils/rest-maker';
+import {unprocessableEntity} from '../helpers/rest-maker';
 
 const validateRequest = (schema: AnyZodObject) =>
     (req: Request, res: Response, next: NextFunction) => {

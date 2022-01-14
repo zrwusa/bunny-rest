@@ -1,8 +1,8 @@
-import {databaseResponseTimeHistogram} from '../utils/metrics';
+import {databaseResponseTimeHistogram} from '../helpers/metrics';
 import {Order} from '../entities/order-entity';
-import {getPgRepo} from '../utils/get-pg-repo';
+import {getPgRepo} from '../helpers/get-pg-repo';
 
-export async function createOrder(input: Order) {
+export async function createOrder(input: Partial<Order>) {
     const metricsLabels = {
         operation: 'createOrder',
     };

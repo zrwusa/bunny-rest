@@ -1,12 +1,14 @@
 import {NextFunction, Request, Response} from 'express';
 import {createOrder} from '../services/order-service';
-import {ok} from '../utils/rest-maker';
+import {ok} from '../helpers/rest-maker';
 import {wrapSend} from '../helpers/protocol';
 import {Order} from '../entities/order-entity';
-import {getPgRepo} from '../utils/get-pg-repo';
+import {getPgRepo} from '../helpers/get-pg-repo';
+import {ParamsDictionary} from '../types/express-enhanced';
+import {CreateOrderBody} from '../schemas/order-schema';
 
-export async function createOrderHandler(req: Request, res: Response, next: NextFunction) {
-    const body = req.body;
+export async function createOrderCtrl(req: Request<ParamsDictionary, any, CreateOrderBody>, res: Response, next: NextFunction) {
+    const {body} = req;
 
     try {
         const order = await createOrder(body);
@@ -17,7 +19,7 @@ export async function createOrderHandler(req: Request, res: Response, next: Next
     }
 }
 
-export async function getOrdersHandler(req: Request, res: Response, next: NextFunction) {
+export async function getOrdersCtrl(req: Request, res: Response, next: NextFunction) {
     const orderRepo = getPgRepo(Order);
     try {
         const orders = await orderRepo.find();

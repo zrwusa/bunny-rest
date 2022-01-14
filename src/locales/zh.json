@@ -40,5 +40,7 @@
   "INVALID_PASSWORD_RESET_LINK_OR_EXPIRED": "密码重置链接失效或过期",
   "INVALID_USERNAME_OR_EMAIL": "用户或邮件地址无效",
   "RESOURCE_NOT_FOUND": "未找到资源",
-  "NO_CUR_PRICE": "没有当前价格"
+  "NO_CUR_PRICE": "没有当前价格",
+  "ORDER_NOT_EXIST": "不存在这个订单",
+  "URL_NOT_FOUND": "这个url未找到"
 }

@@ -1,6 +1,6 @@
 import {Order} from '../entities/order-entity';
-import {getPgRepo} from '../utils/get-pg-repo';
-import {databaseResponseTimeHistogram} from '../utils/metrics';
+import {getPgRepo} from '../helpers/get-pg-repo';
+import {databaseResponseTimeHistogram} from '../helpers/metrics';
 
 
 export async function findOrdersProducts(query: Partial<{ minPrice: number, maxPrice: number }>) {

@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
-import logger from '../utils/logger';
+import logger from '../helpers/logger';
 import {wrapSend} from '../helpers/protocol';
-import {internalServerError} from '../utils/rest-maker';
+import {internalServerError} from '../helpers/rest-maker';
 
 export const errorResponse = (err: any, req: Request, res: Response, next: NextFunction) => {
     logger.error(err);

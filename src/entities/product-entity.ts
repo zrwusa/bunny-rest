@@ -19,7 +19,7 @@ export class Product extends CommonEntity {
     @Column({
         type: 'text'
     })
-    price!: string;
+    price!: number;
 
     @Column({
         type: 'text',

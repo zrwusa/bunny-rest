@@ -1,14 +1,14 @@
 import {omit} from 'lodash';
 import {User} from '../entities/user-entity';
 import bcrypt from 'bcrypt';
-import {getPgRepo} from '../utils/get-pg-repo';
+import {getPgRepo} from '../helpers/get-pg-repo';
 
 export interface AuthUserInput {
     email: string;
     password: string;
 }
 
-export async function createUser(input: User) {
+export async function createUser(input: Partial<User>) {
     const userRepo = getPgRepo(User);
     const user = await userRepo.save(userRepo.create(input));
     return omit(user, 'password');

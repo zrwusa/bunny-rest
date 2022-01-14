@@ -1,21 +1,22 @@
-import express, {NextFunction, Request, Response} from 'express';
+import express, {Request, Response} from 'express';
 import responseTime from 'response-time';
-import {restResponseTimeHistogram, startMetricsServer} from './utils/metrics';
+import {restResponseTimeHistogram, startMetricsServer} from './helpers/metrics';
 import errorResponse from './middlewares/error-response';
 import routerV1 from './routes/router-v1';
 import i18n from './helpers/i18n';
 import {wrapSend} from './helpers/protocol';
-import {notFound} from './utils/rest-maker';
+import {notFound} from './helpers/rest-maker';
 import config from 'config';
-import logger from './utils/logger';
-import mongoConnect from './utils/mongo-connect';
-import {redisConnect} from './utils/redis-client';
-import swaggerDocs from './utils/swagger';
-import {postgresConnect} from './utils/postgres-connect';
+import logger from './helpers/logger';
+import mongoConnect from './helpers/mongo-connect';
+import {redisConnect} from './helpers/redis-client';
+import swaggerDocs from './helpers/swagger';
+import {postgresConnect} from './helpers/postgres-connect';
 
 
 const app = express();
 
+// for Nginx loading balance
 app.enable('trust proxy');
 
 app.use(i18n.init);
@@ -39,9 +40,8 @@ app.use(
 
 app.use('/api/v1', routerV1);
 
-app.all('*', async (req: Request, res: Response, next: NextFunction) => {
-    // in an async function we must use next(error) instead of throw syntax
-    wrapSend(res, notFound({}));
+app.all('*', async (req: Request, res: Response) => {
+    wrapSend(res, notFound({bizLogicMessage: res.__('URL_NOT_FOUND')}));
 });
 
 app.use(errorResponse);
