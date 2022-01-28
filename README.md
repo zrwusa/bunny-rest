@@ -86,7 +86,7 @@ The same reason as provided in the above error handling example is also valid fo
 The callback is replaced by Promises and now the Promise chain is replaced by the async/await. This greatly enhances the coding experience. One problem with this implementation is to write the ugly try/catch block.
 <!--## Robust Unit Tests
 The primary purpose of Unit-test is not to detect incorrect grammar but to validate behaviors of logics.-->
-
+## Avoiding side effects, always keep functional purity
 <!--## Simple Deployability
 Dockerfile and docker-compose.yml to simplify the deployment of the application. It is also possible to manually deploy the application.-->
 

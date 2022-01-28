@@ -183,3 +183,60 @@ function makeObjAndMove() {
 }
 
 makeObjAndMove();
+
+
+class Player {
+    name: string;
+    type: string;
+    constructor(name: string, type: string) {
+        this.name = name;
+        this.type = type;
+        console.log('player',  this);
+    }
+
+    introduce() {
+        console.log(`Hi my name is ${this.name}, i'm a ${this.type}`);
+    }
+
+}
+
+class Wizard extends Player {
+    constructor(name: string, type: string) {
+        super(name, type);
+        console.log('wizard', this);
+    }
+
+    play() {
+        console.log(`Working as a ${this.type}`);
+    }
+}
+
+let wizard1 = new Wizard('Polly', 'Healer');
+
+enum CREATURES {
+    TIGER,
+    SHEEP,
+    WOLF
+}
+
+for (let CREATURE in CREATURES) {
+    // hasOwnProperties
+    console.log(CREATURE);
+    console.log('---');
+}
+
+const creatures = {
+    tiger: 0,
+    sheep: 1,
+    wolf: 2
+}
+
+for (let creature in creatures) {
+    // not hasOwnProperties
+    console.log(creature);
+    console.log('---');
+}
+
+setTimeout(() => {
+    console.log(3);
+}, 2000);

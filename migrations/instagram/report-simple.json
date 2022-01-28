@@ -1,0 +1,753 @@
+{
+  "username": "vancityreynolds",
+  "full_name": "Ryan Reynolds",
+  "is_private": false,
+  "is_verified": true,
+  "about": "Owner @aviationgin & @mintmobile @maximumeffort & @wrexham_afc",
+  "photo_url": "https://cdn.hypeauditor.com/img/instagram/user/1942463581.jpg?w=150&till=1650766874&sign=12380bc707feccbf05cf6811910532f5",
+  "posts_count": 638,
+  "followers_count": 41108675,
+  "followings_count": 549,
+  "avg_likes": 355368,
+  "avg_comments": 2435,
+  "aqs": 91,
+  "aqs_name": "Excellent",
+  "aqs_description": "High percent of authentic audience; Very good likes activity; Excellent comments activity",
+  "likes_spread": {
+    "value": 2.13,
+    "avg": 0.580062,
+    "title": "Low"
+  },
+  "likes_comments_ratio": {
+    "value": 0.7,
+    "avg": 1,
+    "title": "Good"
+  },
+  "audience_reachability": {
+    "value": 92.9,
+    "avg": 89.873349,
+    "title": "Good"
+  },
+  "audience_authenticity": {
+    "value": 77.5,
+    "avg": 73.411699,
+    "title": "Good"
+  },
+  "audience_type": {
+    "real": 76.63,
+    "susp": 15.42,
+    "infs": 0.87,
+    "mass": 7.08
+  },
+  "audience_ethnicity": [
+    {
+      "name": "African",
+      "value": 7.72
+    },
+    {
+      "name": "Asian",
+      "value": 9.63
+    },
+    {
+      "name": "Caucasian",
+      "value": 42.17
+    },
+    {
+      "name": "Hispanic",
+      "value": 22.26
+    },
+    {
+      "name": "Indian",
+      "value": 15.29
+    },
+    {
+      "name": "Arabian",
+      "value": 2.94
+    }
+  ],
+  "likes_comments_ratio_chart": [
+    {
+      "x": 318066,
+      "y": 1531
+    },
+    {
+      "x": 1475771,
+      "y": 4462
+    }
+  ],
+  "followers_chart": [
+    {
+      "date": 1642636800,
+      "count": 41092289
+    },
+    {
+      "date": 1642550400,
+      "count": 41080961
+    }
+  ],
+  "following_chart": [
+    {
+      "date": 1642982400,
+      "count": 549
+    },
+    {
+      "date": 1642896000,
+      "count": 548
+    }
+  ],
+  "er": {
+    "value": 0.87,
+    "avg": null,
+    "title": "Excellent, compared to other 1M+ followers accounts"
+  },
+  "comments_rate": {
+    "value": 0.005923,
+    "avg": null,
+    "title": "Excellent"
+  },
+  "audience_languages": [
+    {
+      "code": "en",
+      "value": 69
+    },
+    {
+      "code": "es",
+      "value": 10
+    },
+    {
+      "code": "pt",
+      "value": 4
+    },
+    {
+      "code": "ru",
+      "value": 4
+    },
+    {
+      "code": "it",
+      "value": 2
+    }
+  ],
+  "audience_age_21_plus_prc": 79.27,
+  "social_networks": [
+    {
+      "type": 1,
+      "title": "Ryan Reynolds",
+      "social_id": "1942463581",
+      "username": "vancityreynolds",
+      "avatar_url": "https://cdn.hypeauditor.com/img/instagram/user/1942463581.jpg?w=150&till=1645660800&sign=1f675c417ca8cfc635bbb3b7168d8656",
+      "subscribers_count": 41117180,
+      "state": "READY"
+    }
+  ],
+  "audience_education": {
+    "no_education": 4.18,
+    "incomplete_primary": 1.82,
+    "primary": 8.73,
+    "lower_secondary": 18.59,
+    "upper_secondary": 44.54,
+    "post_secondary": 22.1
+  },
+  "audience_marital_status": {
+    "single": 55.23,
+    "married": 41.46,
+    "widowed": 0.69,
+    "divorced": 2.61
+  },
+  "growth": {
+    "title": "Organic",
+    "description": "No incentivized following patterns or negative trends detected on followers & following graphs."
+  },
+  "audience_geography": {
+    "countries": [
+      {
+        "name": "United States (USA)",
+        "code": "US",
+        "value": 19.05
+      },
+      {
+        "name": "India",
+        "code": "IN",
+        "value": 7.85
+      },
+      {
+        "name": "Brazil",
+        "code": "BR",
+        "value": 6.38
+      },
+      {
+        "name": "United Kingdom (UK)",
+        "code": "GB",
+        "value": 4.77
+      },
+      {
+        "name": "Mexico",
+        "code": "MX",
+        "value": 3.93
+      }
+    ],
+    "states": [
+      {
+        "name": "New York",
+        "value": 4.46
+      },
+      {
+        "name": "California",
+        "value": 3.84
+      },
+      {
+        "name": "Texas",
+        "value": 1.96
+      },
+      {
+        "name": "Florida",
+        "value": 0.98
+      },
+      {
+        "name": "Georgia",
+        "value": 0.85
+      }
+    ],
+    "cities": [
+      {
+        "name": "New York City",
+        "value": 3.63,
+        "id": 5128581
+      },
+      {
+        "name": "London",
+        "value": 1.92,
+        "id": 2643743
+      },
+      {
+        "name": "Los Angeles",
+        "value": 1.84,
+        "id": 5368361
+      },
+      {
+        "name": "Paris",
+        "value": 1.61,
+        "id": 2988507
+      },
+      {
+        "name": "Sofia",
+        "value": 1.52,
+        "id": 727011
+      }
+    ]
+  },
+  "top3_blogger_topics": [
+  ],
+  "audience_interests": [
+    [
+      "Cinema & Actors/actresses",
+      0.9
+    ],
+    [
+      "Machinery & Technologies",
+      0.9
+    ],
+    [
+      "Art/Artists",
+      0.89
+    ],
+    [
+      "Comics & sketches",
+      0.89
+    ],
+    [
+      "Modeling",
+      0.89
+    ],
+    [
+      "Computers & Gadgets",
+      0.89
+    ],
+    [
+      "Fashion",
+      0.88
+    ],
+    [
+      "Shows",
+      0.88
+    ],
+    [
+      "Music",
+      0.88
+    ],
+    [
+      "Luxury",
+      0.88
+    ],
+    [
+      "Sports with a ball",
+      0.88
+    ],
+    [
+      "Finance & Economics",
+      0.87
+    ],
+    [
+      "Science",
+      0.86
+    ],
+    [
+      "Humor & Fun & Happiness",
+      0.86
+    ],
+    [
+      "Lifestyle",
+      0.86
+    ],
+    [
+      "Adult content",
+      0.85
+    ],
+    [
+      "Literature & Journalism",
+      0.83
+    ],
+    [
+      "Business & Careers",
+      0.82
+    ],
+    [
+      "Animals",
+      0.81
+    ],
+    [
+      "Winter sports",
+      0.81
+    ],
+    [
+      "Family",
+      0.81
+    ],
+    [
+      "Fitness & Gym",
+      0.8
+    ],
+    [
+      "Travel",
+      0.8
+    ],
+    [
+      "Trainers & Coaches",
+      0.79
+    ],
+    [
+      "Beauty",
+      0.79
+    ],
+    [
+      "Photography",
+      0.78
+    ],
+    [
+      "Nature & landscapes",
+      0.74
+    ],
+    [
+      "Cars & Motorbikes",
+      0.74
+    ],
+    [
+      "Kids & Toys",
+      0.71
+    ],
+    [
+      "Racing Sports",
+      0.71
+    ],
+    [
+      "Architecture & Urban Design",
+      0.67
+    ],
+    [
+      "Mobile related",
+      0.67
+    ],
+    [
+      "Clothing & Outfits",
+      0.67
+    ],
+    [
+      "Extreme Sports & Outdoor activity",
+      0.61
+    ],
+    [
+      "Management & Marketing",
+      0.6
+    ],
+    [
+      "DIY & Design",
+      0.56
+    ],
+    [
+      "Health & Medicine",
+      0.54
+    ],
+    [
+      "Food & Cooking",
+      0.51
+    ],
+    [
+      "Water sports",
+      0.49
+    ],
+    [
+      "Shopping & Retail",
+      0.49
+    ],
+    [
+      "Sweets & Bakery",
+      0.34
+    ],
+    [
+      "Accessories & Jewellery",
+      0.27
+    ],
+    [
+      "Education",
+      0.22
+    ]
+  ],
+  "est_reach": {
+    "from": 4000000,
+    "to": 20000000
+  },
+  "yearly_growth": {
+    "value": 12.17,
+    "avg": 25.7,
+    "title": "Average"
+  },
+  "advertising_data": {
+    "avg_ad_er": 2.02,
+    "avg_er_display": [
+      "excellent",
+      "High"
+    ],
+    "ad_posts": {
+      "count": 27,
+      "prc": 64.29,
+      "display": [
+        "fair",
+        "Average"
+      ]
+    },
+    "all_posts": {
+      "count": 42,
+      "display": [
+        "fair",
+        "Low"
+      ]
+    },
+    "brands_mentions_count": 24,
+    "brands_categories": [
+      "Shows",
+      "Cinema & Actors/actresses",
+      "Family",
+      "Sports with a ball",
+      "Beauty"
+    ],
+    "regular_posts": {
+      "count": 15,
+      "display": [
+        "fair",
+        "Low"
+      ]
+    },
+    "brands_mentions": [
+      {
+        "username": "rottentomatoes",
+        "name": "Rotten Tomatoes",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/1350380832.jpg?w=150&till=1645668000&sign=25cf1e9080f53c22aede7d06fa8e7231",
+        "mentions_count": 1,
+        "mention_er": 1.59,
+        "category": "Cinema & Actors/actresses"
+      },
+      {
+        "username": "freeguymovie",
+        "name": "Free Guy",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/13116294778.jpg?w=150&till=1645668000&sign=c22b15424a4248c42c11ac9b759f52fa",
+        "mentions_count": 7,
+        "mention_er": 1.59,
+        "category": ""
+      },
+      {
+        "username": "maximumeffort",
+        "name": "Maximum Effort",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/38520494446.jpg?w=150&till=1645668000&sign=3717bb03b5c075e73d1f422f08f75f79",
+        "mentions_count": 8,
+        "mention_er": 1.84,
+        "category": ""
+      },
+      {
+        "username": "people",
+        "name": "People Magazine",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/28759374.jpg?w=150&till=1645668000&sign=110f85a118f8f9da0feb112db21b1730",
+        "mentions_count": 2,
+        "mention_er": 2.13,
+        "category": "Family"
+      },
+      {
+        "username": "fallontonight",
+        "name": "The Tonight Show",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/18100510.jpg?w=150&till=1645668000&sign=9a9175564cd465432b4781025a043d73",
+        "mentions_count": 1,
+        "mention_er": 2.24,
+        "category": "Shows"
+      },
+      {
+        "username": "netflix",
+        "name": "Netflix US",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/207587378.jpg?w=150&till=1645668000&sign=36f43315f651dc8a3c5b3d582c25bc79",
+        "mentions_count": 6,
+        "mention_er": 1.64,
+        "category": "Cinema & Actors/actresses"
+      },
+      {
+        "username": "sevenbucksprod",
+        "name": "Seven Bucks Productions",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/2095403826.jpg?w=150&till=1645668000&sign=95273e80aefa180cb9ca0d7e169893e3",
+        "mentions_count": 2,
+        "mention_er": 2.94,
+        "category": "Cinema & Actors/actresses"
+      },
+      {
+        "username": "disney",
+        "name": "Disney",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/284634734.jpg?w=150&till=1645668000&sign=7661f94058077ae66fa8939d68338dcf",
+        "mentions_count": 1,
+        "mention_er": 0.86,
+        "category": "Shows"
+      },
+      {
+        "username": "mintmobile",
+        "name": "Mint Mobile",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/3134731099.jpg?w=150&till=1645668000&sign=1aaf7fc607bfe2943a54039b2d8f5c20",
+        "mentions_count": 1,
+        "mention_er": 0.75,
+        "category": "Cinema & Actors/actresses"
+      },
+      {
+        "username": "wrexham_afc",
+        "name": "Wrexham AFC",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/144664658.jpg?w=150&till=1645668000&sign=1b54b70491c46cb8f4941a0f37c8b9bb",
+        "mentions_count": 4,
+        "mention_er": 1.34,
+        "category": "Sports with a ball"
+      },
+      {
+        "username": "roadshowpbs",
+        "name": "Antiques Roadshow",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/47748005.jpg?w=150&till=1645668000&sign=85454d36766839fc9a2d797b60bee264",
+        "mentions_count": 1,
+        "mention_er": 0.87,
+        "category": "Shows"
+      },
+      {
+        "username": "nac.cna",
+        "name": "National Arts Centre",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/211713441.jpg?w=150&till=1645668000&sign=1dad256ef08e112f1a0cedb5b5eb23b3",
+        "mentions_count": 1,
+        "mention_er": 1.95,
+        "category": "Music"
+      },
+      {
+        "username": "samsungcanada",
+        "name": "Samsung Canada",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/264358210.jpg?w=150&till=1645668000&sign=d0da4f4e99889280ace011606553f0fa",
+        "mentions_count": 1,
+        "mention_er": 3.52,
+        "category": "Beauty"
+      },
+      {
+        "username": "mapleleafs",
+        "name": "Toronto Maple Leafs",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/20167174.jpg?w=150&till=1645668000&sign=a735b424d007338401eaea6446fe0e36",
+        "mentions_count": 1,
+        "mention_er": 3.52,
+        "category": "Winter sports"
+      },
+      {
+        "username": "brunellocucinelli_brand",
+        "name": "Brunello Cucinelli",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/8150360412.jpg?w=150&till=1645668000&sign=4e26abf2a2a78b625d3b6135b241f84e",
+        "mentions_count": 1,
+        "mention_er": 8.53,
+        "category": ""
+      },
+      {
+        "username": "wsjmag",
+        "name": "WSJ. Magazine",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/276282615.jpg?w=150&till=1645668000&sign=3654ab12dcc68728bb2c65ef621e52e6",
+        "mentions_count": 1,
+        "mention_er": 2.87,
+        "category": "Shows"
+      },
+      {
+        "username": "specialprojectsmedia",
+        "name": "Special Projects 💥",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/1333181249.jpg?w=150&till=1645668000&sign=1c57a1e4c0dbb78113b903d2ba6410fd",
+        "mentions_count": 1,
+        "mention_er": 2.87,
+        "category": "Humor & Fun & Happiness"
+      },
+      {
+        "username": "aclu_nationwide",
+        "name": "ACLU",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/1726704720.jpg?w=150&till=1645668000&sign=eac91b53131ac08de601331320a302c7",
+        "mentions_count": 1,
+        "mention_er": 2.02,
+        "category": "Family"
+      },
+      {
+        "username": "naacp_ldf",
+        "name": "NAACP Legal Defense Fund",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/1745294582.jpg?w=150&till=1645668000&sign=078c89516f6d3bb14856ce716539c138",
+        "mentions_count": 1,
+        "mention_er": 2.02,
+        "category": "Beauty"
+      },
+      {
+        "username": "easportsfifa",
+        "name": "EA SPORTS FIFA",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/22469979.jpg?w=150&till=1645668000&sign=e15062ebf4cf13a3120e91a4eb86d693",
+        "mentions_count": 1,
+        "mention_er": 0.57,
+        "category": "Sports with a ball"
+      },
+      {
+        "username": "mufcyorkroad",
+        "name": "Maidenhead United FC",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/2299182556.jpg?w=150&till=1645668000&sign=94f5644a82a2011121bb688f40bff4dc",
+        "mentions_count": 1,
+        "mention_er": 2.27,
+        "category": "Shows"
+      },
+      {
+        "username": "onepeloton",
+        "name": "Peloton",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/387295631.jpg?w=150&till=1645668000&sign=d12f65838182bff55a5e770d55807714",
+        "mentions_count": 1,
+        "mention_er": 0.85,
+        "category": "Fitness & Gym"
+      },
+      {
+        "username": "21lapsentertainment",
+        "name": "21 Laps Entertainment",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/11875606043.jpg?w=150&till=1645668000&sign=7e06e8a83ce8909f62d7f8a22740aeb1",
+        "mentions_count": 1,
+        "mention_er": 1.56,
+        "category": ""
+      },
+      {
+        "username": "criticschoice",
+        "name": "Critics Choice",
+        "avatar": "https://cdn.hypeauditor.com/img/instagram/user/1596187864.jpg?w=150&till=1645668000&sign=78869246df946c5f2a8a2e40d458e010",
+        "mentions_count": 1,
+        "mention_er": 1.56,
+        "category": "Cinema & Actors/actresses"
+      }
+    ],
+    "brands_categories_html": "Shows, Cinema & Actors/actresses, Family",
+    "avg_er": 1.21
+  },
+  "post_frequency": 1.68,
+  "location": "United States (USA)",
+  "demography_by_age": [
+    {
+      "gender": "male",
+      "value": 38.99000000000001,
+      "by_age_group": [
+        {
+          "group": "age13-17",
+          "value": 3.6
+        },
+        {
+          "group": "age18-24",
+          "value": 14.29
+        },
+        {
+          "group": "age25-34",
+          "value": 16.51
+        },
+        {
+          "group": "age35-44",
+          "value": 3.64
+        },
+        {
+          "group": "age45-54",
+          "value": 0.75
+        },
+        {
+          "group": "age55-64",
+          "value": 0.13
+        },
+        {
+          "group": "age65-",
+          "value": 0.07
+        }
+      ]
+    },
+    {
+      "gender": "female",
+      "value": 61.01,
+      "by_age_group": [
+        {
+          "group": "age13-17",
+          "value": 5.93
+        },
+        {
+          "group": "age18-24",
+          "value": 23.59
+        },
+        {
+          "group": "age25-34",
+          "value": 24.97
+        },
+        {
+          "group": "age35-44",
+          "value": 5.37
+        },
+        {
+          "group": "age45-54",
+          "value": 1.02
+        },
+        {
+          "group": "age55-64",
+          "value": 0.1
+        },
+        {
+          "group": "age65-",
+          "value": 0.03
+        }
+      ]
+    }
+  ],
+  "demography": [
+    {
+      "gender": "M",
+      "value": 38.99000000000001
+    },
+    {
+      "gender": "F",
+      "value": 61.01
+    }
+  ],
+  "audience_income": {
+    "0k-5k": 29.15,
+    "5k-10k": 14.53,
+    "10k-25k": 15.49,
+    "25k-50k": 11.66,
+    "50k-75k": 8.79,
+    "75k-100k": 6.45,
+    "100k-150k": 7.64,
+    "150k-200k": 3.51,
+    "200k+": 2.78
+  },
+  "geo_quality": {
+    "code": "",
+    "title": ""
+  }
+}
