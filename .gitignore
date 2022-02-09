@@ -12,14 +12,14 @@ npm-debug.*
 
 # custom
 build/
-#.idea/
-#backup/
-#__tests__/
-#note.md
-#.env
-#.env.development
-#.env.test
-#yarn-error.log
-#.vercel
-#error.log
+.idea/
+backup/
+__tests__/
+note.md
+.env
+.env.development
+.env.test
+yarn-error.log
+.vercel
+error.log
 

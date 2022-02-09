@@ -21,13 +21,12 @@ export class User extends CommonEntity {
         type: 'text',
     })
     password!: string;
+    @OneToMany(() => Address, address => address.user)
+    addresses!: Address[];
 
     @BeforeInsert()
     async beforeInsert() {
         const salt = await bcrypt.genSalt(config.get<number>('SALT_WORK_FACTOR'));
         this.password = await bcrypt.hashSync(this.password, salt);
     }
-
-    @OneToMany(() => Address, address => address.user)
-    addresses!: Address[];
 }

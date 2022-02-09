@@ -1,4 +1,5 @@
 import dotEnvFlow from 'dotenv-flow';
+import './src/app';
 
 if (process.env.DOCKER_DEV !== 'yes') {
     const result = dotEnvFlow.config();
@@ -6,6 +7,4 @@ if (process.env.DOCKER_DEV !== 'yes') {
         console.error(result.error);
     }
 }
-
-import './src/app';
 

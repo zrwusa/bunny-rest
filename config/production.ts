@@ -1,4 +1,13 @@
-const {PORT, MONGO_DB_URI, SALT_WORK_FACTOR, ACCESS_TOKEN_TTL, REFRESH_TOKEN_TTL, METRICS_PORT, REDIS_URI, POSTGRES_URI} = process.env;
+const {
+    PORT,
+    MONGO_DB_URI,
+    SALT_WORK_FACTOR,
+    ACCESS_TOKEN_TTL,
+    REFRESH_TOKEN_TTL,
+    METRICS_PORT,
+    REDIS_URI,
+    POSTGRES_URI
+} = process.env;
 
 export default {
     PORT: parseInt(PORT || ''),

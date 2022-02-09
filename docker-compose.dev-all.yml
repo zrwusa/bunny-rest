@@ -29,7 +29,7 @@ services:
       - METRICS_PORT=9090
       - REDIS_URI=redis://@redis-dev:6379
       - POSTGRES_URI=postgresql://postgres:root_dev_password@postgres-dev:5432/bunny_rest_dev
-    command: yarn dev:docker
+    command: yarn in-docker:dev
     expose:
       - "8080"
       - "9090"
