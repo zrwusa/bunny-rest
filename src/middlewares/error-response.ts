@@ -8,7 +8,7 @@ export const errorResponse = (err: any, req: Request, res: Response, next: NextF
 
     const status = err.code || err.statusCode;
 
-    wrapSend(res, internalServerError({errorCode: status, errorMessage: err.message, errorStack: err.stack}));
+    wrapSend(res, {...internalServerError(res), errorCode: status, errorMessage: err.message, errorStack: err.stack});
 };
 
 export default errorResponse;

@@ -10,7 +10,7 @@ export async function createUserCtrl(req: Request<ParamsDictionary, any, CreateU
     const {body} = req;
     try {
         const user = await createUser(body);
-        return wrapSend(res, RESTFul.ok(), user);
+        return wrapSend(res, RESTFul.ok(res), user);
     } catch (e: any) {
         next(e);
     }
@@ -22,12 +22,12 @@ export async function deleteUserCtrl(req: Request<DeleteUserParams>, res: Respon
         const user = await findUser({id});
 
         if (!user) {
-            return wrapSend(res, RESTFul.notFound());
+            return wrapSend(res, RESTFul.notFound(res));
         }
 
         const deletedUser = await deleteUser({id});
 
-        return wrapSend(res, RESTFul.ok(), deletedUser);
+        return wrapSend(res, RESTFul.ok(res), deletedUser);
     } catch (e) {
         next(e);
     }

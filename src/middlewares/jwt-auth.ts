@@ -4,9 +4,14 @@ import {verifyJwt} from '../helpers/jwt';
 import {findSessions, reIssueAccessToken} from '../services/session-service';
 import RESTFul from '../helpers/rest-maker';
 import {wrapSend} from '../helpers/protocol';
+import {BL} from '../helpers/biz-logics';
 
 const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
-    const accessToken = get(req, 'headers.authorization', '').replace(/^Bearer\s/, '');
+    const accessTokenRaw = get(req, 'headers.authorization', '');
+    if (typeof accessTokenRaw !== 'string') {
+        return wrapSend(res, RESTFul.unauthorized(res, BL.ACCESS_TOKEN_MALFORMED));
+    }
+    const accessToken = accessTokenRaw.replace(/^Bearer\s/, '');
     if (accessToken) {
         const {decoded, expired} = verifyJwt(accessToken);
         if (decoded) {
@@ -14,7 +19,7 @@ const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
             const userSession = await findSessions({user_id: res.locals.user.id});
             // We can implement more features here, e.g. blacklist
             if (!userSession) {
-                return wrapSend(res, RESTFul.unauthorized({bizLogicMessage: res.__('SESSION_NOT_EXIST')}));
+                return wrapSend(res, RESTFul.unauthorized(res, BL.SESSION_NOT_EXIST));
             } else {
                 return next();
             }
@@ -23,28 +28,28 @@ const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
             if (refreshToken && typeof refreshToken === 'string') {
                 const {expired} = verifyJwt(refreshToken);
                 if (expired) {
-                    return wrapSend(res, RESTFul.unauthorized({bizLogicMessage: res.__('REFRESH_TOKEN_EXPIRED')}));
+                    return wrapSend(res, RESTFul.unauthorized(res, BL.REFRESH_TOKEN_EXPIRED));
                 }
 
                 const newAccessToken = await reIssueAccessToken({refreshToken});
-                if (newAccessToken) {
+                if (newAccessToken && typeof newAccessToken === 'string') {
                     res.setHeader('x-access-token', newAccessToken);
                     const result = verifyJwt(newAccessToken as string);
 
                     res.locals.user = result.decoded;
                     return next();
                 } else {
-                    return wrapSend(res, RESTFul.unauthorized({bizLogicMessage: res.__('REISSUE_ACCESS_TOKEN_FAILED')}));
+                    return wrapSend(res, RESTFul.unauthorized(res, BL.REISSUE_ACCESS_TOKEN_FAILED));
 
                 }
             } else {
-                return wrapSend(res, RESTFul.unauthorized({bizLogicMessage: res.__('REFRESH_TOKEN_NOT_PROVIDED')}));
+                return wrapSend(res, RESTFul.unauthorized(res, BL.REFRESH_TOKEN_NOT_PROVIDED));
             }
         } else {
-            return wrapSend(res, RESTFul.unauthorized({bizLogicMessage: res.__('REFRESH_TOKEN_MALFORMED')}));
+            return wrapSend(res, RESTFul.unauthorized(res, BL.REFRESH_TOKEN_MALFORMED));
         }
     } else {
-        return wrapSend(res, RESTFul.unauthorized({bizLogicMessage: res.__('ACCESS_TOKEN_NOT_PROVIDED')}));
+        return wrapSend(res, RESTFul.unauthorized(res, BL.ACCESS_TOKEN_NOT_PROVIDED));
     }
 };
 

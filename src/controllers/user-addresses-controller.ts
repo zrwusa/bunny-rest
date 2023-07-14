@@ -5,6 +5,7 @@ import {wrapSend} from '../helpers/protocol';
 import RESTFul from '../helpers/rest-maker';
 import {Address} from '../entities/address-entity';
 import {PgDS} from '../helpers/postgres-data-source';
+import {BL} from '../helpers/biz-logics';
 
 export async function createUserAddressesCtrl(req: Request<CreateUserAddressParams, any, CreateUserAddressBody>, res: Response, next: NextFunction) {
     const {id} = req.params;
@@ -14,7 +15,7 @@ export async function createUserAddressesCtrl(req: Request<CreateUserAddressPara
     const user = await userRepo.findOneBy({id: id});
 
     if (!user) {
-        return wrapSend(res, RESTFul.notFound({bizLogicMessage: res.__('NULL_USER')}));
+        return wrapSend(res, RESTFul.notFound(res, BL.NULL_USER));
     } else {
         const addressRepo = PgDS.getRepository(Address);
         try {
@@ -22,7 +23,7 @@ export async function createUserAddressesCtrl(req: Request<CreateUserAddressPara
                 ...body,
                 user
             }));
-            return wrapSend(res, RESTFul.ok(), address);
+            return wrapSend(res, RESTFul.ok(res), address);
 
         } catch (e) {
             next(e);

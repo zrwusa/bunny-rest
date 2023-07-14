@@ -16,7 +16,7 @@ export async function createProductCtrl(req: Request<ParamsDictionary, any, Crea
 
     try {
         const product = await createProduct(body);
-        return wrapSend(res, RESTFul.ok(), product);
+        return wrapSend(res, RESTFul.ok(res), product);
     } catch (e) {
         next(e);
     }
@@ -30,12 +30,12 @@ export async function updateProductCtrl(req: Request<UpdateProductParams, any, U
         const product = await findProduct({id});
 
         if (!product) {
-            return wrapSend(res, RESTFul.notFound());
+            return wrapSend(res, RESTFul.notFound(res));
         }
 
         const updatedProduct = await findAndUpdateProduct({id}, body);
 
-        return wrapSend(res, RESTFul.ok(), updatedProduct);
+        return wrapSend(res, RESTFul.ok(res), updatedProduct);
     } catch (e) {
         next(e);
     }
@@ -47,9 +47,9 @@ export async function getProductCtrl(req: Request<GetProductParams, any, any>, r
     try {
         const product = await findProduct({id});
         if (!product) {
-            return wrapSend(res, RESTFul.notFound());
+            return wrapSend(res, RESTFul.notFound(res));
         }
-        return wrapSend(res, RESTFul.ok(), product);
+        return wrapSend(res, RESTFul.ok(res), product);
     } catch (e) {
         next(e);
     }
@@ -61,12 +61,12 @@ export async function deleteProductCtrl(req: Request<DeleteProductParams, any, a
         const product = await findProduct({id});
 
         if (!product) {
-            return wrapSend(res, RESTFul.notFound());
+            return wrapSend(res, RESTFul.notFound(res));
         }
 
         const deletedProduct = await deleteProduct({id});
 
-        return wrapSend(res, RESTFul.ok(), deletedProduct);
+        return wrapSend(res, RESTFul.ok(res), deletedProduct);
     } catch (e) {
         next(e);
     }

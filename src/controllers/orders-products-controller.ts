@@ -10,7 +10,7 @@ export async function getOrdersProductsCtrl(req: Request<ParamsDictionary, any, 
     const {minPrice, maxPrice} = req.query;
     try {
         const orders = await findOrdersProducts({minPrice: parseFloat(minPrice), maxPrice: parseFloat(maxPrice)});
-        return wrapSend(res, RESTFul.ok(), orders);
+        return wrapSend(res, RESTFul.ok(res), orders);
     } catch (e) {
         next(e);
     }

@@ -6,6 +6,7 @@ import {Product} from '../entities/product-entity';
 import {In} from 'typeorm';
 import {CreateOrderProductsBody, CreateOrderProductsParams} from '../schemas/order-products-schema';
 import {PgDS} from '../helpers/postgres-data-source';
+import {BL} from '../helpers/biz-logics';
 
 export async function createOrderProductsCtrl(req: Request<CreateOrderProductsParams, any, CreateOrderProductsBody>, res: Response, next: NextFunction) {
     const {id} = req.params;
@@ -15,14 +16,14 @@ export async function createOrderProductsCtrl(req: Request<CreateOrderProductsPa
     const order = await orderRepo.findOneBy({id: id});
 
     if (!order) {
-        return wrapSend(res, RESTFul.notFound({bizLogicMessage: res.__('ORDER_NOT_EXIST')}));
+        return wrapSend(res, RESTFul.notFound(res, BL.ORDER_NOT_EXIST));
     } else {
         const productsRepo = PgDS.getRepository(Product);
         const products = await productsRepo.find({where: {id: In(body)}});
         try {
             order.products = products;
             const savedOrder = await orderRepo.save(order);
-            return wrapSend(res, RESTFul.ok(), savedOrder);
+            return wrapSend(res, RESTFul.ok(res), savedOrder);
         } catch (e) {
             next(e);
         }

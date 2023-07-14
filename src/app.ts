@@ -14,6 +14,7 @@ import {startApollo} from './helpers/apollo-server';
 import cors from 'cors';
 import {postgresConnect} from './helpers/postgres-connect';
 import {mongoConnect} from './helpers/mongo-connect';
+import {BizLogicKeys, BL, Locales} from './helpers/biz-logics';
 
 const app = express();
 
@@ -50,6 +51,16 @@ app.use(cors({
 }));
 
 app.use(i18n.init);
+
+// Enhance i18n to read ts file in order to approach best practice
+app.use((req, res, next) => {
+    res.__ = function (phrase: BizLogicKeys) {
+        const locale = req.getLocale() as Locales;
+        const translation = BL[phrase][locale];
+        return translation || phrase;
+    };
+    next();
+});
 
 app.use(express.json());
 
@@ -90,7 +101,7 @@ app.listen(port, async () => {
     swaggerDocs(app, port);
 
     app.all('*', async (req: Request, res: Response) => {
-        wrapSend(res, RESTFul.notFound({bizLogicMessage: res.__('URL_NOT_FOUND')}));
+        wrapSend(res, RESTFul.notFound(res, BL.URL_NOT_FOUND));
     });
 });
 

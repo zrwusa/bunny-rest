@@ -11,7 +11,7 @@ export async function getPostsCtrl(req: Request<ParamsDictionary, any, any, GetP
     const {from, offset} = req.query;
     try {
         const posts = await findPosts({from: parseFloat(from), offset: parseFloat(offset)});
-        return wrapSend(res, RESTFul.ok(), posts);
+        return wrapSend(res, RESTFul.ok(res), posts);
     } catch (e) {
         next(e);
     }
@@ -22,7 +22,7 @@ export async function createPostCtrl(req: Request<ParamsDictionary, any, CreateP
 
     try {
         const post = await createPost(body);
-        return wrapSend(res, RESTFul.ok(), post);
+        return wrapSend(res, RESTFul.ok(res), post);
     } catch (e) {
         next(e);
     }
@@ -36,12 +36,12 @@ export async function updatePostCtrl(req: Request<UpdatePostParams, any, UpdateP
         const post = await findPost({id});
 
         if (!post) {
-            return wrapSend(res, RESTFul.notFound());
+            return wrapSend(res, RESTFul.notFound(res));
         }
 
         const updatedPost = await findAndUpdatePost({id}, body);
 
-        return wrapSend(res, RESTFul.ok(), updatedPost);
+        return wrapSend(res, RESTFul.ok(res), updatedPost);
     } catch (e) {
         next(e);
     }
@@ -54,12 +54,12 @@ export async function deletePostCtrl(req: Request<DeletePostParams, any, any>, r
         const post = await findPost({id});
 
         if (!post) {
-            return wrapSend(res, RESTFul.notFound());
+            return wrapSend(res, RESTFul.notFound(res));
         }
 
         const deletedPost = await deletePost({id});
 
-        return wrapSend(res, RESTFul.ok(), deletedPost);
+        return wrapSend(res, RESTFul.ok(res), deletedPost);
     } catch (e) {
         next(e);
     }
