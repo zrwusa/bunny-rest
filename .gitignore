@@ -11,15 +11,20 @@ npm-debug.*
 .DS_Store
 
 # custom
-build/
 .idea/
-backup/
+
+notes/
+
+build/
 __tests__/
-note.md
+
 .env
 .env.development
 .env.test
+
 yarn-error.log
 .vercel
 error.log
+
+
 
