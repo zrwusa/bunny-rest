@@ -6,7 +6,9 @@ const {
     REFRESH_TOKEN_TTL,
     METRICS_PORT,
     REDIS_URI,
-    POSTGRES_URI
+    POSTGRES_URI,
+    APOLLO_PORT,
+    CORS_ORIGINS,
 } = process.env;
 
 export default {
@@ -17,5 +19,7 @@ export default {
     REFRESH_TOKEN_TTL: REFRESH_TOKEN_TTL,
     METRICS_PORT: parseInt(METRICS_PORT || ''),
     REDIS_URI: REDIS_URI,
-    POSTGRES_URI: POSTGRES_URI
+    POSTGRES_URI: POSTGRES_URI,
+    APOLLO_PORT: APOLLO_PORT || '',
+    CORS_ORIGINS: CORS_ORIGINS?.split(',')  || [],
 };

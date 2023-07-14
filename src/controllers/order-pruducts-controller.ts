@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response} from 'express';
-import {notFound, ok} from '../helpers/rest-maker';
+import RESTFul from '../helpers/rest-maker';
 import {wrapSend} from '../helpers/protocol';
 import {Order} from '../entities/order-entity';
 import {getPgRepo} from '../helpers/get-pg-repo';
@@ -15,14 +15,14 @@ export async function createOrderProductsCtrl(req: Request<CreateOrderProductsPa
     const order = await orderRepo.findOne(id);
 
     if (!order) {
-        return wrapSend(res, notFound({bizLogicMessage: res.__('ORDER_NOT_EXIST')}));
+        return wrapSend(res, RESTFul.notFound({bizLogicMessage: res.__('ORDER_NOT_EXIST')}));
     } else {
         const productsRepo = getPgRepo(Product);
         const products = await productsRepo.find({where: {id: In(body)}});
         try {
             order.products = products;
             const savedOrder = await orderRepo.save(order);
-            return wrapSend(res, ok(), savedOrder);
+            return wrapSend(res, RESTFul.ok(), savedOrder);
         } catch (e) {
             next(e);
         }

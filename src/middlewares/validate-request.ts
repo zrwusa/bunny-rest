@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
 import {AnyZodObject} from 'zod';
 import {wrapSend} from '../helpers/protocol';
-import {unprocessableEntity} from '../helpers/rest-maker';
+import RESTFul from '../helpers/rest-maker';
 
 const validateRequest = (schema: AnyZodObject) =>
     (req: Request, res: Response, next: NextFunction) => {
@@ -24,7 +24,7 @@ const validateRequest = (schema: AnyZodObject) =>
             //     message: e.errors,
             //     stack: err.stack
             // });
-            return wrapSend(res, unprocessableEntity(), e.errors);
+            return wrapSend(res, RESTFul.unprocessableEntity(), e.errors);
         }
     };
 

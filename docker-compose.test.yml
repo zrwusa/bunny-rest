@@ -6,6 +6,7 @@ services:
     ports:
       - "8181:8181"
       - "9191:9191"
+      - "8171:8171"
     volumes:
       - ./nginx/default.test.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
@@ -29,10 +30,12 @@ services:
       - METRICS_PORT=9191
       - REDIS_URI=redis://@redis-test:6379
       - POSTGRES_URI=postgresql://postgres:root_test_password@postgres-test:5432/bunny_rest_test
+      - APOLLO_PORT=8171
     command: yarn serve
     expose:
       - "8181"
       - "9191"
+      - "8171"
     depends_on:
       - mongo-test
 

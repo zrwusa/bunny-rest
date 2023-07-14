@@ -11,7 +11,7 @@ export const mongoConnect = async () => {
             type: 'mongodb',
             url
         });
-        logger.info(`Successfully connected to MongoDB`);
+        logger.info(`Successfully connected to MongoDB ${url}`);
     } catch (e) {
         logger.error('Could not connect to MongoDB');
         logger.error(e);

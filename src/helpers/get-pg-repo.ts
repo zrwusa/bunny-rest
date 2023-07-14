@@ -3,6 +3,6 @@ import {EntityTarget} from 'typeorm/common/EntityTarget';
 import {Repository} from 'typeorm/repository/Repository';
 
 export function getPgRepo<Entity>(target: EntityTarget<Entity>): Repository<Entity> {
-    const pgConnection = getConnection('postgres_connection');
+    const pgConnection = getConnection('default');
     return pgConnection.getRepository(target);
 }

@@ -59,6 +59,7 @@ export const getProductSchema = object({
     params
 });
 
+
 export type CreateProductBody = TypeOf<typeof body>;
 
 export type UpdateProductBody = TypeOf<typeof body>;

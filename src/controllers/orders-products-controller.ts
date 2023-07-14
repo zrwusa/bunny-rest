@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response} from 'express';
-import {ok} from '../helpers/rest-maker';
+import RESTFul from '../helpers/rest-maker';
 import {wrapSend} from '../helpers/protocol';
 import {findOrdersProducts} from '../services/orders-pruducts-service';
 import {ParamsDictionary} from 'express-serve-static-core';
@@ -10,7 +10,7 @@ export async function getOrdersProductsCtrl(req: Request<ParamsDictionary, any, 
     const {minPrice, maxPrice} = req.query;
     try {
         const orders = await findOrdersProducts({minPrice: parseFloat(minPrice), maxPrice: parseFloat(maxPrice)});
-        return wrapSend(res, ok(), orders);
+        return wrapSend(res, RESTFul.ok(), orders);
     } catch (e) {
         next(e);
     }

@@ -3,7 +3,7 @@ import {CreateUserAddressBody, CreateUserAddressParams} from '../schemas/user-ad
 import {getPgRepo} from '../helpers/get-pg-repo';
 import {User} from '../entities/user-entity';
 import {wrapSend} from '../helpers/protocol';
-import {notFound, ok} from '../helpers/rest-maker';
+import RESTFul from '../helpers/rest-maker';
 import {Address} from '../entities/address-entity';
 
 export async function createUserAddressesCtrl(req: Request<CreateUserAddressParams, any, CreateUserAddressBody>, res: Response, next: NextFunction) {
@@ -14,7 +14,7 @@ export async function createUserAddressesCtrl(req: Request<CreateUserAddressPara
     const user = await userRepo.findOne(userId);
 
     if (!user) {
-        return wrapSend(res, notFound({bizLogicMessage: res.__('NULL_USER')}));
+        return wrapSend(res, RESTFul.notFound({bizLogicMessage: res.__('NULL_USER')}));
     } else {
         const addressRepo = getPgRepo(Address);
         try {
@@ -22,7 +22,7 @@ export async function createUserAddressesCtrl(req: Request<CreateUserAddressPara
                 ...body,
                 user
             }));
-            return wrapSend(res, ok(), address);
+            return wrapSend(res, RESTFul.ok(), address);
 
         } catch (e) {
             next(e);

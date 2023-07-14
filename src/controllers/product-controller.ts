@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
 import {createProduct, deleteProduct, findAndUpdateProduct, findProduct,} from '../services/product-service';
-import {notFound, ok} from '../helpers/rest-maker';
+import RESTFul from '../helpers/rest-maker';
 import {wrapSend} from '../helpers/protocol';
 import {
     CreateProductBody,
@@ -16,7 +16,7 @@ export async function createProductCtrl(req: Request<ParamsDictionary, any, Crea
 
     try {
         const product = await createProduct(body);
-        return wrapSend(res, ok(), product);
+        return wrapSend(res, RESTFul.ok(), product);
     } catch (e) {
         next(e);
     }
@@ -30,12 +30,12 @@ export async function updateProductCtrl(req: Request<UpdateProductParams, any, U
         const product = await findProduct({id});
 
         if (!product) {
-            return wrapSend(res, notFound());
+            return wrapSend(res, RESTFul.notFound());
         }
 
         const updatedProduct = await findAndUpdateProduct({id}, body);
 
-        return wrapSend(res, ok(), updatedProduct);
+        return wrapSend(res, RESTFul.ok(), updatedProduct);
     } catch (e) {
         next(e);
     }
@@ -47,9 +47,9 @@ export async function getProductCtrl(req: Request<GetProductParams, any, any>, r
     try {
         const product = await findProduct({id});
         if (!product) {
-            return wrapSend(res, notFound());
+            return wrapSend(res, RESTFul.notFound());
         }
-        return wrapSend(res, ok(), product);
+        return wrapSend(res, RESTFul.ok(), product);
     } catch (e) {
         next(e);
     }
@@ -61,12 +61,12 @@ export async function deleteProductCtrl(req: Request<DeleteProductParams, any, a
         const product = await findProduct({id});
 
         if (!product) {
-            return wrapSend(res, notFound());
+            return wrapSend(res, RESTFul.notFound());
         }
 
         const deletedProduct = await deleteProduct({id});
 
-        return wrapSend(res, ok(), deletedProduct);
+        return wrapSend(res, RESTFul.ok(), deletedProduct);
     } catch (e) {
         next(e);
     }

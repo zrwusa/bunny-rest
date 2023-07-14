@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
 import {createOrder} from '../services/order-service';
-import {ok} from '../helpers/rest-maker';
+import RESTFul from '../helpers/rest-maker';
 import {wrapSend} from '../helpers/protocol';
 import {Order} from '../entities/order-entity';
 import {getPgRepo} from '../helpers/get-pg-repo';
@@ -12,7 +12,7 @@ export async function createOrderCtrl(req: Request<ParamsDictionary, any, Create
 
     try {
         const order = await createOrder(body);
-        return wrapSend(res, ok(), order);
+        return wrapSend(res, RESTFul.ok(), order);
     } catch (e) {
         // todo need to specify error type, i.e. validation error type
         next(e);
@@ -23,7 +23,7 @@ export async function getOrdersCtrl(req: Request, res: Response, next: NextFunct
     const orderRepo = getPgRepo(Order);
     try {
         const orders = await orderRepo.find();
-        return wrapSend(res, ok(), orders);
+        return wrapSend(res, RESTFul.ok(), orders);
     } catch (e) {
         next(e);
     }
@@ -34,7 +34,7 @@ export async function deleteOrdersCtrl(req: Request<DeleteOrderParam>, res: Resp
     const {id} = req.params;
     try {
         const orders = await orderRepo.delete(id);
-        return wrapSend(res, ok(), orders);
+        return wrapSend(res, RESTFul.ok(), orders);
     } catch (e) {
         next(e);
     }

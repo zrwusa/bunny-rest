@@ -4,7 +4,7 @@ import validateRequest from '../middlewares/validate-request';
 import {createUserSchema} from '../schemas/user-schema';
 import {createSessionSchema} from '../schemas/session-schema';
 import {createUserSessionCtrl, deleteSessionCtrl, getUserSessionCtrl} from '../controllers/session-controller';
-import {ok} from '../helpers/rest-maker';
+import RESTFul from '../helpers/rest-maker';
 import {wrapSend} from '../helpers/protocol';
 import jwtAuth from '../middlewares/jwt-auth';
 import {
@@ -27,6 +27,9 @@ import {getOrdersProductsCtrl} from '../controllers/orders-products-controller';
 import {createOrderProductsCtrl} from '../controllers/order-pruducts-controller';
 import {createUserAddressesCtrl} from '../controllers/user-addresses-controller';
 import {createOrderProductsSchema} from '../schemas/order-products-schema';
+import {createPostCtrl, deletePostCtrl, getPostsCtrl} from '../controllers/post-controller';
+import {getPostsSchema} from '../schemas/posts-schema';
+import {createPostSchema, deletePostSchema} from '../schemas/post-schema';
 
 const routerV1 = express.Router();
 
@@ -43,7 +46,7 @@ const routerV1 = express.Router();
  */
 routerV1.get('/ping', (req: Request, res: Response) => {
     logger.info('yeah it ran');
-    wrapSend(res, ok(), res.__('PONG'));
+    wrapSend(res, RESTFul.ok(), res.__('PONG'));
 });
 
 /**
@@ -138,7 +141,6 @@ routerV1.get('/products/:id', [jwtAuth, validateRequest(getProductSchema)], getP
 
 routerV1.delete('/products/:id', [jwtAuth, validateRequest(deleteProductSchema)], deleteProductCtrl);
 
-
 routerV1.post('/orders', [jwtAuth], createOrderCtrl);
 
 routerV1.get('/orders', [jwtAuth], getOrdersCtrl);
@@ -148,5 +150,11 @@ routerV1.delete('/orders/:id', [jwtAuth], deleteOrdersCtrl);
 routerV1.post('/orders/:id/products', [validateRequest(createOrderProductsSchema), jwtAuth], createOrderProductsCtrl);
 
 routerV1.get('/orders/products', [validateRequest(getOrdersProductsSchema), jwtAuth], getOrdersProductsCtrl);
+
+routerV1.get('/posts', [validateRequest(getPostsSchema)], getPostsCtrl);
+
+routerV1.delete('/posts/:id', [jwtAuth, validateRequest(deletePostSchema)], deletePostCtrl);
+
+routerV1.post('/posts', [validateRequest(createPostSchema)], createPostCtrl);
 
 export default routerV1;

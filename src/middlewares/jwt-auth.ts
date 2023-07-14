@@ -2,7 +2,7 @@ import {get} from 'lodash';
 import {NextFunction, Request, Response} from 'express';
 import {verifyJwt} from '../helpers/jwt';
 import {findSessions, reIssueAccessToken} from '../services/session-service';
-import {unauthorized} from '../helpers/rest-maker';
+import RESTFul from '../helpers/rest-maker';
 import {wrapSend} from '../helpers/protocol';
 
 const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
@@ -14,7 +14,7 @@ const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
             const userSession = await findSessions({user_id: res.locals.user.id});
             // We can implement more features here, e.g. blacklist
             if (!userSession) {
-                return wrapSend(res, unauthorized({bizLogicMessage: res.__('SESSION_NOT_EXIST')}));
+                return wrapSend(res, RESTFul.unauthorized({bizLogicMessage: res.__('SESSION_NOT_EXIST')}));
             } else {
                 return next();
             }
@@ -23,7 +23,7 @@ const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
             if (refreshToken) {
                 const {expired} = verifyJwt(refreshToken);
                 if (expired) {
-                    return wrapSend(res, unauthorized({bizLogicMessage: res.__('REFRESH_TOKEN_EXPIRED')}));
+                    return wrapSend(res, RESTFul.unauthorized({bizLogicMessage: res.__('REFRESH_TOKEN_EXPIRED')}));
                 }
 
                 const newAccessToken = await reIssueAccessToken({refreshToken});
@@ -34,17 +34,17 @@ const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
                     res.locals.user = result.decoded;
                     return next();
                 } else {
-                    return wrapSend(res, unauthorized({bizLogicMessage: res.__('REISSUE_ACCESS_TOKEN_FAILED')}));
+                    return wrapSend(res, RESTFul.unauthorized({bizLogicMessage: res.__('REISSUE_ACCESS_TOKEN_FAILED')}));
 
                 }
             } else {
-                return wrapSend(res, unauthorized({bizLogicMessage: res.__('REFRESH_TOKEN_NOT_PROVIDED')}));
+                return wrapSend(res, RESTFul.unauthorized({bizLogicMessage: res.__('REFRESH_TOKEN_NOT_PROVIDED')}));
             }
         } else {
-            return wrapSend(res, unauthorized({bizLogicMessage: res.__('REFRESH_TOKEN_MALFORMED')}));
+            return wrapSend(res, RESTFul.unauthorized({bizLogicMessage: res.__('REFRESH_TOKEN_MALFORMED')}));
         }
     } else {
-        return wrapSend(res, unauthorized({bizLogicMessage: res.__('ACCESS_TOKEN_NOT_PROVIDED')}));
+        return wrapSend(res, RESTFul.unauthorized({bizLogicMessage: res.__('ACCESS_TOKEN_NOT_PROVIDED')}));
     }
 };
 
