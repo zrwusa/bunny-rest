@@ -8,12 +8,12 @@ import {wrapSend} from './helpers/protocol';
 import RESTFul from './helpers/rest-maker';
 import config from 'config';
 import logger from './helpers/logger';
-import mongoConnect from './helpers/mongo-connect';
 import {redisConnect} from './helpers/redis-client';
 import swaggerDocs from './helpers/swagger';
-import {postgresConnect} from './helpers/postgres-connect';
 import {startApollo} from './helpers/apollo-server';
 import cors from 'cors';
+import {postgresConnect} from './helpers/postgres-connect';
+import {mongoConnect} from './helpers/mongo-connect';
 
 const app = express();
 
@@ -77,13 +77,13 @@ const port = config.get<number>('PORT');
 app.listen(port, async () => {
     logger.info(`App is running at http://localhost:${port}`);
 
-    const pgConn = await postgresConnect();
+    await postgresConnect();
 
     await mongoConnect();
 
     await redisConnect();
 
-    await startApollo(pgConn);
+    await startApollo();
 
     startMetricsServer();
 

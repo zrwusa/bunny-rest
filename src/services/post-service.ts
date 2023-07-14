@@ -1,5 +1,6 @@
 import {databaseResponseTimeHistogram} from '../helpers/metrics';
 import {Post} from '../entities/post-entity';
+import {FindOptionsWhere} from 'typeorm';
 
 export async function createPost(input: Partial<Post>) {
     const metricsLabels = {
@@ -18,7 +19,7 @@ export async function createPost(input: Partial<Post>) {
 }
 
 export async function findPost(
-    query: Pick<Post, 'id'>
+    query: Pick<FindOptionsWhere<Post>, 'id'>
 ) {
     const metricsLabels = {
         operation: 'findPost',
@@ -26,7 +27,7 @@ export async function findPost(
 
     const timer = databaseResponseTimeHistogram.startTimer();
     try {
-        const result = await Post.findOne({...query});
+        const result = await Post.findOneBy(query);
         timer({...metricsLabels, success: 'true'});
         return result;
     } catch (e) {

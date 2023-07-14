@@ -2,14 +2,14 @@ import {ApolloServer} from 'apollo-server';
 import {graphqlDemoSchema} from '../schemas/graphql-demo-schema';
 import logger from './logger';
 import config from 'config';
-import {Connection} from 'typeorm';
+import {PgDS} from './postgres-data-source';
 
-export const startApollo = async (pgConn: Connection | undefined) => {
+export const startApollo = async () => {
     const PORT = config.get<string>('APOLLO_PORT');
 
     const apolloServer = new ApolloServer({
         schema: graphqlDemoSchema,
-        context: pgConn
+        context: PgDS
     });
 
     try {

@@ -1,13 +1,13 @@
 import {databaseResponseTimeHistogram} from '../helpers/metrics';
 import {Order} from '../entities/order-entity';
-import {getPgRepo} from '../helpers/get-pg-repo';
+import {PgDS} from '../helpers/postgres-data-source';
 
 export async function createOrder(input: Partial<Order>) {
     const metricsLabels = {
         operation: 'createOrder',
     };
 
-    const orderRepo = getPgRepo(Order);
+    const orderRepo = PgDS.getRepository(Order);
     const order = orderRepo.create(input);
 
     const timer = databaseResponseTimeHistogram.startTimer();

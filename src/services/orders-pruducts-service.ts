@@ -1,6 +1,6 @@
 import {Order} from '../entities/order-entity';
-import {getPgRepo} from '../helpers/get-pg-repo';
 import {databaseResponseTimeHistogram} from '../helpers/metrics';
+import {PgDS} from '../helpers/postgres-data-source';
 
 
 export async function findOrdersProducts(query: Partial<{ minPrice: number, maxPrice: number }>) {
@@ -8,7 +8,7 @@ export async function findOrdersProducts(query: Partial<{ minPrice: number, maxP
         operation: 'findOrdersProducts',
     };
     const {minPrice, maxPrice} = query;
-    const orderRepo = getPgRepo(Order);
+    const orderRepo = PgDS.getRepository(Order);
     const timer = databaseResponseTimeHistogram.startTimer();
     try {
         const orders = orderRepo.createQueryBuilder()

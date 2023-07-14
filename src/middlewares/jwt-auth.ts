@@ -20,7 +20,7 @@ const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
             }
         } else if (expired) {
             const refreshToken = get(req, 'headers.x-refresh');
-            if (refreshToken) {
+            if (refreshToken && typeof refreshToken === 'string') {
                 const {expired} = verifyJwt(refreshToken);
                 if (expired) {
                     return wrapSend(res, RESTFul.unauthorized({bizLogicMessage: res.__('REFRESH_TOKEN_EXPIRED')}));

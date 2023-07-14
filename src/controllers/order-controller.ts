@@ -3,9 +3,9 @@ import {createOrder} from '../services/order-service';
 import RESTFul from '../helpers/rest-maker';
 import {wrapSend} from '../helpers/protocol';
 import {Order} from '../entities/order-entity';
-import {getPgRepo} from '../helpers/get-pg-repo';
 import {ParamsDictionary} from '../types/express-enhanced';
 import {CreateOrderBody, DeleteOrderParam} from '../schemas/order-schema';
+import {PgDS} from '../helpers/postgres-data-source';
 
 export async function createOrderCtrl(req: Request<ParamsDictionary, any, CreateOrderBody>, res: Response, next: NextFunction) {
     const {body} = req;
@@ -20,7 +20,7 @@ export async function createOrderCtrl(req: Request<ParamsDictionary, any, Create
 }
 
 export async function getOrdersCtrl(req: Request, res: Response, next: NextFunction) {
-    const orderRepo = getPgRepo(Order);
+    const orderRepo = PgDS.getRepository(Order);
     try {
         const orders = await orderRepo.find();
         return wrapSend(res, RESTFul.ok(), orders);
@@ -30,7 +30,7 @@ export async function getOrdersCtrl(req: Request, res: Response, next: NextFunct
 }
 
 export async function deleteOrdersCtrl(req: Request<DeleteOrderParam>, res: Response, next: NextFunction) {
-    const orderRepo = getPgRepo(Order);
+    const orderRepo = PgDS.getRepository(Order);
     const {id} = req.params;
     try {
         const orders = await orderRepo.delete(id);

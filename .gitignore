@@ -15,7 +15,7 @@ npm-debug.*
 
 notes/
 
-build/
+public/
 __tests__/
 
 .env
