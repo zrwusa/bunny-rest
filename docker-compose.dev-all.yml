@@ -31,6 +31,7 @@ services:
       - REDIS_URI=redis://@redis-dev:6379
       - POSTGRES_URI=postgresql://postgres:root_dev_password@postgres-dev:5432/bunny_rest_dev
       - APOLLO_PORT=8070
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:3001
     command: yarn in-docker:dev
     expose:
       - "8080"

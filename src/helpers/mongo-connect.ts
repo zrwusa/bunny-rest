@@ -5,6 +5,7 @@ import logger from './logger';
 export const mongoConnect = async () => {
     try {
         const url = config.get<string>('MONGO_DB_URI');
+        logger.info(`Trying to connect to MongoDB ${url}`);
         await MongoDS.initialize();
         logger.info(`Successfully connected to MongoDB ${url}`);
     } catch (e) {

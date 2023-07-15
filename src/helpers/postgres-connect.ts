@@ -5,6 +5,7 @@ import logger from './logger';
 export const postgresConnect = async () => {
     try {
         const url = config.get<string>('POSTGRES_URI');
+        logger.info(`Trying to connect to Postgres ${url}`);
         await PgDS.initialize();
         logger.info(`Successfully connected to Postgres ${url}`);
 

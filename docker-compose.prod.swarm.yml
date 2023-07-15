@@ -27,6 +27,7 @@ services:
       - METRICS_PORT=90
       - REDIS_URI=redis://@redis:6379
       - APOLLO_PORT=70
+      - CORS_ORIGINS=http://example-a:80,http://example-b:80
     command: yarn serve
     expose:
       - "80"

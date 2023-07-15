@@ -8,11 +8,13 @@
     "dev:unprepare": "docker-compose -f docker-compose.dev.yml down",
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
     "dev:ts-node": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only index.ts",
-    "build": "cp -R certs public/ && cross-env NODE_ENV=production tsc",
+    "build": "cp -R certs build/ && cp -R src/locales build/src && cross-env NODE_ENV=production tsc",
     "serve": "yarn build && cross-env NODE_ENV=production node build/index.js",
     "test": "cross-env NODE_ENV=test node build/index.js",
     "dev:start-all": "docker-compose -f docker-compose.dev-all.yml up -d --build",
     "dev:stop-all": "docker-compose -f docker-compose.dev-all.yml down",
+    "deploy:test": "docker-compose -f docker-compose.test.yml up -d --build",
+    "undeploy:test": "docker-compose -f docker-compose.test.yml down",
     "in-docker:dev": "cross-env NODE_ENV=development DOCKER_DEV=yes nodemon index.ts"
   },
   "dependencies": {

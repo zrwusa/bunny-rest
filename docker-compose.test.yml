@@ -17,7 +17,7 @@ services:
     build:
       context: ./
       args:
-        PKG_INSTALL_ENV: development
+        PKG_INSTALL_ENV: production
     volumes:
       - ./:/bunny-rest:ro
       - /bunny-rest/node_modules
@@ -31,6 +31,7 @@ services:
       - REDIS_URI=redis://@redis-test:6379
       - POSTGRES_URI=postgresql://postgres:root_test_password@postgres-test:5432/bunny_rest_test
       - APOLLO_PORT=8171
+      - CORS_ORIGINS=http://test-a:80,http://test-b:80
     command: yarn serve
     expose:
       - "8181"
