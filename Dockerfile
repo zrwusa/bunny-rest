@@ -10,7 +10,7 @@ ARG PKG_INSTALL_ENV
 
 RUN if [ "$PKG_INSTALL_ENV" = "development" ]; \
         then yarn install; \
-        else yarn install --production; \
+        else yarn install; \
         fi
 
 COPY . ./

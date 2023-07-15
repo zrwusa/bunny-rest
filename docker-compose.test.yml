@@ -19,7 +19,7 @@ services:
       args:
         PKG_INSTALL_ENV: production
     volumes:
-      - ./:/bunny-rest:ro
+      - ./:/bunny-rest
       - /bunny-rest/node_modules
     environment:
       - PORT=8181
