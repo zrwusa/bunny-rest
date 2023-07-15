@@ -6,6 +6,7 @@
 <tr><td>Development, test, production environment</td><td></td></tr>
 <tr><td>JWT Auth</td><td>  </td></tr>
 <tr><td>RESTFul & API protocol</td><td></td></tr>
+<tr><td>GraphQL</td><td></td></tr>
 <tr><td>Docker</td><td></td></tr>
 <tr><td>Postgres</td><td>RDB</td></tr>
 <tr><td>MongoDB</td><td>NoSQL</td></tr>
@@ -24,13 +25,15 @@
 ### prepare, create .env file, then config it
 
 ```dotenv
-PORT=8080
-MONGO_DB_URI=mongodb://localhost:27017/bunny-rest
+MONGO_DB_URI=mongodb://root_dev:root_dev_password@localhost:27017/bunny_rest_dev?authSource=admin
 SALT_WORK_FACTOR=10
-ACCESS_TOKEN_TTL=0.5m
+ACCESS_TOKEN_TTL=15m
 REFRESH_TOKEN_TTL=1y
 METRICS_PORT=9090
 REDIS_URI=redis://@localhost:6379
+POSTGRES_URI=postgresql://postgres:root_dev_password@localhost:5432/bunny_rest_dev
+APOLLO_PORT=8070
+CORS_ORIGINS=http://localhost:3000,http://localhost:3001
 ```
 
 ### start
@@ -67,14 +70,14 @@ docker-compose -f docker-compose.dev-all.yml up -d --build
 ### start(not including Nginx as loading balance, neither bunny-rest)
 
 ```shell script
-docker-compose -f docker-compose.dev.yml up -d --build
+yarn dev:prepare
 yarn dev
 ```
 
 ### stop
 
 ```shell script
-docker-compose -f docker-compose.dev.yml down
+yarn dev:unprepare
 ```
 
 # Architecture principles
