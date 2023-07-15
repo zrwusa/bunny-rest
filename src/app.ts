@@ -5,7 +5,7 @@ import errorResponse from './middlewares/error-response';
 import routerV1 from './routes/router-v1';
 import i18n from './helpers/i18n';
 import {wrapSend} from './helpers/protocol';
-import RESTFul from './helpers/rest-maker';
+import RESTFul from './helpers/restful';
 import config from 'config';
 import logger from './helpers/logger';
 import {redisConnect} from './helpers/redis-client';
@@ -14,7 +14,8 @@ import {startApollo} from './helpers/apollo-server';
 import cors from 'cors';
 import {postgresConnect} from './helpers/postgres-connect';
 import {mongoConnect} from './helpers/mongo-connect';
-import {BizLogicKeys, BL, Locales} from './helpers/biz-logics';
+import {BL, BizLogicProps} from './helpers/biz-logics';
+import {BizLogicKeys} from './types/biz-logic';
 
 const app = express();
 
@@ -55,7 +56,7 @@ app.use(i18n.init);
 // Enhance i18n to read ts file in order to approach best practice
 app.use((req, res, next) => {
     res.__ = function (phrase: BizLogicKeys) {
-        const locale = req.getLocale() as Locales;
+        const locale = req.getLocale() as BizLogicProps;
         const translation = BL[phrase][locale];
         return translation || phrase;
     };
@@ -101,7 +102,7 @@ app.listen(port, async () => {
     swaggerDocs(app, port);
 
     app.all('*', async (req: Request, res: Response) => {
-        wrapSend(res, RESTFul.notFound(res, BL.URL_NOT_FOUND));
+        wrapSend(res, RESTFul.notFound, BL.URL_NOT_FOUND);
     });
 });
 

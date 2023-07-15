@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
 import {createProduct, deleteProduct, findAndUpdateProduct, findProduct,} from '../services/product-service';
-import RESTFul from '../helpers/rest-maker';
+import RESTFul from '../helpers/restful';
 import {wrapSend} from '../helpers/protocol';
 import {
     CreateProductBody,
@@ -10,13 +10,14 @@ import {
     UpdateProductParams
 } from '../schemas/product-schema';
 import {ParamsDictionary} from 'express-serve-static-core';
+import {BL} from '../helpers/biz-logics';
 
 export async function createProductCtrl(req: Request<ParamsDictionary, any, CreateProductBody>, res: Response, next: NextFunction) {
     const {body} = req;
 
     try {
         const product = await createProduct(body);
-        return wrapSend(res, RESTFul.ok(res), product);
+        return wrapSend(res, RESTFul.ok, BL.CREATE_PRODUCT_SUCCESS, product);
     } catch (e) {
         next(e);
     }
@@ -30,12 +31,12 @@ export async function updateProductCtrl(req: Request<UpdateProductParams, any, U
         const product = await findProduct({id});
 
         if (!product) {
-            return wrapSend(res, RESTFul.notFound(res));
+            return wrapSend(res, RESTFul.notFound, BL.NULL_PRODUCT);
         }
 
         const updatedProduct = await findAndUpdateProduct({id}, body);
 
-        return wrapSend(res, RESTFul.ok(res), updatedProduct);
+        return wrapSend(res, RESTFul.ok, BL.UPDATE_PRODUCT_SUCCESS, updatedProduct);
     } catch (e) {
         next(e);
     }
@@ -47,9 +48,9 @@ export async function getProductCtrl(req: Request<GetProductParams, any, any>, r
     try {
         const product = await findProduct({id});
         if (!product) {
-            return wrapSend(res, RESTFul.notFound(res));
+            return wrapSend(res, RESTFul.notFound, BL.NULL_PRODUCT);
         }
-        return wrapSend(res, RESTFul.ok(res), product);
+        return wrapSend(res, RESTFul.ok, BL.GET_PRODUCT_SUCCESS, product);
     } catch (e) {
         next(e);
     }
@@ -61,12 +62,12 @@ export async function deleteProductCtrl(req: Request<DeleteProductParams, any, a
         const product = await findProduct({id});
 
         if (!product) {
-            return wrapSend(res, RESTFul.notFound(res));
+            return wrapSend(res, RESTFul.notFound, BL.NULL_PRODUCT);
         }
 
         const deletedProduct = await deleteProduct({id});
 
-        return wrapSend(res, RESTFul.ok(res), deletedProduct);
+        return wrapSend(res, RESTFul.ok, BL.DELETE_PRODUCT_SUCCESS, deletedProduct);
     } catch (e) {
         next(e);
     }

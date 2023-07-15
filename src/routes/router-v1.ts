@@ -4,7 +4,7 @@ import validateRequest from '../middlewares/validate-request';
 import {createUserSchema} from '../schemas/user-schema';
 import {createSessionSchema} from '../schemas/session-schema';
 import {createUserSessionCtrl, deleteSessionCtrl, getUserSessionCtrl} from '../controllers/session-controller';
-import RESTFul from '../helpers/rest-maker';
+import RESTFul from '../helpers/restful';
 import {wrapSend} from '../helpers/protocol';
 import jwtAuth from '../middlewares/jwt-auth';
 import {
@@ -30,6 +30,7 @@ import {createOrderProductsSchema} from '../schemas/order-products-schema';
 import {createPostCtrl, deletePostCtrl, getPostsCtrl} from '../controllers/post-controller';
 import {getPostsSchema} from '../schemas/posts-schema';
 import {createPostSchema, deletePostSchema} from '../schemas/post-schema';
+import {BL} from '../helpers/biz-logics';
 
 const routerV1 = express.Router();
 
@@ -46,7 +47,7 @@ const routerV1 = express.Router();
  */
 routerV1.get('/ping', (req: Request, res: Response) => {
     logger.info('yeah it ran');
-    wrapSend(res, RESTFul.ok(res), res.__('PONG'));
+    wrapSend(res, RESTFul.ok, BL.PONG);
 });
 
 /**

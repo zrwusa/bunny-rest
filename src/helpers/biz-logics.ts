@@ -1,54 +1,7 @@
-export type BizLogicKeys =
-    'PONG'
-    | 'PASSWORD_RESET_SUCCESS'
-    | 'PASSWORD_RECOVER_EMAIL_SENT_SUCCESS'
-    | 'PASSWORD_RESET_PRE_CHECK_SUCCESS'
-    | 'REGISTER_SUCCESS'
-    | 'LOGIN_SUCCESS'
-    | 'LOGOUT_SUCCESS'
-    | 'LOGOUT_FAILED'
-    | 'REFRESH_ACCESS_TOKEN_SUCCESS'
-    | 'FIND_ONE_USER_SUCCESS'
-    | 'FIND_INFLUENCERS_SUCCESS'
-    | 'FIND_OLYMPIC_WINNERS_SUCCESS'
-    | 'FB_DISCOVERY_FIND_USER_SUCCESS'
-    | 'FIND_EMPLOYEES_SUCCESS'
-    | 'EXAMPLE_GET'
-    | 'EXAMPLE_PUT'
-    | 'EXAMPLE_SAGA_GET_ITEMS'
-    | 'EXAMPLE_PRIVATE_PUT'
-    | 'INAPPROPRIATE_ACCESS_TOKEN'
-    | 'ACCESS_TOKEN_EXPIRED'
-    | 'ACCESS_TOKEN_MALFORMED'
-    | 'ACCESS_TOKEN_NOT_BEFORE'
-    | 'ACCESS_TOKEN_VERIFY_UNKNOWN'
-    | 'ACCESS_TOKEN_NOT_PROVIDED'
-    | 'REISSUE_ACCESS_TOKEN_FAILED'
-    | 'INAPPROPRIATE_REFRESH_TOKEN'
-    | 'REFRESH_TOKEN_EXPIRED'
-    | 'SESSION_NOT_EXIST'
-    | 'REFRESH_TOKEN_MALFORMED'
-    | 'REFRESH_TOKEN_NOT_BEFORE'
-    | 'REFRESH_TOKEN_VERIFY_UNKNOWN'
-    | 'AUTH_FORMAT_ERROR_ACCESS_TOKEN'
-    | 'UNKNOWN_AUTH_ERROR'
-    | 'REFRESH_TOKEN_NOT_PROVIDED'
-    | 'CAN_NOT_UPDATE_REFRESH_TOKEN'
-    | 'INCORRECT_EMAIL_OR_PASSWORD'
-    | 'USER_EXISTS'
-    | 'NULL_USER'
-    | 'INVALID_PASSWORD_RESET_LINK_OR_EXPIRED'
-    | 'INVALID_USERNAME_OR_EMAIL'
-    | 'RESOURCE_NOT_FOUND'
-    | 'NO_CUR_PRICE'
-    | 'PING'
-    | 'ORDER_NOT_EXIST'
-    | 'URL_NOT_FOUND'
-    | 'CREATE_ORDER_SUCCESS'
-    | 'INTERNAL_SERVER_ERROR'
-    ;
-export type Locales = 'en' | 'zh' | 'es' | 'code' | 'key';
-export type BizLogic = { [key in Locales]: string };
+import {BizLogicKeys} from '../types/biz-logic';
+
+export type BizLogicProps = 'en' | 'zh' | 'es' | 'code' | 'key';
+export type BizLogic = { [key in BizLogicProps]: string };
 export type BizLogics = { [key in BizLogicKeys]: BizLogic };
 export const BL: BizLogics = {
     PONG: {
@@ -380,4 +333,146 @@ export const BL: BizLogics = {
         code: 'XXX 0046',
         key: 'CREATE_ORDER_SUCCESS'
     },
+    DELETE_USER_SUCCESS: {
+        en: 'Delete user success',
+        zh: '删除用户成功',
+        es: 'xxx',
+        code: 'XXX 0047',
+        key: 'DELETE_USER_SUCCESS'
+    },
+    CREATE_USER_SUCCESS: {
+        en: 'Create user success',
+        zh: '创建用户成功',
+        es: 'xxx',
+        code: 'XXX 0048',
+        key: 'CREATE_USER_SUCCESS'
+    },
+    VALIDATE_REQUEST_FAILED: {
+        en: 'Request validated failed',
+        zh: '请求验证失败',
+        es: 'xxx',
+        code: 'XXX 0049',
+        key: 'VALIDATE_REQUEST_FAILED'
+    },
+    FIND_SESSION_SUCCESS: {
+        en: 'Find session success',
+        zh: '获取会话成功',
+        es: 'xxx',
+        code: 'XXX 0050',
+        key: 'FIND_SESSION_SUCCESS'
+    },
+    DELETE_PRODUCT_SUCCESS: {
+        en: 'Delete product success',
+        zh: '删除产品成功',
+        es: 'xxx',
+        code: 'XXX 0052',
+        key: 'DELETE_PRODUCT_SUCCESS'
+    },
+    NULL_PRODUCT: {
+        en: 'Product not exists',
+        zh: '产品不纯在',
+        es: 'xxx',
+        code: 'XXX 0053',
+        key: 'NULL_PRODUCT'
+    },
+    GET_PRODUCT_SUCCESS: {
+        en: 'Get product success',
+        zh: '获取产品成功',
+        es: 'xxx',
+        code: 'XXX 0054',
+        key: 'GET_PRODUCT_SUCCESS'
+    },
+    CREATE_PRODUCT_SUCCESS: {
+        en: 'Create product success',
+        zh: '创建产品成功',
+        es: 'xxx',
+        code: 'XXX 0055',
+        key: 'CREATE_PRODUCT_SUCCESS'
+    },
+    UPDATE_PRODUCT_SUCCESS: {
+        en: 'Update product success',
+        zh: '更新产品成功',
+        es: 'xxx',
+        code: 'XXX 0056',
+        key: 'UPDATE_PRODUCT_SUCCESS'
+    },
+    GET_ORDERS_SUCCESS: {
+        en: 'Get orders success',
+        zh: '获取订单列表成功',
+        es: 'xxx',
+        code: 'XXX 0057',
+        key: 'GET_ORDERS_SUCCESS'
+    },
+    DELETE_ORDER_SUCCESS: {
+        en: 'Delete order success',
+        zh: '删除订单成功',
+        es: 'xxx',
+        code: 'XXX 0058',
+        key: 'DELETE_ORDER_SUCCESS'
+    },
+    GET_ORDERS_PRODUCTS_SUCCESS: {
+        en: 'Get orders with products success',
+        zh: '获取订单产品列表成功',
+        es: 'xxx',
+        code: 'XXX 0059',
+        key: 'GET_ORDERS_PRODUCTS_SUCCESS'
+    },
+    ASSOCIATE_ORDER_PRODUCTS_SUCCESS: {
+        en: 'Associate order with products success',
+        zh: '关联订单产品成功',
+        es: 'xxx',
+        code: 'XXX 0060',
+        key: 'ASSOCIATE_ORDER_PRODUCTS_SUCCESS'
+    },
+    ASSOCIATE_USER_ADDRESSES_SUCCESS: {
+        en: 'Associate user with addresses success',
+        zh: '关联用户地址成功',
+        es: 'xxx',
+        code: 'XXX 0061',
+        key: 'ASSOCIATE_USER_ADDRESSES_SUCCESS'
+    },
+    CREATE_POST_SUCCESS: {
+        en: 'Create post success',
+        zh: '创建帖子成功',
+        es: 'xxx',
+        code: 'XXX 0062',
+        key: 'CREATE_POST_SUCCESS'
+    },
+    GET_POSTS_SUCCESS: {
+        en: 'Get posts success',
+        zh: '获取帖子列表成功',
+        es: 'xxx',
+        code: 'XXX 0063',
+        key: 'GET_POSTS_SUCCESS'
+    },
+    NULL_POST: {
+        en: 'Post not exists',
+        zh: '帖子不存在',
+        es: 'xxx',
+        code: 'XXX 0064',
+        key: 'NULL_POST'
+    },
+    UPDATE_POST_SUCCESS: {
+        en: 'Update post success',
+        zh: '更新贴子成功',
+        es: 'xxx',
+        code: 'XXX 0065',
+        key: 'UPDATE_POST_SUCCESS'
+    },
+    DELETE_POST_SUCCESS: {
+        en: 'Delete post success',
+        zh: '删除贴子成功',
+        es: 'xxx',
+        code: 'XXX 0066',
+        key: 'DELETE_POST_SUCCESS'
+    },
+}
+
+const set = new Set<string>();
+for (let key in BL) {
+    if (BL.hasOwnProperty(key)) {
+        if (set.has(BL[key as BizLogicKeys].code)) throw new Error('Duplicated code, BizLogic definition error')
+        if (key !== BL[key as BizLogicKeys].key) throw (new Error('Duplicated key, BizLogic definition error'))
+        set.add(BL[key as BizLogicKeys].code);
+    }
 }

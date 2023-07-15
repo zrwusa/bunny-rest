@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response} from 'express';
-import RESTFul from '../helpers/rest-maker';
+import RESTFul from '../helpers/restful';
 import {wrapSend} from '../helpers/protocol';
 import {Order} from '../entities/order-entity';
 import {Product} from '../entities/product-entity';
@@ -16,14 +16,14 @@ export async function createOrderProductsCtrl(req: Request<CreateOrderProductsPa
     const order = await orderRepo.findOneBy({id: id});
 
     if (!order) {
-        return wrapSend(res, RESTFul.notFound(res, BL.ORDER_NOT_EXIST));
+        return wrapSend(res, RESTFul.notFound, BL.ORDER_NOT_EXIST);
     } else {
         const productsRepo = PgDS.getRepository(Product);
         const products = await productsRepo.find({where: {id: In(body)}});
         try {
             order.products = products;
             const savedOrder = await orderRepo.save(order);
-            return wrapSend(res, RESTFul.ok(res), savedOrder);
+            return wrapSend(res, RESTFul.ok, BL.ASSOCIATE_ORDER_PRODUCTS_SUCCESS, savedOrder);
         } catch (e) {
             next(e);
         }

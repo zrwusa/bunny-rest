@@ -4,7 +4,7 @@ import {createSession, deleteSession, findSessions,} from '../services/session-s
 import {validatePassword} from '../services/user-service';
 import {signJwt} from '../helpers/jwt';
 import {wrapSend} from '../helpers/protocol';
-import RESTFul from '../helpers/rest-maker';
+import RESTFul from '../helpers/restful';
 import {BL} from '../helpers/biz-logics';
 
 export async function createUserSessionCtrl(req: Request, res: Response, next: NextFunction) {
@@ -12,10 +12,10 @@ export async function createUserSessionCtrl(req: Request, res: Response, next: N
     const user = await validatePassword(req.body);
 
     if (!user) {
-        wrapSend(res, RESTFul.unauthorized(res, BL.INCORRECT_EMAIL_OR_PASSWORD));
+        wrapSend(res, RESTFul.unauthorized, BL.INCORRECT_EMAIL_OR_PASSWORD);
     } else {
         try {
-            // create an access token
+            // create access token
             const accessToken = signJwt(
                 {...user},
                 {expiresIn: config.get('ACCESS_TOKEN_TTL')}
@@ -32,7 +32,7 @@ export async function createUserSessionCtrl(req: Request, res: Response, next: N
 
             res.setHeader('x-access-token', accessToken);
             res.setHeader('x-refresh-token', refreshToken);
-            return wrapSend(res, RESTFul.ok(res), res.__('LOGIN_SUCCESS'));
+            return wrapSend(res, RESTFul.ok, BL.LOGIN_SUCCESS);
         } catch (e: any) {
             next(e);
         }
@@ -44,7 +44,7 @@ export async function getUserSessionCtrl(req: Request, res: Response, next: Next
 
     try {
         const userSession = await findSessions({user_id: userId});
-        wrapSend(res, RESTFul.ok(res), userSession);
+        wrapSend(res, RESTFul.ok, BL.FIND_SESSION_SUCCESS, userSession);
     } catch (e) {
         next(e);
     }
@@ -57,9 +57,9 @@ export async function deleteSessionCtrl(req: Request, res: Response, next: NextF
         if (deletedCount > 0) {
             res.setHeader('x-access-token', '');
             res.setHeader('x-refresh-token', '');
-            wrapSend(res, RESTFul.ok(res), res.__('LOGOUT_SUCCESS'));
+            wrapSend(res, RESTFul.ok, BL.LOGOUT_SUCCESS);
         } else {
-            wrapSend(res, RESTFul.unprocessableEntity(res, BL.LOGOUT_FAILED));
+            wrapSend(res, RESTFul.unprocessableEntity, BL.LOGOUT_FAILED);
         }
     } catch (e) {
         next(e);
