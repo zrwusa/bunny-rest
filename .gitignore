@@ -12,9 +12,11 @@ npm-debug.*
 
 # custom
 .idea/
+.vscode/
 
 notes/
 
+build/
 public/
 __tests__/
 

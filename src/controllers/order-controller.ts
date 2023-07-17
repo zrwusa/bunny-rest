@@ -4,7 +4,7 @@ import RESTFul from '../helpers/restful';
 import {wrapSend} from '../helpers/protocol';
 import {Order} from '../entities/order-entity';
 import {ParamsDictionary} from '../types/express-enhanced';
-import {CreateOrderBody, DeleteOrderParam} from '../schemas/order-schema';
+import {CreateOrderBody} from '../schemas/order-schema';
 import {PgDS} from '../helpers/postgres-data-source';
 import {BL} from '../helpers/biz-logics';
 
@@ -30,7 +30,7 @@ export async function getOrdersCtrl(req: Request, res: Response, next: NextFunct
     }
 }
 
-export async function deleteOrdersCtrl(req: Request<DeleteOrderParam>, res: Response, next: NextFunction) {
+export async function deleteOrdersCtrl(req: Request, res: Response, next: NextFunction) {
     const orderRepo = PgDS.getRepository(Order);
     const {id} = req.params;
     try {

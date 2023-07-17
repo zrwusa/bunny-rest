@@ -74,40 +74,40 @@ export const BL: BizLogics = {
         code: 'XXX 0009',
         key: 'REFRESH_ACCESS_TOKEN_SUCCESS'
     },
-    FIND_ONE_USER_SUCCESS: {
-        en: 'Find on user success',
+    GET_ONE_USER_SUCCESS: {
+        en: 'Get on user success',
         zh: '成功获取用户',
         es: 'Usuario adquirido correctamente',
         code: 'XXX 0010',
-        key: 'FIND_ONE_USER_SUCCESS'
+        key: 'GET_ONE_USER_SUCCESS'
     },
-    FIND_INFLUENCERS_SUCCESS: {
-        en: 'Find influencers success',
+    GET_INFLUENCERS_SUCCESS: {
+        en: 'Get influencers success',
         zh: '获取网红列表成功',
         es: 'Obtén la lista de influencers con éxito',
         code: 'XXX 0011',
-        key: 'FIND_INFLUENCERS_SUCCESS'
+        key: 'GET_INFLUENCERS_SUCCESS'
     },
-    FIND_OLYMPIC_WINNERS_SUCCESS: {
-        en: 'Find olympic winners success',
+    GET_OLYMPIC_WINNERS_SUCCESS: {
+        en: 'Get olympic winners success',
         zh: '获取奥运会冠军列表成功',
         es: 'Obtuvo con éxito la lista de campeones olímpicos',
         code: 'XXX 0012',
-        key: 'FIND_OLYMPIC_WINNERS_SUCCESS'
+        key: 'GET_OLYMPIC_WINNERS_SUCCESS'
     },
-    FB_DISCOVERY_FIND_USER_SUCCESS: {
-        en: 'Facebook discovery find user success',
+    FB_DISCOVERY_GET_USER_SUCCESS: {
+        en: 'Facebook discovery get user success',
         zh: '通过脸书获取用户信息成功',
         es: 'Información de usuario obtenida con éxito a través de Facebook',
         code: 'XXX 0013',
-        key: 'FB_DISCOVERY_FIND_USER_SUCCESS'
+        key: 'FB_DISCOVERY_GET_USER_SUCCESS'
     },
-    FIND_EMPLOYEES_SUCCESS: {
-        en: 'Find employees success',
+    GET_EMPLOYEES_SUCCESS: {
+        en: 'Get employees success',
         zh: '获取雇员列表成功',
         es: 'Obtener la lista de empleados correctamente',
         code: 'XXX 0014',
-        key: 'FIND_EMPLOYEES_SUCCESS'
+        key: 'GET_EMPLOYEES_SUCCESS'
     },
     EXAMPLE_GET: {
         en: 'Example get success',
@@ -354,12 +354,12 @@ export const BL: BizLogics = {
         code: 'XXX 0049',
         key: 'VALIDATE_REQUEST_FAILED'
     },
-    FIND_SESSION_SUCCESS: {
-        en: 'Find session success',
+    GET_SESSION_SUCCESS: {
+        en: 'Get session success',
         zh: '获取会话成功',
         es: 'xxx',
         code: 'XXX 0050',
-        key: 'FIND_SESSION_SUCCESS'
+        key: 'GET_SESSION_SUCCESS'
     },
     DELETE_PRODUCT_SUCCESS: {
         en: 'Delete product success',

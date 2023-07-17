@@ -4,7 +4,7 @@ import {wrapSend} from '../helpers/protocol';
 import {ParamsDictionary} from 'express-serve-static-core';
 import {createPost, deletePost, findAndUpdatePost, findPost, findPosts} from '../services/post-service';
 import {GetPostsQuery} from '../schemas/posts-schema';
-import {CreatePostBody, DeletePostParams, UpdatePostBody, UpdatePostParams} from '../schemas/post-schema';
+import {CreatePostBody, UpdatePostBody, UpdatePostParams} from '../schemas/post-schema';
 import {BL} from '../helpers/biz-logics';
 
 // todo can we use Zob schema as the Request type?
@@ -49,7 +49,7 @@ export async function updatePostCtrl(req: Request<UpdatePostParams, any, UpdateP
 
 }
 
-export async function deletePostCtrl(req: Request<DeletePostParams, any, any>, res: Response, next: NextFunction) {
+export async function deletePostCtrl(req: Request, res: Response, next: NextFunction) {
     const {id} = req.params;
     try {
         const post = await findPost({id});

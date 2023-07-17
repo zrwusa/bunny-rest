@@ -5,11 +5,11 @@ import logger from './logger';
 export const mongoConnect = async () => {
     try {
         const url = config.get<string>('MONGO_DB_URI');
-        logger.info(`Trying to connect to MongoDB ${url}`);
+        logger.info(`MongoDB connecting ${url}`);
         await MongoDS.initialize();
-        logger.info(`Successfully connected to MongoDB ${url}`);
-    } catch (e) {
-        logger.error('Could not connect to MongoDB');
-        logger.error(e);
+        logger.info(`MongoDB connected! ${url}`);
+    } catch (err) {
+        logger.error(`MongoDB connecting error: ${err}`);
+        logger.error(err);
     }
 }

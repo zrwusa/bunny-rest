@@ -1,4 +1,3 @@
-import {get} from 'lodash';
 import {NextFunction, Request, Response} from 'express';
 import {verifyJwt} from '../helpers/jwt';
 import {findSessions, reIssueAccessToken} from '../services/session-service';
@@ -7,7 +6,7 @@ import {wrapSend} from '../helpers/protocol';
 import {BL} from '../helpers/biz-logics';
 
 const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
-    const accessTokenRaw = get(req, 'headers.authorization', '');
+    const accessTokenRaw = req.headers.authorization;
     if (typeof accessTokenRaw !== 'string') {
         return wrapSend(res, RESTFul.unauthorized, BL.ACCESS_TOKEN_MALFORMED);
     }
@@ -24,7 +23,7 @@ const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
                 return next();
             }
         } else if (expired) {
-            const refreshToken = get(req, 'headers.x-refresh');
+            const refreshToken = req.headers['x-refresh'];
             if (refreshToken && typeof refreshToken === 'string') {
                 const {expired} = verifyJwt(refreshToken);
                 if (expired) {
@@ -40,7 +39,6 @@ const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
                     return next();
                 } else {
                     return wrapSend(res, RESTFul.unauthorized, BL.REISSUE_ACCESS_TOKEN_FAILED);
-
                 }
             } else {
                 return wrapSend(res, RESTFul.unauthorized, BL.REFRESH_TOKEN_NOT_PROVIDED);

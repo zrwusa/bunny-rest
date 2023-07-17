@@ -28,8 +28,9 @@ export function startMetricsServer() {
         return res.send(await client.register.metrics());
     });
 
-    const metricsPort = config.get<number>('METRICS_PORT');
-    app.listen(metricsPort, () => {
-        log.info(`Metrics server started at http://localhost:${metricsPort}`);
+    const METRICS_PORT = config.get<number>('METRICS_PORT');
+
+    app.listen(METRICS_PORT, () => {
+        log.info(`Metrics server started at http://localhost:${METRICS_PORT}`);
     });
 }

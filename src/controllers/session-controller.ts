@@ -33,7 +33,7 @@ export async function createUserSessionCtrl(req: Request, res: Response, next: N
             res.setHeader('x-access-token', accessToken);
             res.setHeader('x-refresh-token', refreshToken);
             return wrapSend(res, RESTFul.ok, BL.LOGIN_SUCCESS);
-        } catch (e: any) {
+        } catch (e) {
             next(e);
         }
     }
@@ -44,7 +44,7 @@ export async function getUserSessionCtrl(req: Request, res: Response, next: Next
 
     try {
         const userSession = await findSessions({user_id: userId});
-        wrapSend(res, RESTFul.ok, BL.FIND_SESSION_SUCCESS, userSession);
+        wrapSend(res, RESTFul.ok, BL.GET_SESSION_SUCCESS, userSession);
     } catch (e) {
         next(e);
     }

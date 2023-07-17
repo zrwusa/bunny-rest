@@ -9,12 +9,12 @@ import RESTFul from './helpers/restful';
 import config from 'config';
 import logger from './helpers/logger';
 import {redisConnect} from './helpers/redis-client';
-import swaggerDocs from './helpers/swagger';
+import {startSwaggerDocs} from './helpers/swagger';
 import {startApollo} from './helpers/apollo-server';
 import cors from 'cors';
 import {postgresConnect} from './helpers/postgres-connect';
 import {mongoConnect} from './helpers/mongo-connect';
-import {BL, BizLogicProps} from './helpers/biz-logics';
+import {BizLogicProps, BL} from './helpers/biz-logics';
 import {BizLogicKeys} from './types/biz-logic';
 
 const app = express();
@@ -99,7 +99,7 @@ app.listen(port, async () => {
 
     startMetricsServer();
 
-    swaggerDocs(app, port);
+    startSwaggerDocs(app, port);
 
     app.all('*', async (req: Request, res: Response) => {
         wrapSend(res, RESTFul.notFound, BL.URL_NOT_FOUND);

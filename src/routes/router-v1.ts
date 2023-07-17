@@ -36,7 +36,7 @@ const routerV1 = express.Router();
 
 /**
  * @openapi
- * /ping:
+ * /api/v1/ping:
  *  get:
  *     tags:
  *     - Ping
@@ -52,7 +52,7 @@ routerV1.get('/ping', (req: Request, res: Response) => {
 
 /**
  * @openapi
- * 'api/v1/users':
+ * '/api/v1/users':
  *  post:
  *     tags:
  *     - User
@@ -83,7 +83,7 @@ routerV1.post('/users/:id/addresses', [validateRequest(createUserAddressesSchema
 
 /**
  * @openapi
- * 'api/v1/sessions':
+ * '/api/v1/sessions':
  *  post:
  *     tags:
  *     - Session
@@ -93,7 +93,7 @@ routerV1.post('/users/:id/addresses', [validateRequest(createUserAddressesSchema
  *      content:
  *        application/json:
  *           schema:
- *              $ref: '#/components/schemas/CreateSessionInput'
+ *              $ref: '#/components/schemas/CreateSessionBody'
  *     responses:
  *      200:
  *        description: Success
@@ -118,7 +118,7 @@ routerV1.post('/products', [jwtAuth, validateRequest(createProductSchema)], crea
 routerV1.put('/products/:id', [jwtAuth, validateRequest(updateProductSchema)], updateProductCtrl);
 /**
  * @openapi
- * 'api/v1/products/{id}':
+ * '/api/v1/products/{id}':
  *  get:
  *     tags:
  *     - Products

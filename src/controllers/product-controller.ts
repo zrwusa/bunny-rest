@@ -2,13 +2,7 @@ import {NextFunction, Request, Response} from 'express';
 import {createProduct, deleteProduct, findAndUpdateProduct, findProduct,} from '../services/product-service';
 import RESTFul from '../helpers/restful';
 import {wrapSend} from '../helpers/protocol';
-import {
-    CreateProductBody,
-    DeleteProductParams,
-    GetProductParams,
-    UpdateProductBody,
-    UpdateProductParams
-} from '../schemas/product-schema';
+import {CreateProductBody} from '../schemas/product-schema';
 import {ParamsDictionary} from 'express-serve-static-core';
 import {BL} from '../helpers/biz-logics';
 
@@ -23,7 +17,7 @@ export async function createProductCtrl(req: Request<ParamsDictionary, any, Crea
     }
 }
 
-export async function updateProductCtrl(req: Request<UpdateProductParams, any, UpdateProductBody>, res: Response, next: NextFunction) {
+export async function updateProductCtrl(req: Request, res: Response, next: NextFunction) {
     const {id} = req.params;
     const {body} = req;
 
@@ -43,7 +37,7 @@ export async function updateProductCtrl(req: Request<UpdateProductParams, any, U
 
 }
 
-export async function getProductCtrl(req: Request<GetProductParams, any, any>, res: Response, next: NextFunction) {
+export async function getProductCtrl(req: Request, res: Response, next: NextFunction) {
     const {id} = req.params;
     try {
         const product = await findProduct({id});
@@ -56,7 +50,7 @@ export async function getProductCtrl(req: Request<GetProductParams, any, any>, r
     }
 }
 
-export async function deleteProductCtrl(req: Request<DeleteProductParams, any, any>, res: Response, next: NextFunction) {
+export async function deleteProductCtrl(req: Request, res: Response, next: NextFunction) {
     const {id} = req.params;
     try {
         const product = await findProduct({id});

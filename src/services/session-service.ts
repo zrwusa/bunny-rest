@@ -8,8 +8,7 @@ import {randomUUID} from 'crypto';
 import {User} from '../entities/user-entity';
 
 export async function createSession(userId: string, userAgent: string) {
-
-    const session = {id: randomUUID(), user_id: userId, user_agent: userAgent};
+    const session = {id: randomUUID(), user_id: userId, user_agent: userAgent, valid: true};
     const setStatus = await redisClient.set(userId.toString(), JSON.stringify(session));
 
     // todo logic needs to be optimized
@@ -41,10 +40,9 @@ export async function reIssueAccessToken({refreshToken}: { refreshToken: string;
     const userId = _.get(decoded, 'id');
     if (!decoded || !userId) return false;
 
-
     const sessionStr = await redisClient.get(userId);
-
     let session: Session | null = null;
+
     if (sessionStr) {
         session = JSON.parse(sessionStr) as Session;
     } else {

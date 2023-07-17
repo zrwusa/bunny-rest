@@ -25,7 +25,7 @@ services:
       - PORT=8181
       - MONGO_DB_URI=mongodb://root_test:root_test_password@mongo-test:27017/bunny_rest_test?authSource=admin
       - SALT_WORK_FACTOR=10
-      - ACCESS_TOKEN_TTL=15m
+      - ACCESS_TOKEN_TTL=1m
       - REFRESH_TOKEN_TTL=1y
       - METRICS_PORT=9191
       - REDIS_URI=redis://@redis-test:6379

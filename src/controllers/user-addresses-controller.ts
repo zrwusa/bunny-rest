@@ -1,5 +1,4 @@
 import {NextFunction, Request, Response} from 'express';
-import {CreateUserAddressBody, CreateUserAddressParams} from '../schemas/user-addresses-schema';
 import {User} from '../entities/user-entity';
 import {wrapSend} from '../helpers/protocol';
 import RESTFul from '../helpers/restful';
@@ -7,7 +6,7 @@ import {Address} from '../entities/address-entity';
 import {PgDS} from '../helpers/postgres-data-source';
 import {BL} from '../helpers/biz-logics';
 
-export async function createUserAddressesCtrl(req: Request<CreateUserAddressParams, any, CreateUserAddressBody>, res: Response, next: NextFunction) {
+export async function createUserAddressesCtrl(req: Request, res: Response, next: NextFunction) {
     const {id} = req.params;
     const {body} = req;
 

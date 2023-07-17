@@ -4,7 +4,6 @@
 <thead><tr><th>Feature</th><th>Desc</th></tr></thead>
 <tbody>
 <tr><td>Development, test, production environment</td><td></td></tr>
-<tr><td>JWT Auth</td><td>  </td></tr>
 <tr><td>RESTFul & API protocol</td><td></td></tr>
 <tr><td>GraphQL</td><td></td></tr>
 <tr><td>Docker</td><td></td></tr>

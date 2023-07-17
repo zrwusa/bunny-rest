@@ -4,11 +4,10 @@ import {wrapSend} from '../helpers/protocol';
 import {Order} from '../entities/order-entity';
 import {Product} from '../entities/product-entity';
 import {In} from 'typeorm';
-import {CreateOrderProductsBody, CreateOrderProductsParams} from '../schemas/order-products-schema';
 import {PgDS} from '../helpers/postgres-data-source';
 import {BL} from '../helpers/biz-logics';
 
-export async function createOrderProductsCtrl(req: Request<CreateOrderProductsParams, any, CreateOrderProductsBody>, res: Response, next: NextFunction) {
+export async function createOrderProductsCtrl(req: Request, res: Response, next: NextFunction) {
     const {id} = req.params;
     const {body} = req;
 
