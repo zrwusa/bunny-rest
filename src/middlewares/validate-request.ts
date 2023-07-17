@@ -25,7 +25,7 @@ const validateRequest = (schema: AnyZodObject) =>
             //     message: e.errors,
             //     stack: err.stack
             // });
-            return wrapSend(res, RESTFul.unprocessableEntity, BL.VALIDATE_REQUEST_FAILED, e.errors);
+            return wrapSend(res, RESTFul.unprocessableEntity, BL.VALIDATE_REQUEST_FAILED, null, e.errors);
         }
     };
 

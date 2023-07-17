@@ -4,9 +4,10 @@ export interface BunnyProtocol {
         message?: string,
         description: string,
     },
-    bizLogic?: {
-        code?: string,
-        message?: string,
+    bizLogic: {
+        code: string,
+        message: string,
+        payload? : any
     },
     error?: {
         code?: string,
