@@ -3,15 +3,15 @@
 
 
 type Demo {
-    id: Int!
-    name: String!
-    price: Float!
+  id: Int!
+  name: String!
+  price: Float!
 }
 
 type Mutation {
-    createDemo(name: String!, price: Float!): Demo!
+  createDemo(name: String!, price: Float!): Demo!
 }
 
 type Query {
-    demos: [Demo!]!
+  demos: [Demo!]!
 }

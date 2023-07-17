@@ -31,6 +31,6 @@ export function startMetricsServer() {
     const METRICS_PORT = config.get<number>('METRICS_PORT');
 
     app.listen(METRICS_PORT, () => {
-        log.info(`Metrics server started at http://localhost:${METRICS_PORT}`);
+        log.info(`Metrics server started http://localhost:${METRICS_PORT}/metrics`);
     });
 }

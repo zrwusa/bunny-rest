@@ -1,5 +1,16 @@
+export type BLCodeWithTranslation = {
+    key: string,
+    code: string,
+    en: string,
+    zh: string,
+    es: string,
+};
+
+export type BizLogicWithTranslation = { [key in BizLogicKeys]: BLCodeWithTranslation };
+
 export type BizLogicKeys =
-    'PONG'
+    'INTERNAL_SERVER_ERROR'
+    | 'PONG'
     | 'PASSWORD_RESET_SUCCESS'
     | 'PASSWORD_RECOVER_EMAIL_SENT_SUCCESS'
     | 'PASSWORD_RESET_PRE_CHECK_SUCCESS'
@@ -8,15 +19,6 @@ export type BizLogicKeys =
     | 'LOGOUT_SUCCESS'
     | 'LOGOUT_FAILED'
     | 'REFRESH_ACCESS_TOKEN_SUCCESS'
-    | 'GET_ONE_USER_SUCCESS'
-    | 'GET_INFLUENCERS_SUCCESS'
-    | 'GET_OLYMPIC_WINNERS_SUCCESS'
-    | 'FB_DISCOVERY_GET_USER_SUCCESS'
-    | 'GET_EMPLOYEES_SUCCESS'
-    | 'EXAMPLE_GET'
-    | 'EXAMPLE_PUT'
-    | 'EXAMPLE_SAGA_GET_ITEMS'
-    | 'EXAMPLE_PRIVATE_PUT'
     | 'INAPPROPRIATE_ACCESS_TOKEN'
     | 'ACCESS_TOKEN_EXPIRED'
     | 'ACCESS_TOKEN_MALFORMED'
@@ -35,6 +37,15 @@ export type BizLogicKeys =
     | 'REFRESH_TOKEN_NOT_PROVIDED'
     | 'CAN_NOT_UPDATE_REFRESH_TOKEN'
     | 'INCORRECT_EMAIL_OR_PASSWORD'
+    | 'GET_ONE_USER_SUCCESS'
+    | 'GET_INFLUENCERS_SUCCESS'
+    | 'GET_OLYMPIC_WINNERS_SUCCESS'
+    | 'FB_DISCOVERY_GET_USER_SUCCESS'
+    | 'GET_EMPLOYEES_SUCCESS'
+    | 'EXAMPLE_GET'
+    | 'EXAMPLE_PUT'
+    | 'EXAMPLE_SAGA_GET_ITEMS'
+    | 'EXAMPLE_PRIVATE_PUT'
     | 'USER_EXISTS'
     | 'NULL_USER'
     | 'INVALID_PASSWORD_RESET_LINK_OR_EXPIRED'
@@ -45,7 +56,6 @@ export type BizLogicKeys =
     | 'ORDER_NOT_EXIST'
     | 'URL_NOT_FOUND'
     | 'CREATE_ORDER_SUCCESS'
-    | 'INTERNAL_SERVER_ERROR'
     | 'DELETE_USER_SUCCESS'
     | 'CREATE_USER_SUCCESS'
     | 'VALIDATE_REQUEST_FAILED'
@@ -60,8 +70,8 @@ export type BizLogicKeys =
     | 'GET_ORDERS_PRODUCTS_SUCCESS'
     | 'ASSOCIATE_ORDER_PRODUCTS_SUCCESS'
     | 'ASSOCIATE_USER_ADDRESSES_SUCCESS'
-    | 'GET_POSTS_SUCCESS'
     | 'CREATE_POST_SUCCESS'
+    | 'GET_POSTS_SUCCESS'
     | 'NULL_POST'
     | 'UPDATE_POST_SUCCESS'
     | 'DELETE_POST_SUCCESS'

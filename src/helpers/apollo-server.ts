@@ -14,7 +14,7 @@ export const startApollo = async () => {
 
     try {
         const server = await apolloServer.listen(PORT);
-        logger.info(`Successfully started Apollo Server ${server.url}`);
+        logger.info(`Apollo Server started ${server.url}`);
     } catch (err) {
         logger.error('Could not start Apollo Server');
         logger.error(err);

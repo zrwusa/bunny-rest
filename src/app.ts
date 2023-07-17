@@ -14,8 +14,8 @@ import {startApollo} from './helpers/apollo-server';
 import cors from 'cors';
 import {postgresConnect} from './helpers/postgres-connect';
 import {mongoConnect} from './helpers/mongo-connect';
-import {BizLogicProps, BL} from './helpers/biz-logics';
-import {BizLogicKeys} from './types/biz-logic';
+import {BL} from './helpers/biz-logics';
+import {BLCodeWithTranslation, BizLogicKeys} from './types/helpers/biz-logic';
 
 const app = express();
 
@@ -56,7 +56,7 @@ app.use(i18n.init);
 // Enhance i18n to read ts file in order to approach best practice
 app.use((req, res, next) => {
     res.__ = function (phrase: BizLogicKeys) {
-        const locale = req.getLocale() as BizLogicProps;
+        const locale = req.getLocale() as keyof BLCodeWithTranslation;
         const translation = BL[phrase][locale];
         return translation || phrase;
     };

@@ -1,4 +1,4 @@
-# Features
+# Architecture
 
 <table>
 <thead><tr><th>Feature</th><th>Desc</th></tr></thead>
@@ -6,16 +6,37 @@
 <tr><td>Development, test, production environment</td><td></td></tr>
 <tr><td>RESTFul & API protocol</td><td></td></tr>
 <tr><td>GraphQL</td><td></td></tr>
-<tr><td>Docker</td><td></td></tr>
+<tr><td>Docker</td><td>Containers manager</td></tr>
 <tr><td>Postgres</td><td>RDB</td></tr>
 <tr><td>MongoDB</td><td>NoSQL</td></tr>
 <tr><td>Redis</td><td></td></tr>
 <tr><td>Nginx</td><td>Load Balancing</td></tr>
 <tr><td>Swagger</td><td>API docs</td></tr>
-<tr><td>Prom-client</td><td>Monitoring with Prometheus</td></tr>
+<tr><td>Pino</td><td>Logger</td></tr>
+<tr><td>Prometheus,Prom-client</td><td>API performance monitoring with Prometheus</td></tr>
 <tr><td>Mailer</td><td></td></tr>
 </tbody>
 </table>
+
+Modular Architecture: Divide the entire system into multiple modules or services, with each module responsible for specific functionalities. This modular design improves the maintainability and scalability of the system. The frontend and backend can be developed and deployed as separate modules.
+
+Microservices Architecture: Further divide the system into independent microservices. Each microservice can be deployed, scaled, and maintained independently, providing specific business functionalities. Docker containerization can simplify the deployment and management of microservices.
+
+Load Balancing: Use load balancing to distribute traffic and requests, ensuring the system can handle a high volume of concurrent requests. Nginx can serve as a reverse proxy server for load balancing, distributing requests to multiple backend service instances.
+
+Caching: Utilize caching to enhance system performance and response time. Redis can be used as a caching server to store frequently accessed data and alleviate the load on the database.
+
+Database Selection: Choose the appropriate database based on your business requirements. PostgreSQL and MongoDB are suitable for structured and document-oriented data storage, respectively. You can select which database(s) to use or employ a combination based on your specific needs.
+
+Asynchronous Task Processing: Employ message queues or task queues to handle asynchronous tasks such as sending emails, processing background tasks, etc. RabbitMQ or Kafka can serve as message queues, helping decouple system components.
+
+Security: Ensure the system's security by implementing mechanisms such as authentication, authorization, and data encryption. Use JWT (JSON Web Token) or other authentication mechanisms to verify user identities, and employ HTTPS for data encryption during transmission.
+
+Monitoring and Logging: Utilize monitoring tools (e.g., Prometheus) and logging libraries (e.g., Pino) to track system performance, errors, and log information. These tools assist in quickly diagnosing and resolving issues.
+
+High Availability and Fault Tolerance: Improve system availability by designing redundant and backup architectures. Container orchestration tools like Kubernetes can aid in managing and automating container deployment and scaling.
+
+Automated Deployment and Continuous Integration/Continuous Delivery (CI/CD): Employ tools like Jenkins, GitLab CI/CD, or Travis CI to automate deployment and establish a CI/CD pipeline, streamlining development, testing, and deployment processes.
 
 # Dependencies 
 

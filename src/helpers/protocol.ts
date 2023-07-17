@@ -1,21 +1,15 @@
 import {Response} from 'express';
-import {BizLogic} from './biz-logics';
+import {RESTFulProtocol} from './restful';
+import {BunnyProtocol} from '../types/protocol';
+import {BLCodeWithTranslation} from '../types/helpers/biz-logic';
 
-export interface BunnyProtocol {
-    httpCode: number,
-    httpMessage?: string,
-    httpDescription: string,
-    bizLogicCode?: string,
-    bizLogicMessage?: string,
-    errorCode?: string,
-    errorMessage?: string,
-    errorStack?: string
-}
-
-export const wrapSend = (res: Response, bunnyProtocol: BunnyProtocol, bizLogic: BizLogic, resData?: any) => {
-    const bizLogicToProtocol = bizLogic ? {
-        bizLogicCode: bizLogic?.code,
-        bizLogicMessage: bizLogic?.key ? res.__(bizLogic.key) : '',
-    } : {};
-    return res.status(bunnyProtocol.httpCode).send({...bunnyProtocol, ...bizLogicToProtocol, resData}).end();
+export const wrapSend = (res: Response, restful: RESTFulProtocol, bizLogic: BLCodeWithTranslation, bunnyData?: any) => {
+    const {key, code} = bizLogic;
+    const needBeSentBody: BunnyProtocol = {
+        http: restful, bizLogic: {
+            code,
+            message: res.__(key)
+        }, bunnyData: bunnyData
+    };
+    return res.status(restful.code).send(needBeSentBody).end();
 };

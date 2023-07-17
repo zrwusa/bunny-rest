@@ -41,5 +41,5 @@ export function startSwaggerDocs(app: Express, port: number) {
         return res.send(swaggerSpec);
     });
 
-    logger.info(`Docs available at http://localhost:${port}/docs`);
+    logger.info(`Swagger Docs Server started http://localhost:${port}/docs`);
 }
