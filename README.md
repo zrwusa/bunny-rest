@@ -74,10 +74,18 @@ yarn dev:prepare
 yarn dev
 ```
 
+### stop
+
+```shell script
+yarn dev:unprepare
+```
+
+
 ## Docker development
 
+### start(all services including Bunny-rest, Swagger, prom-client, Nginx, Postgres, MongoDB, Redis)
 
-### start(all services including Nginx as loading balance, Postgres, MongoDB, Redis)
+Afterward, you can write code locally and have the changes automatically synced to the Docker containers. This approach is designed specifically for debugging issues that cannot be replicated in the local environment, for example, when the testing environment has complete test data and you need to debug in that environment. However, for regular local development, it is still recommended to use the first approach where Docker is used solely as containers for the dependent services while the local environment serves as the development environment.
 
 ```shell script
 yarn dev:start-all
@@ -88,12 +96,6 @@ yarn dev:start-all
 ```shell script
 yarn dev:prepare
 yarn dev
-```
-
-### stop
-
-```shell script
-yarn dev:unprepare
 ```
 
 # Architecture principles
