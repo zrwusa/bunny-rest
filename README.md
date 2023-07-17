@@ -9,7 +9,7 @@
 <tr><td>Docker</td><td>Containers manager</td></tr>
 <tr><td>Postgres</td><td>RDB</td></tr>
 <tr><td>MongoDB</td><td>NoSQL</td></tr>
-<tr><td>Redis</td><td></td></tr>
+<tr><td>Redis</td><td>Memory cache & session storage</td></tr>
 <tr><td>Nginx</td><td>Load Balancing</td></tr>
 <tr><td>Swagger</td><td>API docs</td></tr>
 <tr><td>Pino</td><td>Logger</td></tr>
@@ -43,7 +43,7 @@ Automated Deployment and Continuous Integration/Continuous Delivery (CI/CD): Emp
 <table>
 <thead><tr><th>Application</th><th>Version</th></tr></thead>
 <tbody>
-<tr><td>Docker</td><td>20.10.11, build dea9396</td></tr>
+<tr><td>Docker</td><td>Engine: 24.0.2</td></tr>
 <tr><td>Node.js</td><td>v19.9.0</td></tr>
 </tbody>
 </table>
