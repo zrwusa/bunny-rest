@@ -6,7 +6,6 @@ import {ParamsDictionary} from 'express-serve-static-core';
 import {GetOrdersProductsQuery} from '../schemas/orders-products-schema';
 import {BL} from '../helpers/biz-logics';
 
-// todo can we use Zob schema as the Request type?
 export async function getOrdersProductsCtrl(req: Request<ParamsDictionary, any, any, GetOrdersProductsQuery>, res: Response, next: NextFunction) {
     const {minPrice, maxPrice} = req.query;
     try {

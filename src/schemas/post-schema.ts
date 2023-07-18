@@ -1,17 +1,5 @@
 import {object, string, TypeOf} from 'zod';
 
-/**
- * @openapi
- * components:
- *   schema:
- *     Post:
- *       type: object
- *       required:
- *        - content
- *       properties:
- *         title:
- *           type: string
- */
 const body = object({
     content: string({
         required_error: 'Content is required',

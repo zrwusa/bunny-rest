@@ -49,7 +49,7 @@
 							"script": {
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"userId\", jsonData.resData.id);"
+									"postman.setEnvironmentVariable(\"userId\", jsonData.bunnyData.id);"
 								],
 								"type": "text/javascript"
 							}
@@ -233,7 +233,7 @@
 							"script": {
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"productId\", jsonData.resData.id);"
+									"postman.setEnvironmentVariable(\"productId\", jsonData.bunnyData.id);"
 								],
 								"type": "text/javascript"
 							}
@@ -409,7 +409,7 @@
 							"script": {
 								"exec": [
 									"const jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"orderId\", jsonData.resData.id);"
+									"postman.setEnvironmentVariable(\"orderId\", jsonData.bunnyData.id);"
 								],
 								"type": "text/javascript"
 							}
@@ -614,7 +614,7 @@
 							"script": {
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"postId\", jsonData.resData.id);"
+									"postman.setEnvironmentVariable(\"postId\", jsonData.bunnyData.id);"
 								],
 								"type": "text/javascript"
 							}
@@ -958,6 +958,7 @@
 				"type": "text/javascript",
 				"exec": [
 					"const newAccessToken = responseHeaders['x-access-token'];",
+					"console.log(`new access token ${newAccessToken}`);",
 					"",
 					"if(newAccessToken){",
 					"    console.log('Set new access token');",

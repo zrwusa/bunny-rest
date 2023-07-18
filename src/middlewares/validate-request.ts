@@ -1,12 +1,17 @@
 import {NextFunction, Request, Response} from 'express';
-import {AnyZodObject} from 'zod';
 import {wrapSend} from '../helpers/protocol';
 import RESTFul from '../helpers/restful';
 import {BL} from '../helpers/biz-logics';
+import {ValidateSchema} from '../types';
 
-const validateRequest = (schema: AnyZodObject) =>
+const validateRequest = (schema: ValidateSchema) =>
     (req: Request, res: Response, next: NextFunction) => {
         const {body, query, params} = req;
+
+        if (!body && !query && !params) {
+            return wrapSend(res, RESTFul.internalServerError, BL.VALIDATE_REQUEST_FAILED, null, {error: 'Invalid schema, the schema must include one of body, query, params keys'});
+        }
+
         try {
             schema.parse({
                 body: body,
@@ -15,17 +20,7 @@ const validateRequest = (schema: AnyZodObject) =>
             });
             next();
         } catch (e: any) {
-            // const err: any = new UnprocessableEntityError();
-            // const status = err.code || err.statusCode;
-            // let statusCode = parseInt(status);
-            //
-            // return res.status(statusCode).send({
-            //     type: err.constructor.name,
-            //     code: status && status.toString() || 'unknown',
-            //     message: e.errors,
-            //     stack: err.stack
-            // });
-            return wrapSend(res, RESTFul.unprocessableEntity, BL.VALIDATE_REQUEST_FAILED, null, e.errors);
+            return wrapSend(res, RESTFul.badRequest, BL.VALIDATE_REQUEST_FAILED, null, e.errors);
         }
     };
 

@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Bunny RESTFul API
+  description: Bunny RESTFul API description
+servers:
+  - url: http://example.com
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas: {}
+  parameters: {}
+paths:
+  /api/v1/users:
+    post:
+      description: Register a user
+      summary: Register a user
+      tags:
+        - User
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                password:
+                  type: string
+                  minLength: 6
+                passwordConfirmation:
+                  type: string
+                email:
+                  type: string
+                  format: email
+              required:
+                - name
+                - password
+                - passwordConfirmation
+                - email
+            example:
+              name: Pablo Rios
+              password: Password_123
+              passwordConfirmation: Password_123
+              email: test@example.com
+      responses:
+        "200":
+          description: Success
+          content: {}
+        "400":
+          description: Bad request
+        "409":
+          description: Conflict
+  /api/v1/sessions:
+    post:
+      description: Create a session
+      summary: Create a session
+      tags:
+        - Auth
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+            example:
+              email: test@example.com
+              password: Password_123
+      responses:
+        "200":
+          description: Success
+          content: {}
+        "400":
+          description: Bad request
+        "409":
+          description: Conflict
+  "/api/v1/products/{id}":
+    get:
+      description: Get a single product by the id
+      summary: Get a single product
+      tags:
+        - Product
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            example: d8803348-8521-42d4-b9a6-40c88902a800
+          required: true
+          name: id
+          in: path
+          description: The id of the product
+        - schema:
+            type: string
+            example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA4OTc0NDFhLWIwM2ItNGRiYy04YjUzLTFmMWI3ZGYzMmIyNSIsImNyZWF0ZV9hdCI6IjIwMjMtMDctMTdUMDM6NDc6MjAuMDQyWiIsInVwZGF0ZV9hdCI6IjIwMjMtMDctMTdUMDM6NDc6MjAuMDQyWiIsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSIsIm5hbWUiOiJQYWJsbyBSaW9zIiwiaWF0IjoxNjg5NjcyOTE4LCJleHAiOjE2ODk2NzY1MTh9.ltd7QrDKTRp9ticxVd0lBsqFh6Cq9rnVdN2c-yos1iyv8lGBKqJy1wxWottTOwiTQH6UKi3wQ6YjhjTd3y46J6aXSCOWM7thBaJSBTJHUsDoZ_tgV3gN1Cf1uTjrQSxwWNG1sOr5TPf37XkLqWWXV0tztpFyaj_VJkrzXPK6hFTHorJ30IVuJ91GRgoCh7fUktxWasujCi7k5_UFrgVAMDJpVOrXdCY6a6Wx9YxpgXu8LAIj3PDMceWaC_cOcWihKH5Yf0wY2bh6yGesxtZXoelM78Zb8xFdSaIjEDHWqmab10d1DIjdoM5cCmp1VZqFfd_sRY1NauRElfbaCkCQZ7Z31n5ZVf5ZCipNOrDJgTm50v0TE2xZeDH1SFhnltME6tXPh3EAPfolraqMWsTvAmbC7jorxs8oNCEihxnX9GTfz1k2cChfd-0_mPMeRO85WpAKpP2RBE_o-p_7nnoUCfulbXukjr-D5BrvaJTkItLN0_taApc2QrU5uYiGHIMsF4Fx0TjzNAG2qsjRDthZnnL8e6VcJHqVmJsVkCrJOpVzKN8_ix9M11gu22603Zojg7KCGLkZ479o6qyaje6xMoBG_SGQgE06C4FT4h8w6DyNrtP1j84mTwPQ7iHQyBtM1sbe2jeiMv5uxDbM4JtjOi5ENffT31X2Pygb65z-ZTU
+          required: true
+          name: x-refresh
+          in: header
+          description: Refresh token
+      responses:
+        "200":
+          description: Success
+          content: {}
+        "404":
+          description: Product not found
+  /api/v1/posts:
+    get:
+      description: Get posts data
+      summary: Get posts
+      tags:
+        - Post
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            example: "6"
+          required: true
+          name: from
+          in: query
+        - schema:
+            type: string
+            example: "10"
+          required: true
+          name: offset
+          in: query
+      responses:
+        "200":
+          description: Object with user data.
+          content: {}
+        "204":
+          description: No content - successful operation

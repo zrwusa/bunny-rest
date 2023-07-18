@@ -32,6 +32,7 @@ services:
       - POSTGRES_URI=postgresql://postgres:root_test_password@postgres-test:5432/bunny_rest_test
       - APOLLO_PORT=8171
       - CORS_ORIGINS=http://test-a:80,http://test-b:80
+      - OPEN_API_URL=http://example.com
     command: yarn serve
     expose:
       - "8181"

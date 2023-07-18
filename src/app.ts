@@ -16,6 +16,7 @@ import {postgresConnect} from './helpers/postgres-connect';
 import {mongoConnect} from './helpers/mongo-connect';
 import {BL} from './helpers/biz-logics';
 import {BLCodeWithTranslation, BizLogicKeys} from './types/helpers/biz-logic';
+import {writeDocumentation} from './helpers/zod-openapi';
 
 const app = express();
 
@@ -98,6 +99,8 @@ app.listen(port, async () => {
     await startApollo();
 
     startMetricsServer();
+
+    writeDocumentation();
 
     startSwaggerDocs(app, port);
 

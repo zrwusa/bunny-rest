@@ -1,43 +1,5 @@
 import {object, string, TypeOf} from 'zod';
-
-/**
- * @openapi
- * components:
- *  schemas:
- *    CreateUserBody:
- *      type: object
- *      required:
- *        - email
- *        - name
- *        - password
- *        - passwordConfirmation
- *      properties:
- *        email:
- *          type: string
- *          default: zrwusa@example.com
- *        name:
- *          type: string
- *          default: Pablo Rios
- *        password:
- *          type: string
- *          default: stringPassword123
- *        passwordConfirmation:
- *          type: string
- *          default: stringPassword123
- *    CreateUserResponse:
- *      type: object
- *      properties:
- *        email:
- *          type: string
- *        name:
- *          type: string
- *        _id:
- *          type: string
- *        createdAt:
- *          type: string
- *        updatedAt:
- *          type: string
- */
+import {openApiRegistry} from '../helpers/zod-openapi';
 
 const body = object({
     name: string({
@@ -66,6 +28,47 @@ const params = object({
     }),
 });
 
+// For OpenAPI .yaml generating
+openApiRegistry.registerPath({
+    method: 'post',
+    path: '/api/v1/users',
+    description: 'Register a user',
+    summary: 'Register a user',
+    tags: ['User'],
+    security: [],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: body,
+                    example: {
+                        name: 'Pablo Rios',
+                        password: 'Password_123',
+                        passwordConfirmation: 'Password_123',
+                        email: 'test@example.com'
+                    }
+                }
+            },
+            required: true,
+        },
+    },
+    responses: {
+        200: {
+            description: 'Success',
+            content: {
+                // 'application/json': {
+                //     schema: createUserResponseSchema,
+                // },
+            },
+        },
+        409: {
+            description: 'Conflict',
+        },
+        400: {
+            description: 'Bad request',
+        },
+    },
+});
 
 // TODO need implement i18n for zod
 export const createUserSchema = object({

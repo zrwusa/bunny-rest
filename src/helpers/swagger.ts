@@ -4,34 +4,33 @@ import swaggerUi from 'swagger-ui-express';
 import {version} from '../../package.json';
 import logger from './logger';
 
-const options: swaggerJsdoc.Options = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'Bunny Rest API Docs',
-            version,
-        },
-        components: {
-            securitySchemas: {
-                bearerAuth: {
-                    type: 'http',
-                    scheme: 'bearer',
-                    bearerFormat: 'JWT',
+export function startSwaggerDocs(app: Express, port: number) {
+    const options: swaggerJsdoc.Options = {
+        definition: {
+            openapi: '3.0.0',
+            info: {
+                title: 'Bunny Rest API Docs',
+                version,
+            },
+            components: {
+                securitySchemas: {
+                    bearerAuth: {
+                        type: 'http',
+                        scheme: 'bearer',
+                        bearerFormat: 'JWT',
+                    },
                 },
             },
+            security: [
+                {
+                    bearerAuth: [],
+                },
+            ],
         },
-        security: [
-            {
-                bearerAuth: [],
-            },
-        ],
-    },
-    apis: ['./src/routes/*.ts', './src/schemas/*.ts', './src/openapi/**/*.yaml'],
-};
+        apis: ['./src/openapi/**/*.yaml'],
+    };
 
-const swaggerSpec = swaggerJsdoc(options);
-
-export function startSwaggerDocs(app: Express, port: number) {
+    const swaggerSpec = swaggerJsdoc(options);
     // Swagger page
     app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

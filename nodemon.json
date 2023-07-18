@@ -1,0 +1,3 @@
+{
+    "ignore": ["src/openapi/*.json","src/openapi/*.yaml", "src/packages/"]
+}

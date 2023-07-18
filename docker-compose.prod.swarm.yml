@@ -28,6 +28,7 @@ services:
       - REDIS_URI=redis://@redis:6379
       - APOLLO_PORT=70
       - CORS_ORIGINS=http://example-a:80,http://example-b:80
+      - OPEN_API_URL=http://example.com
     command: yarn serve
     expose:
       - "80"

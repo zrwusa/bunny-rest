@@ -9,6 +9,7 @@ const {
     POSTGRES_URI,
     APOLLO_PORT,
     CORS_ORIGINS,
+    OPEN_API_URL,
 } = process.env;
 
 export default {
@@ -22,4 +23,5 @@ export default {
     POSTGRES_URI: POSTGRES_URI,
     APOLLO_PORT: APOLLO_PORT || '',
     CORS_ORIGINS: CORS_ORIGINS?.split(',')  || [],
+    OPEN_API_URL: OPEN_API_URL || '',
 };

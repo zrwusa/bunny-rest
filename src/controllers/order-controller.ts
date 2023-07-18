@@ -15,7 +15,6 @@ export async function createOrderCtrl(req: Request<ParamsDictionary, any, Create
         const order = await createOrder(body);
         return wrapSend(res, RESTFul.ok, BL.CREATE_ORDER_SUCCESS, order);
     } catch (e) {
-        // todo need to specify error type, i.e. validation error type
         next(e);
     }
 }

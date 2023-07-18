@@ -1,26 +1,8 @@
 import {number, object, string, TypeOf} from 'zod';
+import {openApiBearerAuth, openApiRegistry} from '../helpers/zod-openapi';
+import {xRefreshTokenSchema} from './auth-schema';
 
-/**
- * @openapi
- * components:
- *   schema:
- *     Product:
- *       type: object
- *       required:
- *        - title
- *        - description
- *        - price
- *        - image
- *       properties:
- *         title:
- *           type: string
- *         description:
- *           type: string
- *         price:
- *           type: number
- *         image:
- *           type: string
- */
+
 const body = object({
     title: string({
         required_error: 'Title is required',
@@ -38,7 +20,15 @@ const body = object({
 
 const params = object({
     id: string({
-        required_error: 'product id is required',
+        required_error: 'id is required',
+    }).openapi({
+        param: {
+            name: 'id',
+            in: 'path',
+            description: 'The id of the product',
+            required: true,
+        },
+        example: 'd8803348-8521-42d4-b9a6-40c88902a800',
     }),
 });
 
@@ -59,6 +49,31 @@ export const getProductSchema = object({
     params
 });
 
+// For OpenAPI .yaml generating
+openApiRegistry.registerPath({
+    method: 'get',
+    path: '/api/v1/products/{id}',
+    description: 'Get a single product by the id',
+    summary: 'Get a single product',
+    tags: ['Product'],
+    security: [{[openApiBearerAuth.name]: []}],
+    request: {
+        params: params.extend(xRefreshTokenSchema),
+    },
+    responses: {
+        200: {
+            description: 'Success',
+            content: {
+                // 'application/json': {
+                    // schema: xxx, // Replace 'xxx' with the appropriate schema definition for the Product model
+                // },
+            },
+        },
+        404: {
+            description: 'Product not found',
+        },
+    },
+});
 
 export type CreateProductBody = TypeOf<typeof body>;
 

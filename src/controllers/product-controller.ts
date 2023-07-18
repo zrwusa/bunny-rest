@@ -24,9 +24,7 @@ export async function updateProductCtrl(req: Request, res: Response, next: NextF
     try {
         const product = await findProduct({id});
 
-        if (!product) {
-            return wrapSend(res, RESTFul.notFound, BL.NULL_PRODUCT);
-        }
+        if (!product) return wrapSend(res, RESTFul.notFound, BL.NULL_PRODUCT);
 
         const updatedProduct = await findAndUpdateProduct({id}, body);
 
@@ -34,7 +32,6 @@ export async function updateProductCtrl(req: Request, res: Response, next: NextF
     } catch (e) {
         next(e);
     }
-
 }
 
 export async function getProductCtrl(req: Request, res: Response, next: NextFunction) {

@@ -7,11 +7,10 @@ import {GetPostsQuery} from '../schemas/posts-schema';
 import {CreatePostBody, UpdatePostBody, UpdatePostParams} from '../schemas/post-schema';
 import {BL} from '../helpers/biz-logics';
 
-// todo can we use Zob schema as the Request type?
 export async function getPostsCtrl(req: Request<ParamsDictionary, any, any, GetPostsQuery>, res: Response, next: NextFunction) {
     const {from, offset} = req.query;
     try {
-        const posts = await findPosts({from: parseFloat(from), offset: parseFloat(offset)});
+        const posts = await findPosts({from: parseInt(from), offset: parseInt(offset)});
         return wrapSend(res, RESTFul.ok, BL.GET_POSTS_SUCCESS, posts);
     } catch (e) {
         next(e);

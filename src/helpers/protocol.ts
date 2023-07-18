@@ -1,7 +1,6 @@
 import {Response} from 'express';
-import {RESTFulProtocol} from './restful';
 import {BunnyProtocol} from '../types/protocol';
-import {BLCodeWithTranslation} from '../types/helpers/biz-logic';
+import type {BLCodeWithTranslation, RESTFulProtocol} from '../types';
 
 export const wrapSend = (res: Response, restful: RESTFulProtocol, bizLogic: BLCodeWithTranslation, bunnyData: any = null, bizLogicPayload?: any) => {
     const {key, code} = bizLogic;
