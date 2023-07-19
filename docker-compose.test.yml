@@ -34,7 +34,7 @@ services:
       - APOLLO_PORT=8171
       - CORS_ORIGINS=http://test-a:80,http://test-b:80
       - OPEN_API_URL=http://example.com
-    command: yarn install && yarn build:in-docker && yarn serve:in-docker
+    command: bash -c "yarn build:in-docker && yarn serve:in-docker"
     expose:
       - "8181"
       - "9191"

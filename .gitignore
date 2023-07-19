@@ -18,8 +18,7 @@ notes/
 
 build/
 public/
-src/libs/zod-to-openapi/node_modules/
-src/libs/zod-to-openapi/dist/
+
 __tests__/
 
 .env

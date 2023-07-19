@@ -30,6 +30,13 @@ export const BL: BizLogicWithTranslation = {
         zh: '成功',
         es: 'Éxito'
     },
+    GET_CONFIG_SUCCESS: {
+        key: 'GET_CONFIG_SUCCESS',
+        code: `${BL_CATE.SERVICE}_0002`,
+        en: 'Get config success',
+        zh: '获取配置成功',
+        es: 'xxx'
+    },
     PASSWORD_RESET_SUCCESS: {
         key: 'PASSWORD_RESET_SUCCESS',
         code: `${BL_CATE.APP_USER}_0002`,

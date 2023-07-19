@@ -11,6 +11,7 @@ export type BizLogicWithTranslation = { [key in BizLogicKeys]: BLCodeWithTransla
 export type BizLogicKeys =
     'INTERNAL_SERVER_ERROR'
     | 'PONG'
+    | 'GET_CONFIG_SUCCESS'
     | 'PASSWORD_RESET_SUCCESS'
     | 'PASSWORD_RECOVER_EMAIL_SENT_SUCCESS'
     | 'PASSWORD_RESET_PRE_CHECK_SUCCESS'
