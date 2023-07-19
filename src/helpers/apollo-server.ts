@@ -5,7 +5,7 @@ import config from 'config';
 import {PgDS} from './postgres-data-source';
 
 export const startApollo = async () => {
-    const PORT = config.get<string>('APOLLO_PORT');
+    const PORT = config.get<number>('APOLLO_PORT');
 
     const apolloServer = new ApolloServer({
         schema: graphqlDemoSchema,

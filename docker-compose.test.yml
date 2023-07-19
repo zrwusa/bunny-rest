@@ -18,9 +18,11 @@ services:
       context: ./
       args:
         PKG_INSTALL_ENV: production
-    volumes:
-      - ./:/bunny-rest
-      - /bunny-rest/node_modules
+#   If you want to synchronize code in the testing environment in real-time, you can enable the mapping of volumes.
+#    volumes:
+#      - ./:/bunny-rest
+#      - /bunny-rest/node_modules
+#    restart: unless-stopped
     environment:
       - NODE_ENV=production
       - PORT=8181
@@ -34,13 +36,15 @@ services:
       - APOLLO_PORT=8171
       - CORS_ORIGINS=http://test-a:80,http://test-b:80
       - OPEN_API_URL=http://example.com
-    command: bash -c "yarn build:in-docker && yarn serve:in-docker"
+    entrypoint: sh -c "yarn build:in-docker && yarn serve:in-docker"
     expose:
       - "8181"
       - "9191"
       - "8171"
     depends_on:
+      - postgres-test
       - mongo-test
+      - redis-test
 
   postgres-test:
     image: postgres

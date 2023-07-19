@@ -3,13 +3,10 @@ FROM node:19
 WORKDIR /bunny-rest
 
 # Always copy the common files
-COPY ./* ./
+COPY . /bunny-rest
 
 ARG PKG_INSTALL_ENV
-RUN if [ "$PKG_INSTALL_ENV" = "development" ]; then \
-        COPY ./file_dev.txt ./; \
-    else \
-    fi
+
 # Running yarn install here is different from running in docker-compose*.yml,
 # running here the node_modules will be packaged in image
 # running in docker-compose*.yml the node_modules will be installed in container,
