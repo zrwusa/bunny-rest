@@ -27,7 +27,6 @@ Dockerfile
 docker-compose*
 Caddyfile*
 deploy.sh
-BunnyServerTS.postman_collection.json
+guides/
 .env.test
 .env.development
-diagrams

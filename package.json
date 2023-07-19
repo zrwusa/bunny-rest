@@ -1,6 +1,7 @@
 {
   "name": "bunny-rest",
   "version": "1.0.0",
+  "private": true,
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -8,14 +9,16 @@
     "dev:unprepare": "docker-compose -f docker-compose.dev.yml down",
     "dev": "cross-env NODE_ENV=development nodemon src/index.ts",
     "dev:ts-node": "cross-env NODE_ENV=development ts-node-dev --ignore-watch='src/openapi/' --respawn --transpile-only src/index.ts",
-    "build": "cp -R certs public/ && cp -R src/openapi public/src && cp .env public && cross-env NODE_ENV=production tsc",
-    "serve": "yarn build && cross-env NODE_ENV=production node public/src/index.js",
+    "dev:in-docker": "DOCKER_DEV=yes ts-node-dev --ignore-watch='src/openapi/' --respawn --transpile-only src/index.ts",
+    "build": "cp -R certs public/ && cp -R src/openapi public/src && cp .env public && tsc",
+    "build:in-docker": "cp -R certs public/ && cp -R src/openapi public/src && tsc",
+    "serve": "node public/src/index.js",
+    "serve:in-docker": "DOCKER_DEV=yes node public/src/index.js",
     "test": "cross-env NODE_ENV=test node public/index.js",
     "dev:start-all": "docker-compose -f docker-compose.dev-all.yml up -d --build",
     "dev:stop-all": "docker-compose -f docker-compose.dev-all.yml down",
-    "test:deploy": "docker-compose -f docker-compose.test.yml up -d --build",
-    "test:undeploy": "docker-compose -f docker-compose.test.yml down",
-    "in-docker:dev": "cross-env NODE_ENV=development DOCKER_DEV=yes ts-node-dev --ignore-watch='src/openapi/' --respawn --transpile-only src/index.ts"
+    "deploy:test": "docker-compose -f docker-compose.test.yml up -d --build",
+    "undeploy:test": "docker-compose -f docker-compose.test.yml down"
   },
   "dependencies": {
     "apollo-server": "^3.12.0",

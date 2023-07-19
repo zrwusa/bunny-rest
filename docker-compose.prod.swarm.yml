@@ -19,6 +19,7 @@ services:
         PKG_INSTALL_ENV: production
     restart: unless-stopped
     environment:
+      - NODE_ENV=production
       - PORT=80
       - MONGO_DB_URI=mongodb://root_prod:root_prod_password@mongo:27017/bunny-rest?authSource=admin
       - SALT_WORK_FACTOR=10
@@ -26,10 +27,11 @@ services:
       - REFRESH_TOKEN_TTL=1y
       - METRICS_PORT=90
       - REDIS_URI=redis://@redis:6379
+      - POSTGRES_URI=postgresql://postgres:root_prod_password@postgres:5432/bunny_rest
       - APOLLO_PORT=70
       - CORS_ORIGINS=http://example-a:80,http://example-b:80
       - OPEN_API_URL=http://example.com
-    command: yarn serve
+    command: yarn serve:in-docker
     expose:
       - "80"
       - "90"

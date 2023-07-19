@@ -22,6 +22,7 @@ services:
       - ./:/bunny-rest
       - /bunny-rest/node_modules
     environment:
+      - NODE_ENV=development
       - PORT=8080
       - MONGO_DB_URI=mongodb://root_dev:root_dev_password@mongo-dev:27017/bunny_rest_dev?authSource=admin
       - SALT_WORK_FACTOR=10
@@ -33,7 +34,7 @@ services:
       - APOLLO_PORT=8070
       - CORS_ORIGINS=http://localhost:3000,http://localhost:3001
       - OPEN_API_URL=http://example.com
-    command: yarn in-docker:dev
+    command: yarn dev:in-docker
     expose:
       - "8080"
       - "9090"
