@@ -171,6 +171,36 @@
 			]
 		},
 		{
+			"name": "CheckConfig",
+			"item": [
+				{
+					"name": "GetConfig",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "zh",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{endpoint}}/api/v1/config",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"config"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Address",
 			"item": [
 				{

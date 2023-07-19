@@ -62,7 +62,7 @@ REFRESH_TOKEN_TTL=1y
 METRICS_PORT=9090
 REDIS_URI=redis://@localhost:6379
 POSTGRES_URI=postgresql://postgres:root_dev_password@localhost:5432/bunny_rest_dev
-APOLLO_PORT=8070
+APOLLO_PORT=7070
 CORS_ORIGINS=http://localhost:3000,http://localhost:3001
 ```
 
@@ -88,7 +88,7 @@ yarn dev:unprepare
 Afterward, you can write code locally and have the changes automatically synced to the Docker containers. This approach is designed specifically for debugging issues that cannot be replicated in the local environment, for example, when the testing environment has complete test data and you need to debug in that environment. However, for regular local development, it is still recommended to use the first approach where Docker is used solely as containers for the dependent services while the local environment serves as the development environment.
 
 ```shell script
-yarn dev:start-all
+yarn dev:all-in-docker
 ```
 
 ### start(not including Nginx as loading balance, neither bunny-rest)

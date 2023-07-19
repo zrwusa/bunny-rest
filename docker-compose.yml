@@ -32,7 +32,7 @@ services:
       - APOLLO_PORT=70
       - CORS_ORIGINS=http://example-a:80,http://example-b:80
       - OPEN_API_URL=http://example.com
-    entrypoint: sh -c "yarn build:in-docker && yarn serve:in-docker"
+    entrypoint: sh -c "yarn build:compose && yarn serve:compose"
     expose:
       - "80"
       - "90"
