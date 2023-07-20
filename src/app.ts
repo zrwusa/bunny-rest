@@ -15,7 +15,7 @@ import cors from 'cors';
 import {postgresConnect} from './helpers/postgres-connect';
 import {mongoConnect} from './helpers/mongo-connect';
 import {BL} from './helpers/biz-logics';
-import {BLCodeWithTranslation, BizLogicKeys} from './types/helpers/biz-logic';
+import type {BLCodeWithTranslation, BizLogicKeys} from './types';
 import {writeDocumentation} from './helpers/zod-openapi';
 
 const app = express();

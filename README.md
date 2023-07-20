@@ -4,19 +4,84 @@
 <thead><tr><th>Feature</th><th>Desc</th></tr></thead>
 <tbody>
 <tr><td>Development, test, production environment</td><td></td></tr>
-<tr><td>RESTFul & API protocol</td><td></td></tr>
+<tr><td>RESTFul & API protocol</td><td>Standard RESTFul API with a protocol structured encapsulated response</td></tr>
 <tr><td>GraphQL</td><td></td></tr>
 <tr><td>Docker</td><td>Containers manager</td></tr>
 <tr><td>Postgres</td><td>RDB</td></tr>
 <tr><td>MongoDB</td><td>NoSQL</td></tr>
 <tr><td>Redis</td><td>Memory cache & session storage</td></tr>
 <tr><td>Nginx</td><td>Load Balancing</td></tr>
+<tr><td>I18n</td><td>Supports translation</td></tr>
 <tr><td>Swagger</td><td>API docs</td></tr>
 <tr><td>Pino</td><td>Logger</td></tr>
 <tr><td>Prometheus,Prom-client</td><td>API performance monitoring with Prometheus</td></tr>
 <tr><td>Mailer</td><td></td></tr>
 </tbody>
 </table>
+
+## Standard RESTFul API with a protocol structured encapsulated response
+
+```
+{
+    "http": {
+        "code": 200,
+        "message": "OK",
+        "description": "indicates that the request has succeeded."
+    },
+    "bizLogic": {
+        "code": "APP_ORDER_0060",
+        "message": "Associate order with products success"
+    },
+    "bunnyData": {
+        "id": "95da24dd-9200-4e87-90b4-bff84e52011f",
+        "create_at": "2023-07-19T16:27:29.429Z",
+        "update_at": "2023-07-19T16:27:29.429Z",
+        "price": "56936.52",
+        "address": "test address",
+        "amount": 1,
+        "products": [
+            {
+                "id": "7f4b18ad-1621-45f3-a572-9826a9071f9a",
+                "create_at": "2023-07-19T16:26:55.667Z",
+                "update_at": "2023-07-19T16:27:14.618Z",
+                "title": "Canon EOS 1500D DSLR Camera with 18-55mm Lens",
+                "description": "Designed for first-time DSLR owners who want impressive results straight out of the box, capture those magic moments no matter your level with the EOS 1500D. With easy to use automatic shooting modes, large 24.1 MP sensor, Canon Camera Connect app integration and built-in feature guide, EOS 1500D is always ready to go.",
+                "price": "1699.99",
+                "image": "https://i.imgur.com/QlRphfQ.jpg"
+            }
+        ]
+    }
+}
+```
+
+## Standard validation response 
+
+```
+{
+    "http": {
+        "code": 400,
+        "message": "Bad Request",
+        "description": "indicates that the server cannot or will not process the request because the received syntax is invalid, nonsensical, or exceeds some limitation on what the server is willing to process."
+    },
+    "bizLogic": {
+        "code": "AUTH_0049",
+        "message": "Request validated failed",
+        "payload": [
+            {
+                "code": "invalid_type",
+                "expected": "string",
+                "received": "undefined",
+                "path": [
+                    "body",
+                    "password"
+                ],
+                "message": "Password is required"
+            }
+        ]
+    },
+    "bunnyData": null
+}
+```
 
 Modular Architecture: Divide the entire system into multiple modules or services, with each module responsible for specific functionalities. This modular design improves the maintainability and scalability of the system. The frontend and backend can be developed and deployed as separate modules.
 
@@ -55,15 +120,18 @@ Automated Deployment and Continuous Integration/Continuous Delivery (CI/CD): Emp
 ### prepare, create .env.development file, then config it
 
 ```dotenv 
-MONGO_DB_URI=mongodb://root_dev:root_dev_password@localhost:27017/bunny_rest_dev?authSource=admin
-SALT_WORK_FACTOR=10
-ACCESS_TOKEN_TTL=15m
-REFRESH_TOKEN_TTL=1y
-METRICS_PORT=9090
-REDIS_URI=redis://@localhost:6379
-POSTGRES_URI=postgresql://postgres:root_dev_password@localhost:5432/bunny_rest_dev
-APOLLO_PORT=7070
-CORS_ORIGINS=http://localhost:3000,http://localhost:3001
+      - NODE_ENV=development
+      - PORT=8080
+      - MONGO_DB_URI=mongodb://root_dev:root_dev_password@mongo-dev:27017/bunny_rest_dev?authSource=admin
+      - SALT_WORK_FACTOR=10
+      - ACCESS_TOKEN_TTL=0.1m
+      - REFRESH_TOKEN_TTL=60m
+      - METRICS_PORT=9090
+      - REDIS_URI=redis://@redis-dev:6379
+      - POSTGRES_URI=postgresql://postgres:root_dev_password@postgres-dev:5432/bunny_rest_dev
+      - APOLLO_PORT=7070
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:3001
+      - OPEN_API_URL=http://example.com
 ```
 
 ### start
