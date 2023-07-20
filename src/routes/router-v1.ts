@@ -1,11 +1,9 @@
-import express, {Request, Response} from 'express';
+import express from 'express';
 import {createUserCtrl, deleteUserCtrl} from '../controllers/user-controller';
 import validateRequest from '../middlewares/validate-request';
 import {createUserSchema} from '../schemas/user-schema';
 import {createSessionSchema} from '../schemas/session-schema';
 import {createUserSessionCtrl, deleteSessionCtrl, getUserSessionCtrl} from '../controllers/session-controller';
-import RESTFul from '../helpers/restful';
-import {wrapSend} from '../helpers/protocol';
 import jwtAuth from '../middlewares/jwt-auth';
 import {
     createProductSchema,
@@ -19,7 +17,6 @@ import {
     getProductCtrl,
     updateProductCtrl
 } from '../controllers/product-controller';
-import logger from '../helpers/logger';
 import {createOrderCtrl, deleteOrdersCtrl, getOrdersCtrl} from '../controllers/order-controller';
 import {createUserAddressesSchema} from '../schemas/user-addresses-schema';
 import {getOrdersProductsSchema} from '../schemas/orders-products-schema';
@@ -30,43 +27,13 @@ import {createOrderProductsSchema} from '../schemas/order-products-schema';
 import {createPostCtrl, deletePostCtrl, getPostsCtrl} from '../controllers/post-controller';
 import {getPostsSchema} from '../schemas/posts-schema';
 import {createPostSchema, deletePostSchema} from '../schemas/post-schema';
-import {BL} from '../helpers/biz-logics';
-import config from 'config';
-import type {BunnyConfig} from '../types/config';
+import {getConfigCtrl, getPingCtrl} from '../controllers/service-controller';
 
 const routerV1 = express.Router();
 
-routerV1.get('/ping', (req: Request, res: Response) => {
-    logger.info('yeah it ran');
-    wrapSend(res, RESTFul.ok, BL.PONG);
-});
+routerV1.get('/ping', getPingCtrl);
 
-routerV1.get('/config', jwtAuth, (req: Request, res: Response) => {
-    const configGot: BunnyConfig = {
-        NODE_ENV: config.get<string>('NODE_ENV'),
-        PORT:'',
-        MONGO_DB_URI:'',
-        SALT_WORK_FACTOR:'',
-        ACCESS_TOKEN_TTL:'',
-        REFRESH_TOKEN_TTL:'',
-        METRICS_PORT:'',
-        REDIS_URI:'',
-        POSTGRES_URI:'',
-        APOLLO_PORT:'',
-        CORS_ORIGINS:[''],
-        OPEN_API_URL:''};
-
-    for (let key in configGot) {
-        if (configGot.hasOwnProperty(key)) {
-            if (key === 'CORS_ORIGINS') {
-                configGot['CORS_ORIGINS'] = config.get<string[]>(key);
-            } else {
-                configGot[key as keyof Omit<BunnyConfig, 'CORS_ORIGINS'>] = config.get<string>(key);
-            }
-        }
-    }
-    wrapSend(res, RESTFul.ok, BL.GET_CONFIG_SUCCESS, configGot);
-});
+routerV1.get('/config', jwtAuth, getConfigCtrl);
 
 routerV1.post('/users', validateRequest(createUserSchema), createUserCtrl);
 
