@@ -1,11 +1,11 @@
 import {BeforeInsert, Column, Entity, OneToMany} from 'typeorm';
 import {CommonEntity} from './common-entity';
-import {Address} from './address-entity';
+import {AddressEntity} from './address-entity';
 import bcrypt from 'bcrypt';
 import config from 'config';
 
 @Entity('user')
-export class User extends CommonEntity {
+export class UserEntity extends CommonEntity {
     @Column({
         type: 'text',
         unique: true,
@@ -21,8 +21,8 @@ export class User extends CommonEntity {
         type: 'text',
     })
     password!: string;
-    @OneToMany(() => Address, address => address.user)
-    addresses!: Address[];
+    @OneToMany(() => AddressEntity, address => address.user)
+    addresses!: AddressEntity[];
 
     @BeforeInsert()
     async beforeInsert() {

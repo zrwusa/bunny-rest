@@ -31,5 +31,4 @@ if (isProduction) {
 
 export default logger;
 
-
-
+export {logger};

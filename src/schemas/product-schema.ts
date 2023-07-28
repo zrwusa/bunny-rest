@@ -65,7 +65,7 @@ openApiRegistry.registerPath({
             description: 'Success',
             content: {
                 // 'application/json': {
-                    // schema: xxx, // Replace 'xxx' with the appropriate schema definition for the Product model
+                // schema: xxx, // Replace 'xxx' with the appropriate schema definition for the Product model
                 // },
             },
         },

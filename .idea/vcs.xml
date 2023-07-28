@@ -2,7 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/libs/zod-to-openapi" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/packages/zod-to-openapi" vcs="Git" />
   </component>
 </project>

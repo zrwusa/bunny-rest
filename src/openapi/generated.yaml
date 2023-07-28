@@ -14,6 +14,50 @@ components:
   schemas: {}
   parameters: {}
 paths:
+  /api/v1/posts:
+    get:
+      description: Get posts data
+      summary: Get posts
+      tags:
+        - Post
+      parameters:
+        - schema:
+            type: string
+            example: "6"
+          required: true
+          name: from
+          in: query
+        - schema:
+            type: string
+            example: "10"
+          required: true
+          name: offset
+          in: query
+      responses:
+        "200":
+          description: Object with user data.
+          content: {}
+        "204":
+          description: No content - successful operation
+  "/api/v1/posts/{id}":
+    get:
+      description: Get post data
+      summary: Get post
+      tags:
+        - Post
+      parameters:
+        - schema:
+            type: string
+            example: a313ad97-76f2-443f-be35-c37a0cbf3886
+          required: true
+          name: id
+          in: path
+      responses:
+        "200":
+          description: Object with user data.
+          content: {}
+        "204":
+          description: No content - successful operation
   /api/v1/users:
     post:
       description: Register a user
@@ -117,30 +161,3 @@ paths:
           content: {}
         "404":
           description: Product not found
-  /api/v1/posts:
-    get:
-      description: Get posts data
-      summary: Get posts
-      tags:
-        - Post
-      security:
-        - bearerAuth: []
-      parameters:
-        - schema:
-            type: string
-            example: "6"
-          required: true
-          name: from
-          in: query
-        - schema:
-            type: string
-            example: "10"
-          required: true
-          name: offset
-          in: query
-      responses:
-        "200":
-          description: Object with user data.
-          content: {}
-        "204":
-          description: No content - successful operation

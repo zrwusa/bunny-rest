@@ -4,14 +4,14 @@ import logger from './logger';
 import config from 'config';
 import {PgDS} from './postgres-data-source';
 
+const PORT = config.get<number>('APOLLO_PORT');
+
+const apolloServer = new ApolloServer({
+    schema: graphqlDemoSchema,
+    context: PgDS
+});
+
 export const startApollo = async () => {
-    const PORT = config.get<number>('APOLLO_PORT');
-
-    const apolloServer = new ApolloServer({
-        schema: graphqlDemoSchema,
-        context: PgDS
-    });
-
     try {
         const server = await apolloServer.listen(PORT);
         logger.info(`Apollo Server started ${server.url}`);
@@ -20,3 +20,5 @@ export const startApollo = async () => {
         logger.error(err);
     }
 }
+
+export {apolloServer};

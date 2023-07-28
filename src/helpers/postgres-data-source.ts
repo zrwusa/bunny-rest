@@ -1,13 +1,13 @@
 import config from 'config';
-
 import {DataSource} from 'typeorm';
-import {User} from '../entities/user-entity';
-import {Order} from '../entities/order-entity';
-import {Address} from '../entities/address-entity';
-import {Product} from '../entities/product-entity';
+import {UserEntity} from '../entities/user-entity';
+import {OrderEntity} from '../entities/order-entity';
+import {AddressEntity} from '../entities/address-entity';
+import {ProductEntity} from '../entities/product-entity';
 import {SnakeNamingStrategy} from 'typeorm-naming-strategies';
-import {GraphqlDemo} from '../entities/graphql-demo';
-import {Post} from '../entities/post-entity';
+import {DemoGraphql} from '../entities/demo-graphql-entity';
+import {PostEntity} from '../entities/post-entity';
+import {DemoThunkEntity} from '../entities/demo-thunk-entity';
 
 const url = config.get<string>('POSTGRES_URI');
 
@@ -15,7 +15,7 @@ export const PgDS = new DataSource({
     type: 'postgres',
     url,
     namingStrategy: new SnakeNamingStrategy(),
-    entities: [User, Order, Address, Product, GraphqlDemo, Post],
+    entities: [UserEntity, OrderEntity, AddressEntity, ProductEntity, DemoGraphql, PostEntity, DemoThunkEntity],
     synchronize: true,
     logging: ['error', 'warn'],
     subscribers: [],

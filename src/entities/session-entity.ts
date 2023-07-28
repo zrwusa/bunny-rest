@@ -2,7 +2,7 @@ import {Column, Entity} from 'typeorm';
 import {CommonEntity} from './common-entity';
 
 @Entity('session')
-export class Session extends CommonEntity {
+export class SessionEntity extends CommonEntity {
     @Column({
         type: 'text',
     })

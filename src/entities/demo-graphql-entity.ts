@@ -1,8 +1,7 @@
 import {BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
 
-
-@Entity('graphql_demo')
-export class GraphqlDemo extends BaseEntity {
+@Entity('demo_graphql')
+export class DemoGraphql extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: number;
 

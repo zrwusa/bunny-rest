@@ -1,8 +1,8 @@
 import {Column, Entity} from 'typeorm';
 import {CommonEntity} from './common-entity';
 
-@Entity('post')
-export class PostEntity extends CommonEntity {
+@Entity('demo_thunk')
+export class DemoThunkEntity extends CommonEntity {
 
     @Column({
         type: 'text',

@@ -4,7 +4,7 @@ import RESTFul from '../helpers/restful';
 import {wrapSend} from '../helpers/protocol';
 import {CreateProductBody} from '../schemas/product-schema';
 import {ParamsDictionary} from 'express-serve-static-core';
-import {BL} from '../helpers/biz-logics';
+import {BL} from '../constants/biz-logics';
 
 export async function createProductCtrl(req: Request<ParamsDictionary, any, CreateProductBody>, res: Response, next: NextFunction) {
     const {body} = req;

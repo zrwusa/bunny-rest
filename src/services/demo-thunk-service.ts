@@ -1,15 +1,15 @@
 import {databaseResponseTimeHistogram} from '../helpers/metrics';
-import {PostEntity} from '../entities/post-entity';
+import {DemoThunkEntity} from '../entities/demo-thunk-entity';
 import {FindOptionsWhere} from 'typeorm';
 
-export async function createPost(input: Partial<PostEntity>) {
+export async function createDemoThunk(input: Partial<DemoThunkEntity>) {
     const metricsLabels = {
-        operation: 'createPost',
+        operation: 'createDemoThunk',
     };
-    const post = PostEntity.create(input);
+    const post = DemoThunkEntity.create(input);
     const timer = databaseResponseTimeHistogram.startTimer();
     try {
-        const result = await PostEntity.save(post);
+        const result = await DemoThunkEntity.save(post);
         timer({...metricsLabels, success: 'true'});
         return result;
     } catch (e) {
@@ -18,16 +18,16 @@ export async function createPost(input: Partial<PostEntity>) {
     }
 }
 
-export async function findPost(
-    query: Pick<FindOptionsWhere<PostEntity>, 'id'>
+export async function findDemoThunk(
+    query: Pick<FindOptionsWhere<DemoThunkEntity>, 'id'>
 ) {
     const metricsLabels = {
-        operation: 'findPost',
+        operation: 'findDemoThunk',
     };
 
     const timer = databaseResponseTimeHistogram.startTimer();
     try {
-        const result = await PostEntity.findOneBy(query);
+        const result = await DemoThunkEntity.findOneBy(query);
         timer({...metricsLabels, success: 'true'});
         return result;
     } catch (e) {
@@ -36,24 +36,23 @@ export async function findPost(
     }
 }
 
-export async function findAndUpdatePost(query: Pick<PostEntity, 'id'>, update: Partial<PostEntity>) {
-    return PostEntity.save({...update, ...query} as PostEntity);
+export async function findAndUpdateDemoThunk(query: Pick<DemoThunkEntity, 'id'>, update: Partial<DemoThunkEntity>) {
+    return DemoThunkEntity.save({...update, ...query} as DemoThunkEntity);
 }
 
-export async function deletePost(query: Pick<PostEntity, 'id'>) {
-    return await PostEntity.delete({...query});
+export async function deleteDemoThunk(query: Pick<DemoThunkEntity, 'id'>) {
+    return await DemoThunkEntity.delete({...query});
 }
 
-
-export async function findPosts(query: Partial<{ from: number, offset: number }>) {
+export async function findDemoThunks(query: Partial<{ from: number, offset: number }>) {
     const metricsLabels = {
-        operation: 'findPosts',
+        operation: 'findDemoThunks',
     };
     const {from, offset} = query;
     const timer = databaseResponseTimeHistogram.startTimer();
     try {
 
-        const posts = PostEntity.find();
+        const posts = DemoThunkEntity.find();
         timer({...metricsLabels, success: 'true'});
         return posts;
     } catch (e) {

@@ -1,9 +1,9 @@
 import {Column, Entity, JoinTable, ManyToMany} from 'typeorm';
 import {CommonEntity} from './common-entity';
-import {Product} from './product-entity';
+import {ProductEntity} from './product-entity';
 
 @Entity('order')
-export class Order extends CommonEntity {
+export class OrderEntity extends CommonEntity {
     @Column({
         type: 'numeric',
     })
@@ -20,7 +20,7 @@ export class Order extends CommonEntity {
     amount!: number;
 
 
-    @ManyToMany(() => Product,
+    @ManyToMany(() => ProductEntity,
         {
             // cascade: true means delete connected data while main data is being deleted
             cascade: true
@@ -36,5 +36,5 @@ export class Order extends CommonEntity {
             referencedColumnName: 'id'
         }
     })
-    products!: Product[];
+    products!: ProductEntity[];
 }

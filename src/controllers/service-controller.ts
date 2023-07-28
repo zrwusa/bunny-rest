@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
 import RESTFul from '../helpers/restful';
 import {wrapSend} from '../helpers/protocol';
-import {BL} from '../helpers/biz-logics';
+import {BL} from '../constants/biz-logics';
 import {BunnyConfig} from '../types/config';
 import config from 'config';
 import logger from '../helpers/logger';

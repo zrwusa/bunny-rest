@@ -4,7 +4,7 @@ import {wrapSend} from '../helpers/protocol';
 import RESTFul from '../helpers/restful';
 import {CreateUserBody, DeleteUserParams} from '../schemas/user-schema';
 import {ParamsDictionary} from '../types/express-enhanced';
-import {BL} from '../helpers/biz-logics';
+import {BL} from '../constants/biz-logics';
 
 
 export async function createUserCtrl(req: Request<ParamsDictionary, any, CreateUserBody>, res: Response, next: NextFunction) {

@@ -7,7 +7,7 @@ export interface BunnyProtocol {
     bizLogic: {
         code: string,
         message: string,
-        payload? : any
+        payload?: any
     },
     error?: {
         code?: string,

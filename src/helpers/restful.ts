@@ -1,4 +1,4 @@
-import type {RESTFulProtocol} from '../types/helpers/restful';
+import type {RESTFulProtocol} from '../types';
 
 const continueProcessing: RESTFulProtocol = {
     code: 100,

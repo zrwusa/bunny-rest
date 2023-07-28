@@ -1,13 +1,13 @@
 import {databaseResponseTimeHistogram} from '../helpers/metrics';
-import {Product} from '../entities/product-entity';
+import {ProductEntity} from '../entities/product-entity';
 import {PgDS} from '../helpers/postgres-data-source';
 import {FindOptionsWhere} from 'typeorm';
 
-export async function createProduct(input: Partial<Product>) {
+export async function createProduct(input: Partial<ProductEntity>) {
     const metricsLabels = {
         operation: 'createProduct',
     };
-    const productRepo = PgDS.getRepository(Product);
+    const productRepo = PgDS.getRepository(ProductEntity);
     const product = productRepo.create(input);
     const timer = databaseResponseTimeHistogram.startTimer();
     try {
@@ -21,13 +21,13 @@ export async function createProduct(input: Partial<Product>) {
 }
 
 export async function findProduct(
-    query: Pick<FindOptionsWhere<Product>, 'id'>
+    query: Pick<FindOptionsWhere<ProductEntity>, 'id'>
 ) {
     const metricsLabels = {
         operation: 'findProduct',
     };
 
-    const productRepo = PgDS.getRepository(Product);
+    const productRepo = PgDS.getRepository(ProductEntity);
 
     const timer = databaseResponseTimeHistogram.startTimer();
     try {
@@ -40,13 +40,13 @@ export async function findProduct(
     }
 }
 
-export async function findAndUpdateProduct(query: Pick<Product, 'id'>, update: Partial<Product>) {
-    const productRepo = PgDS.getRepository(Product);
+export async function findAndUpdateProduct(query: Pick<ProductEntity, 'id'>, update: Partial<ProductEntity>) {
+    const productRepo = PgDS.getRepository(ProductEntity);
 
     return productRepo.save({id: query.id, ...update});
 }
 
-export async function deleteProduct(query: Pick<Product, 'id'>) {
-    const productRepo = PgDS.getRepository(Product);
+export async function deleteProduct(query: Pick<ProductEntity, 'id'>) {
+    const productRepo = PgDS.getRepository(ProductEntity);
     return await productRepo.delete(query);
 }

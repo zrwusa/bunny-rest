@@ -1,4 +1,4 @@
-import {Order} from '../entities/order-entity';
+import {OrderEntity} from '../entities/order-entity';
 import {databaseResponseTimeHistogram} from '../helpers/metrics';
 import {PgDS} from '../helpers/postgres-data-source';
 
@@ -8,12 +8,12 @@ export async function findOrdersProducts(query: Partial<{ minPrice: number, maxP
         operation: 'findOrdersProducts',
     };
     const {minPrice, maxPrice} = query;
-    const orderRepo = PgDS.getRepository(Order);
+    const orderRepo = PgDS.getRepository(OrderEntity);
     const timer = databaseResponseTimeHistogram.startTimer();
     try {
         const orders = orderRepo.createQueryBuilder()
             .select('order')
-            .from(Order, 'order')
+            .from(OrderEntity, 'order')
             .leftJoinAndSelect('order.products', 'products')
             .where('order.price >= :minPrice AND order.price <= :maxPrice', {minPrice, maxPrice})
             .getMany();

@@ -3,15 +3,24 @@ import RESTFul from '../helpers/restful';
 import {wrapSend} from '../helpers/protocol';
 import {ParamsDictionary} from 'express-serve-static-core';
 import {createPost, deletePost, findAndUpdatePost, findPost, findPosts} from '../services/post-service';
-import {GetPostsQuery} from '../schemas/posts-schema';
-import {CreatePostBody, UpdatePostBody, UpdatePostParams} from '../schemas/post-schema';
-import {BL} from '../helpers/biz-logics';
+import {CreatePostBody, UpdatePostBody, UpdatePostParams, GetPostsQuery, GetPostParams} from '../schemas/post-schema';
+import {BL} from '../constants/biz-logics';
 
 export async function getPostsCtrl(req: Request<ParamsDictionary, any, any, GetPostsQuery>, res: Response, next: NextFunction) {
     const {from, offset} = req.query;
     try {
         const posts = await findPosts({from: parseInt(from), offset: parseInt(offset)});
         return wrapSend(res, RESTFul.ok, BL.GET_POSTS_SUCCESS, posts);
+    } catch (e) {
+        next(e);
+    }
+}
+
+export async function getPostCtrl(req: Request<ParamsDictionary, any, any, GetPostParams>, res: Response, next: NextFunction) {
+    const {id} = req.query;
+    try {
+        const post = await findPost({id});
+        return wrapSend(res, RESTFul.ok, BL.GET_POST_SUCCESS, post);
     } catch (e) {
         next(e);
     }

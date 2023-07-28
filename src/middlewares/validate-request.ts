@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
 import {wrapSend} from '../helpers/protocol';
 import RESTFul from '../helpers/restful';
-import {BL} from '../helpers/biz-logics';
+import {BL} from '../constants/biz-logics';
 import {ValidateSchema} from '../types';
 
 const validateRequest = (schema: ValidateSchema) =>

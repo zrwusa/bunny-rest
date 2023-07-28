@@ -2,11 +2,11 @@ import {NextFunction, Request, Response} from 'express';
 import {createOrder} from '../services/order-service';
 import RESTFul from '../helpers/restful';
 import {wrapSend} from '../helpers/protocol';
-import {Order} from '../entities/order-entity';
+import {OrderEntity} from '../entities/order-entity';
 import {ParamsDictionary} from '../types/express-enhanced';
 import {CreateOrderBody} from '../schemas/order-schema';
 import {PgDS} from '../helpers/postgres-data-source';
-import {BL} from '../helpers/biz-logics';
+import {BL} from '../constants/biz-logics';
 
 export async function createOrderCtrl(req: Request<ParamsDictionary, any, CreateOrderBody>, res: Response, next: NextFunction) {
     const {body} = req;
@@ -20,7 +20,7 @@ export async function createOrderCtrl(req: Request<ParamsDictionary, any, Create
 }
 
 export async function getOrdersCtrl(req: Request, res: Response, next: NextFunction) {
-    const orderRepo = PgDS.getRepository(Order);
+    const orderRepo = PgDS.getRepository(OrderEntity);
     try {
         const orders = await orderRepo.find();
         return wrapSend(res, RESTFul.ok, BL.GET_ORDERS_SUCCESS, orders);
@@ -30,7 +30,7 @@ export async function getOrdersCtrl(req: Request, res: Response, next: NextFunct
 }
 
 export async function deleteOrdersCtrl(req: Request, res: Response, next: NextFunction) {
-    const orderRepo = PgDS.getRepository(Order);
+    const orderRepo = PgDS.getRepository(OrderEntity);
     const {id} = req.params;
     try {
         const orders = await orderRepo.delete(id);

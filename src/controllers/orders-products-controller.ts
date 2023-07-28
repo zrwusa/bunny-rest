@@ -4,7 +4,7 @@ import {wrapSend} from '../helpers/protocol';
 import {findOrdersProducts} from '../services/orders-pruducts-service';
 import {ParamsDictionary} from 'express-serve-static-core';
 import {GetOrdersProductsQuery} from '../schemas/orders-products-schema';
-import {BL} from '../helpers/biz-logics';
+import {BL} from '../constants/biz-logics';
 
 export async function getOrdersProductsCtrl(req: Request<ParamsDictionary, any, any, GetOrdersProductsQuery>, res: Response, next: NextFunction) {
     const {minPrice, maxPrice} = req.query;

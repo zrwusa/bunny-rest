@@ -1,10 +1,10 @@
 import {Column, Entity, ManyToMany} from 'typeorm';
 import {CommonEntity} from './common-entity';
-import {Order} from './order-entity';
+import {OrderEntity} from './order-entity';
 
 
 @Entity('product')
-export class Product extends CommonEntity {
+export class ProductEntity extends CommonEntity {
 
     @Column({
         type: 'text'
@@ -27,10 +27,10 @@ export class Product extends CommonEntity {
     })
     image!: string;
 
-    @ManyToMany(() => Order,
+    @ManyToMany(() => OrderEntity,
         {
             // cascade: true means delete connected data while main data is being deleted
             cascade: true
         })
-    orders!: Order[];
+    orders!: OrderEntity[];
 }

@@ -5,7 +5,7 @@ import {validatePassword} from '../services/user-service';
 import {signJwt} from '../helpers/jwt';
 import {wrapSend} from '../helpers/protocol';
 import RESTFul from '../helpers/restful';
-import {BL} from '../helpers/biz-logics';
+import {BL} from '../constants/biz-logics';
 
 export async function createUserSessionCtrl(req: Request, res: Response, next: NextFunction) {
     // Validate the user's password

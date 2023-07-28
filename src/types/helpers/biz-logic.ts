@@ -1,10 +1,10 @@
+import type {LanguageCode} from '../constants';
+
 export type BLCodeWithTranslation = {
     key: string,
     code: string,
     en: string,
-    zh: string,
-    es: string,
-};
+} & Partial<LanguageCode>;
 
 export type BizLogicWithTranslation = { [key in BizLogicKeys]: BLCodeWithTranslation };
 
@@ -73,7 +73,13 @@ export type BizLogicKeys =
     | 'ASSOCIATE_USER_ADDRESSES_SUCCESS'
     | 'CREATE_POST_SUCCESS'
     | 'GET_POSTS_SUCCESS'
+    | 'GET_POST_SUCCESS'
     | 'NULL_POST'
     | 'UPDATE_POST_SUCCESS'
     | 'DELETE_POST_SUCCESS'
+    | 'CREATE_DEMO_THUNK_SUCCESS'
+    | 'GET_DEMO_THUNKS_SUCCESS'
+    | 'NULL_DEMO_THUNK'
+    | 'UPDATE_DEMO_THUNK_SUCCESS'
+    | 'DELETE_DEMO_THUNK_SUCCESS'
     ;

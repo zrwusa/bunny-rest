@@ -3,7 +3,7 @@ import {verifyJwt} from '../helpers/jwt';
 import {findSessions, reIssueAccessToken} from '../services/session-service';
 import RESTFul from '../helpers/restful';
 import {wrapSend} from '../helpers/protocol';
-import {BL} from '../helpers/biz-logics';
+import {BL} from '../constants/biz-logics';
 
 const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
     const accessTokenRaw = req.headers.authorization;

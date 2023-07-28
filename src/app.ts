@@ -2,7 +2,7 @@ import express, {Request, Response} from 'express';
 import responseTime from 'response-time';
 import {restResponseTimeHistogram, startMetricsServer} from './helpers/metrics';
 import errorResponse from './middlewares/error-response';
-import routerV1 from './routes/router-v1';
+import {routerV1} from './routes/v1';
 import i18n from './helpers/i18n';
 import {wrapSend} from './helpers/protocol';
 import RESTFul from './helpers/restful';
@@ -14,8 +14,8 @@ import {startApollo} from './helpers/apollo-server';
 import cors from 'cors';
 import {postgresConnect} from './helpers/postgres-connect';
 import {mongoConnect} from './helpers/mongo-connect';
-import {BL} from './helpers/biz-logics';
-import type {BLCodeWithTranslation, BizLogicKeys} from './types';
+import {BL} from './constants/biz-logics';
+import type {BizLogicKeys, BLCodeWithTranslation} from './types';
 import {writeDocumentation} from './helpers/zod-openapi';
 
 const app = express();
@@ -23,32 +23,33 @@ const app = express();
 // for Nginx loading balance
 app.enable('trust proxy');
 
-// Front-End with proxy without cors, response header looks like:
-// {
-//     'access-control-allow-origin': 'http://localhost:3000',
-//     'connection': 'close',
-//     'content-length': '123',
-//     'content-type': 'application/json; charset=utf-8',
-//     'date': 'Fri, 14 Jul 2023 07:46:37 GMT',
-//     'etag': 'W/"7b-uhZvTda99PSqRJbg0msem2TKZok"',
-//     'vary': 'Origin',
-//     'x-access-token': 'eyJhbGciOiJSUzI1XXXR5cCI6IkpXVCJ9',
-//     'x-powered-by': 'Express',
-//     'x-refresh-token': 'eyJhbGciOiJSUzIXXXsInR5cCI6IkpXVCJ9'
-// }
-// Front-End browsers(Axios) with Back-End cors, response header looks like
-// {
-//     'content-length': '123',
-//     'content-type': 'application/json; charset=utf-8',
-//     'x-access-token': 'eyJhbGciOiJSUzI1XXXR5cCI6IkpXVCJ9',
-//     'x-refresh-token': 'eyJhbGciOiJSUzIXXXsInR5cCI6IkpXVCJ9'
-// }
+/* Front-End with proxy without cors, response header looks like:
+ {
+     'access-control-allow-origin': 'http://localhost:3000',
+     'connection': 'close',
+     'content-length': '123',
+     'content-type': 'application/json; charset=utf-8',
+     'date': 'Fri, 14 Jul 2023 07:46:37 GMT',
+     'etag': 'W/"7b-uhZvTda99PSqRJbg0msem2TKZok"',
+     'vary': 'Origin',
+     'x-access-token': 'eyJhbGciOiJSUzI1XXXR5cCI6IkpXVCJ9',
+     'x-powered-by': 'Express',
+     'x-refresh-token': 'eyJhbGciOiJSUzIXXXsInR5cCI6IkpXVCJ9'
+ }
+ Front-End browsers(Axios) with Back-End cors, response header looks like
+ {
+     'content-length': '123',
+     'content-type': 'application/json; charset=utf-8',
+     'x-access-token': 'eyJhbGciOiJSUzI1XXXR5cCI6IkpXVCJ9',
+     'x-refresh-token': 'eyJhbGciOiJSUzIXXXsInR5cCI6IkpXVCJ9'
+ }
+ */
 const origins = config.get<string[]>('CORS_ORIGINS');
 
 app.use(cors({
     origin: origins,
     methods: 'GET, POST, CREATE, DELETE',
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Refresh'],
     exposedHeaders: ['x-access-token', 'x-refresh-token']
 }));
 

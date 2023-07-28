@@ -8,7 +8,7 @@ export const MongoDS = new DataSource({
     type: 'mongodb',
     url,
     // namingStrategy: new SnakeNamingStrategy(),
-    // entities: [User, Order, Address, Product, GraphqlDemo, Post],
+    // entities: [User, Order, Address, Product, DemoGraphql, Post],
     // synchronize: true,
     // logging: ['error', 'warn'],
     // subscribers: [],

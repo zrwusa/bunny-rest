@@ -1,6 +1,6 @@
 import {extendType, floatArg, nonNull, objectType, stringArg} from 'nexus';
 import {NexusGenObjects} from '../schemas/nexus-typegen';
-import {GraphqlDemo} from '../entities/graphql-demo';
+import {DemoGraphql} from '../entities/demo-graphql-entity';
 import {Context} from '../types/context';
 
 export const demo = objectType({
@@ -27,8 +27,8 @@ export const DemoQuery = extendType({
     definition(t) {
         t.nonNull.list.nonNull.field('demos', {
             type: 'Demo',
-            resolve(_parent, _args, _context, _info): Promise<GraphqlDemo[]> {
-                return GraphqlDemo.find();
+            resolve(_parent, _args, _context, _info): Promise<DemoGraphql[]> {
+                return DemoGraphql.find();
             }
         })
     }
@@ -43,9 +43,9 @@ export const CreateDemoMutation = extendType({
                 name: nonNull(stringArg()),
                 price: nonNull(floatArg()),
             },
-            resolve(_parent, args, context: Context, _info): Promise<GraphqlDemo> {
+            resolve(_parent, args, context: Context, _info): Promise<DemoGraphql> {
                 const {name, price} = args;
-                return GraphqlDemo.create({name, price}).save();
+                return DemoGraphql.create({name, price}).save();
             }
         })
     }

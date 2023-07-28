@@ -1,6 +1,6 @@
 import {Column, Entity, JoinColumn, ManyToOne} from 'typeorm';
 import {CommonEntity} from './common-entity';
-import {User} from './user-entity';
+import {UserEntity} from './user-entity';
 
 enum AddressCate {
     HOME = 'HOME',
@@ -9,7 +9,7 @@ enum AddressCate {
 }
 
 @Entity('address')
-export class Address extends CommonEntity {
+export class AddressEntity extends CommonEntity {
     @Column({
         type: 'text',
     })
@@ -36,7 +36,7 @@ export class Address extends CommonEntity {
     })
     category: string = AddressCate.HOME;
 
-    @ManyToOne(() => User,
+    @ManyToOne(() => UserEntity,
         user => user.addresses,
         // CASCADE means delete foreign data while main data is being deleted,
         // otherwise you can use other options
@@ -47,5 +47,5 @@ export class Address extends CommonEntity {
     @JoinColumn({
         name: 'user_id'
     })
-    user!: User;
+    user!: UserEntity;
 }
