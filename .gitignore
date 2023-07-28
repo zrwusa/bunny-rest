@@ -18,6 +18,7 @@ notes/
 
 logs/
 build/
+dist/
 public/
 
 __tests__/
