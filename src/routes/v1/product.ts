@@ -1,18 +1,7 @@
 import express from 'express';
-import jwtAuth from '../../middlewares/jwt-auth';
-import validateRequest from '../../middlewares/validate-request';
-import {
-    createProductSchema,
-    deleteProductSchema,
-    getProductSchema,
-    updateProductSchema
-} from '../../schemas/product-schema';
-import {
-    createProductCtrl,
-    deleteProductCtrl,
-    getProductCtrl,
-    updateProductCtrl
-} from '../../controllers/product-controller';
+import {jwtAuth, validateRequest} from '../../middlewares';
+import {createProductSchema, deleteProductSchema, getProductSchema, updateProductSchema} from '../../schemas';
+import {createProductCtrl, deleteProductCtrl, getProductCtrl, updateProductCtrl} from '../../controllers';
 
 const productRouter = express.Router();
 

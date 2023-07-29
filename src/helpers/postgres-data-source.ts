@@ -1,13 +1,15 @@
 import config from 'config';
 import {DataSource} from 'typeorm';
-import {UserEntity} from '../entities/user-entity';
-import {OrderEntity} from '../entities/order-entity';
-import {AddressEntity} from '../entities/address-entity';
-import {ProductEntity} from '../entities/product-entity';
+import {
+    AddressEntity,
+    DemoGraphql,
+    DemoThunkEntity,
+    OrderEntity,
+    PostEntity,
+    ProductEntity,
+    UserEntity
+} from '../entities';
 import {SnakeNamingStrategy} from 'typeorm-naming-strategies';
-import {DemoGraphql} from '../entities/demo-graphql-entity';
-import {PostEntity} from '../entities/post-entity';
-import {DemoThunkEntity} from '../entities/demo-thunk-entity';
 
 const url = config.get<string>('POSTGRES_URI');
 

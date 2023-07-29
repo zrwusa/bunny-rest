@@ -1,18 +1,17 @@
 import express from 'express';
-import validateRequest from '../../middlewares/validate-request';
+import {jwtAuth, validateRequest} from '../../middlewares';
 import {
     createDemoThunkSchema,
     deleteDemoThunkSchema,
     getDemoThunkSchema,
     getDemoThunksSchema
-} from '../../schemas/demo-thunk-schema';
+} from '../../schemas';
 import {
     createDemoThunkCtrl,
     deleteDemoThunkCtrl,
     getDemoThunkCtrl,
     getDemoThunksCtrl
-} from '../../controllers/demo-thunk-controller';
-import jwtAuth from '../../middlewares/jwt-auth';
+} from '../../controllers';
 
 const demoThunkRouter = express.Router();
 

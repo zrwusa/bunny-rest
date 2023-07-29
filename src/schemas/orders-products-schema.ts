@@ -9,8 +9,8 @@ const query = object({
     }),
 });
 
-export const getOrdersProductsSchema = object({
+export const getOrdersProductsAssocSchema = object({
     query
 });
 
-export type GetOrdersProductsQuery = TypeOf<typeof query>;
+export type GetOrdersProductsAssocQuery = TypeOf<typeof query>;

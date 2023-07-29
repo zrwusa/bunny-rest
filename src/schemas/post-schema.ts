@@ -34,7 +34,6 @@ export const deletePostSchema = object({
     params: getOrDelPostParams
 });
 
-
 export const getPostsSchema = object({query: getOrDelPostParams});
 
 export const getPostSchema = object({params: getOrDelPostParams});

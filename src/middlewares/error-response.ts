@@ -1,8 +1,8 @@
-import {NextFunction, Request, Response} from 'express';
-import logger from '../helpers/logger';
-import {wrapSend} from '../helpers/protocol';
-import RESTFul from '../helpers/restful';
-import {BL} from '../constants/biz-logics';
+import type {NextFunction, Request, Response} from 'express';
+import {logger} from '../helpers/logger';
+import {wrapSend} from '../helpers';
+import {RESTFul} from '../helpers/restful';
+import {BL} from '../constants';
 
 export const errorResponse = (err: any, req: Request, res: Response, next: NextFunction) => {
     logger.error(err);

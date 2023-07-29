@@ -1,16 +1,16 @@
 import express from 'express';
-import validateRequest from '../../middlewares/validate-request';
-import {createUserSchema} from '../../schemas/user-schema';
-import {createUserCtrl, deleteUserCtrl} from '../../controllers/user-controller';
-import {createUserAddressesSchema} from '../../schemas/user-addresses-schema';
-import jwtAuth from '../../middlewares/jwt-auth';
-import {createUserAddressesCtrl} from '../../controllers/user-addresses-controller';
+import {jwtAuth, validateRequest} from '../../middlewares';
+import {createUserAddressesSchema, createUserSchema, deleteUserByBodySchema} from '../../schemas';
+import {createUserAddressesCtrl, createUserCtrl, deleteUserByBodyCtrl, deleteUserCtrl} from '../../controllers';
 
 const userRouter = express.Router();
 
+// TODO When it comes to frequent requests, we should reject frequent requests based on the request agent information
 userRouter.post('/', validateRequest(createUserSchema), createUserCtrl);
 
 userRouter.delete('/:id', deleteUserCtrl);
+
+userRouter.delete('/', validateRequest(deleteUserByBodySchema), deleteUserByBodyCtrl);
 
 userRouter.post('/:id/addresses', [validateRequest(createUserAddressesSchema), jwtAuth], createUserAddressesCtrl);
 

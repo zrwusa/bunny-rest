@@ -1,10 +1,10 @@
-import {NextFunction, Request, Response} from 'express';
-import {createProduct, deleteProduct, findAndUpdateProduct, findProduct,} from '../services/product-service';
-import RESTFul from '../helpers/restful';
-import {wrapSend} from '../helpers/protocol';
-import {CreateProductBody} from '../schemas/product-schema';
-import {ParamsDictionary} from 'express-serve-static-core';
-import {BL} from '../constants/biz-logics';
+import type {NextFunction, Request, Response} from 'express';
+import type {ParamsDictionary} from '../types';
+
+import {createProduct, deleteProduct, findAndUpdateProduct, findProduct,} from '../services';
+import {RESTFul, wrapSend} from '../helpers';
+import {CreateProductBody} from '../schemas';
+import {BL} from '../constants';
 
 export async function createProductCtrl(req: Request<ParamsDictionary, any, CreateProductBody>, res: Response, next: NextFunction) {
     const {body} = req;
@@ -12,8 +12,8 @@ export async function createProductCtrl(req: Request<ParamsDictionary, any, Crea
     try {
         const product = await createProduct(body);
         return wrapSend(res, RESTFul.ok, BL.CREATE_PRODUCT_SUCCESS, product);
-    } catch (e) {
-        next(e);
+    } catch (err) {
+        next(err);
     }
 }
 
@@ -29,8 +29,8 @@ export async function updateProductCtrl(req: Request, res: Response, next: NextF
         const updatedProduct = await findAndUpdateProduct({id}, body);
 
         return wrapSend(res, RESTFul.ok, BL.UPDATE_PRODUCT_SUCCESS, updatedProduct);
-    } catch (e) {
-        next(e);
+    } catch (err) {
+        next(err);
     }
 }
 
@@ -42,8 +42,8 @@ export async function getProductCtrl(req: Request, res: Response, next: NextFunc
             return wrapSend(res, RESTFul.notFound, BL.NULL_PRODUCT);
         }
         return wrapSend(res, RESTFul.ok, BL.GET_PRODUCT_SUCCESS, product);
-    } catch (e) {
-        next(e);
+    } catch (err) {
+        next(err);
     }
 }
 
@@ -59,7 +59,7 @@ export async function deleteProductCtrl(req: Request, res: Response, next: NextF
         const deletedProduct = await deleteProduct({id});
 
         return wrapSend(res, RESTFul.ok, BL.DELETE_PRODUCT_SUCCESS, deletedProduct);
-    } catch (e) {
-        next(e);
+    } catch (err) {
+        next(err);
     }
 }

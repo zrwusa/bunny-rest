@@ -1,4 +1,4 @@
-export type BunnyConfig = {
+export type EnvVariables = {
     NODE_ENV?: string,
     PORT: string,
     MONGO_DB_URI: string,

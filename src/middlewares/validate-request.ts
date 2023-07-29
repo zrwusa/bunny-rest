@@ -1,10 +1,10 @@
-import {NextFunction, Request, Response} from 'express';
-import {wrapSend} from '../helpers/protocol';
-import RESTFul from '../helpers/restful';
-import {BL} from '../constants/biz-logics';
+import type {NextFunction, Request, Response} from 'express';
+import {wrapSend} from '../helpers';
+import {RESTFul} from '../helpers/restful';
+import {BL} from '../constants';
 import {ValidateSchema} from '../types';
 
-const validateRequest = (schema: ValidateSchema) =>
+export const validateRequest = (schema: ValidateSchema) =>
     (req: Request, res: Response, next: NextFunction) => {
         const {body, query, params} = req;
 

@@ -1,11 +1,9 @@
-import {NextFunction, Request, Response} from 'express';
+import type {NextFunction, Request, Response} from 'express';
 import config from 'config';
-import {createSession, deleteSession, findSessions,} from '../services/session-service';
-import {validatePassword} from '../services/user-service';
-import {signJwt} from '../helpers/jwt';
-import {wrapSend} from '../helpers/protocol';
-import RESTFul from '../helpers/restful';
-import {BL} from '../constants/biz-logics';
+import {createSession, deleteSession, findSession, validatePassword,} from '../services';
+import {signJwt, wrapSend} from '../helpers';
+import {RESTFul} from '../helpers/restful';
+import {BL} from '../constants';
 
 export async function createUserSessionCtrl(req: Request, res: Response, next: NextFunction) {
     // Validate the user's password
@@ -33,8 +31,8 @@ export async function createUserSessionCtrl(req: Request, res: Response, next: N
             res.setHeader('x-access-token', accessToken);
             res.setHeader('x-refresh-token', refreshToken);
             return wrapSend(res, RESTFul.ok, BL.LOGIN_SUCCESS);
-        } catch (e) {
-            next(e);
+        } catch (err) {
+            next(err);
         }
     }
 }
@@ -43,10 +41,10 @@ export async function getUserSessionCtrl(req: Request, res: Response, next: Next
     const userId = res.locals.user.id;
 
     try {
-        const userSession = await findSessions({user_id: userId});
+        const userSession = await findSession({user_id: userId});
         wrapSend(res, RESTFul.ok, BL.GET_SESSION_SUCCESS, userSession);
-    } catch (e) {
-        next(e);
+    } catch (err) {
+        next(err);
     }
 }
 
@@ -61,7 +59,7 @@ export async function deleteSessionCtrl(req: Request, res: Response, next: NextF
         } else {
             wrapSend(res, RESTFul.unprocessableEntity, BL.LOGOUT_FAILED);
         }
-    } catch (e) {
-        next(e);
+    } catch (err) {
+        next(err);
     }
 }

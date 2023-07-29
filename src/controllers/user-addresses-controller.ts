@@ -1,31 +1,21 @@
-import {NextFunction, Request, Response} from 'express';
-import {UserEntity} from '../entities/user-entity';
-import {wrapSend} from '../helpers/protocol';
-import RESTFul from '../helpers/restful';
-import {AddressEntity} from '../entities/address-entity';
-import {PgDS} from '../helpers/postgres-data-source';
-import {BL} from '../constants/biz-logics';
+import type {NextFunction, Request, Response} from 'express';
+import {BizLogicFailed, RESTFul, wrapSend} from '../helpers';
+import {BL} from '../constants';
+import {createUserAddresses} from '../services';
 
 export async function createUserAddressesCtrl(req: Request, res: Response, next: NextFunction) {
-    const {id} = req.params;
-    const {body} = req;
+    const {body, params} = req;
+    const {id} = params;
 
-    const userRepo = PgDS.getRepository(UserEntity);
-    const user = await userRepo.findOneBy({id: id});
-
-    if (!user) {
-        return wrapSend(res, RESTFul.notFound, BL.NULL_USER);
-    } else {
-        const addressRepo = PgDS.getRepository(AddressEntity);
-        try {
-            const address = await addressRepo.save(addressRepo.create({
-                ...body,
-                user
-            }));
-            return wrapSend(res, RESTFul.ok, BL.ASSOCIATE_USER_ADDRESSES_SUCCESS, address);
-
-        } catch (e) {
-            next(e);
+    try {
+        const result = await createUserAddresses(id, body);
+        if (result instanceof BizLogicFailed) {
+            const {restful, bizLogic} = result;
+            return wrapSend(res, restful, bizLogic);
+        } else {
+            return wrapSend(res, RESTFul.ok, BL.ASSOCIATE_USER_ADDRESSES_SUCCESS, result);
         }
+    } catch (err) {
+        next(err);
     }
 }

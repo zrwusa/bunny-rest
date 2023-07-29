@@ -287,7 +287,7 @@ const networkAuthenticationRequired: RESTFulProtocol = {
     description: 'indicates that the client needs to authenticate to gain network access.',
 };
 
-const RESTFul = {
+export const RESTFul = {
     continueProcessing,
     switchingProtocols,
     processing,
@@ -401,6 +401,7 @@ const RESTFul = {
     '507': insufficientStorage,
     '511': networkAuthenticationRequired
 };
+
 export default RESTFul;
 
 

@@ -1,2 +1,2 @@
-export * from './biz-logic';
-export * from './restful'
+export * from './restful';
+export * from './protocol';

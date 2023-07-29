@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
-import fs from 'fs';
+import * as jwt from 'jsonwebtoken';
+import * as fs from 'fs';
 
 export function signJwt(object: object, options?: jwt.SignOptions) {
-    const secretKey = fs.readFileSync(__dirname + '/../../certs/bunny-private.key');
+    const secretKey = fs.readFileSync(__dirname + '/../../certs/bunny-rest-private.key');
 
     return jwt.sign(object, secretKey, {
         ...options,
@@ -11,7 +11,7 @@ export function signJwt(object: object, options?: jwt.SignOptions) {
 }
 
 export function verifyJwt(token: string) {
-    const verifyKey = fs.readFileSync(__dirname + '/../../certs/bunny-public.pem');
+    const verifyKey = fs.readFileSync(__dirname + '/../../certs/bunny-rest-public.pem');
 
     try {
         const decoded = jwt.verify(token, verifyKey);

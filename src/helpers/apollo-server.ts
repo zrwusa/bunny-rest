@@ -1,6 +1,6 @@
 import {ApolloServer} from 'apollo-server';
-import {graphqlDemoSchema} from '../schemas/graphql-demo-schema';
-import logger from './logger';
+import {graphqlDemoSchema} from '../schemas';
+import {logger} from './logger';
 import config from 'config';
 import {PgDS} from './postgres-data-source';
 

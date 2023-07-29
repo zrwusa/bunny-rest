@@ -1,0 +1,16 @@
+import {BLCodeAndTrans} from './biz-logic';
+
+export type BLAndTransUser = {
+    CREATE_USER_SUCCESS: BLCodeAndTrans;
+    REGISTER_SUCCESS: BLCodeAndTrans;
+    DELETE_USER_SUCCESS: BLCodeAndTrans;
+    GET_ONE_USER_SUCCESS: BLCodeAndTrans;
+    USER_EXISTS: BLCodeAndTrans;
+    NULL_USER: BLCodeAndTrans;
+    ASSOCIATE_USER_ADDRESSES_SUCCESS: BLCodeAndTrans;
+    PASSWORD_RESET_SUCCESS: BLCodeAndTrans;
+    PASSWORD_RECOVER_EMAIL_SENT_SUCCESS: BLCodeAndTrans;
+    PASSWORD_RESET_PRE_CHECK_SUCCESS: BLCodeAndTrans;
+    INVALID_PASSWORD_RESET_LINK_OR_EXPIRED: BLCodeAndTrans;
+    INVALID_USERNAME_OR_EMAIL: BLCodeAndTrans;
+};

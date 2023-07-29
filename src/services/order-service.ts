@@ -1,23 +1,32 @@
-import {databaseResponseTimeHistogram} from '../helpers/metrics';
-import {OrderEntity} from '../entities/order-entity';
-import {PgDS} from '../helpers/postgres-data-source';
+import type {PureEntity} from '../types';
+import {OrderEntity, ProductEntity} from '../entities';
+import {BizLogicFailed, RESTFul, serviceProfile} from '../helpers';
+import {BL} from '../constants';
+import {In} from 'typeorm';
 
 export async function createOrder(input: Partial<OrderEntity>) {
-    const metricsLabels = {
-        operation: 'createOrder',
-    };
+    return await serviceProfile('createOrder', async () => await OrderEntity.save(OrderEntity.create(input)));
+}
 
-    const orderRepo = PgDS.getRepository(OrderEntity);
-    const order = orderRepo.create(input);
+export async function findOrders() {
+    return await serviceProfile('findOrders', async () => await OrderEntity.find());
+}
 
-    const timer = databaseResponseTimeHistogram.startTimer();
-    try {
-        const result = await orderRepo.save(order);
-        timer({...metricsLabels, success: 'true'});
-        return result;
-    } catch (e) {
-        timer({...metricsLabels, success: 'false'});
-        throw e;
+export async function deleteOrder(id: string) {
+    return await serviceProfile('deleteOrder', async () => await OrderEntity.delete(id));
+}
+
+export async function createOrderProducts(id: string, inputProducts: PureEntity<ProductEntity>[]) {
+
+    const order = await OrderEntity.findOneBy({id: id});
+
+    if (!order) {
+        return new BizLogicFailed(RESTFul.notFound, BL.ORDER_NOT_EXIST);
+    } else {
+        return await serviceProfile('createOrderProducts', async () => {
+            order.products = await ProductEntity.find({where: {id: In(inputProducts)}});
+            return await OrderEntity.save(order);
+        });
     }
 }
 

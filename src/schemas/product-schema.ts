@@ -2,7 +2,6 @@ import {number, object, string, TypeOf} from 'zod';
 import {openApiBearerAuth, openApiRegistry} from '../helpers/zod-openapi';
 import {xRefreshTokenSchema} from './auth-schema';
 
-
 const body = object({
     title: string({
         required_error: 'Title is required',

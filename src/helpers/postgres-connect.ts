@@ -1,11 +1,11 @@
 import config from 'config';
 import {PgDS} from './postgres-data-source';
-import logger from './logger';
+import {logger} from './logger';
 
 export const postgresConnect = async () => {
     try {
         const url = config.get<string>('POSTGRES_URI');
-        logger.warn(`Postgres connecting, ${url}`);
+        logger.info(`Postgres connecting, ${url}`);
         await PgDS.initialize();
         logger.info(`Postgres connected!, ${url}`);
 

@@ -1,11 +1,11 @@
-import {NextFunction, Request, Response} from 'express';
-import {verifyJwt} from '../helpers/jwt';
-import {findSessions, reIssueAccessToken} from '../services/session-service';
-import RESTFul from '../helpers/restful';
-import {wrapSend} from '../helpers/protocol';
-import {BL} from '../constants/biz-logics';
+import type {NextFunction, Request, Response} from 'express';
+import {verifyJwt} from '../helpers';
+import {findSession, reIssueAccessToken} from '../services/session-service';
+import {RESTFul} from '../helpers/restful';
+import {wrapSend} from '../helpers';
+import {BL} from '../constants';
 
-const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
+export const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
     const accessTokenRaw = req.headers.authorization;
     if (typeof accessTokenRaw !== 'string') {
         return wrapSend(res, RESTFul.unauthorized, BL.ACCESS_TOKEN_MALFORMED);
@@ -15,7 +15,7 @@ const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
         const {decoded, expired} = verifyJwt(accessToken);
         if (decoded) {
             res.locals.user = decoded;
-            const userSession = await findSessions({user_id: res.locals.user.id});
+            const userSession = await findSession({user_id: res.locals.user.id});
             // We can implement more features here, e.g. blacklist
             if (!userSession) {
                 return wrapSend(res, RESTFul.unauthorized, BL.SESSION_NOT_EXIST);
@@ -30,7 +30,7 @@ const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
                     return wrapSend(res, RESTFul.unauthorized, BL.REFRESH_TOKEN_EXPIRED);
                 }
 
-                const newAccessToken = await reIssueAccessToken({refreshToken});
+                const newAccessToken = await reIssueAccessToken(refreshToken);
                 if (newAccessToken && typeof newAccessToken === 'string') {
                     res.setHeader('x-access-token', newAccessToken);
                     const result = verifyJwt(newAccessToken as string);

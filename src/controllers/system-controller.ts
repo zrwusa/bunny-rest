@@ -1,18 +1,18 @@
-import {NextFunction, Request, Response} from 'express';
-import RESTFul from '../helpers/restful';
-import {wrapSend} from '../helpers/protocol';
-import {BL} from '../constants/biz-logics';
-import {BunnyConfig} from '../types/config';
-import config from 'config';
-import logger from '../helpers/logger';
+import type {Request, Response} from 'express';
+import type {EnvVariables} from '../types';
 
-export async function getPingCtrl(req: Request, res: Response, next: NextFunction) {
+import {RESTFul, wrapSend} from '../helpers';
+import {BL} from '../constants';
+import config from 'config';
+import {logger} from '../helpers/logger';
+
+export async function getPingCtrl(req: Request, res: Response) {
     logger.info('yeah it ran');
     wrapSend(res, RESTFul.ok, BL.PONG);
 }
 
-export async function getConfigCtrl(req: Request, res: Response, next: NextFunction) {
-    const configGot: BunnyConfig = {
+export async function getConfigCtrl(req: Request, res: Response) {
+    const configGot: EnvVariables = {
         NODE_ENV: config.get<string>('NODE_ENV'),
         PORT: '',
         MONGO_DB_URI: '',
@@ -32,7 +32,7 @@ export async function getConfigCtrl(req: Request, res: Response, next: NextFunct
             if (key === 'CORS_ORIGINS') {
                 configGot['CORS_ORIGINS'] = config.get<string[]>(key);
             } else {
-                configGot[key as keyof Omit<BunnyConfig, 'CORS_ORIGINS'>] = config.get<string>(key);
+                configGot[key as keyof Omit<EnvVariables, 'CORS_ORIGINS'>] = config.get<string>(key);
             }
         }
     }

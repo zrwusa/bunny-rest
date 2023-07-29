@@ -1,7 +1,8 @@
+import type {Context} from '../types';
+
 import {extendType, floatArg, nonNull, objectType, stringArg} from 'nexus';
 import {NexusGenObjects} from '../schemas/nexus-typegen';
-import {DemoGraphql} from '../entities/demo-graphql-entity';
-import {Context} from '../types/context';
+import {DemoGraphql} from '../entities';
 
 export const demo = objectType({
     name: 'Demo',

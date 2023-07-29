@@ -1,8 +1,7 @@
 import express from 'express';
-import validateRequest from '../../middlewares/validate-request';
-import {createSessionSchema} from '../../schemas/session-schema';
-import {createUserSessionCtrl, deleteSessionCtrl, getUserSessionCtrl} from '../../controllers/session-controller';
-import jwtAuth from '../../middlewares/jwt-auth';
+import {jwtAuth, validateRequest} from '../../middlewares';
+import {createSessionSchema} from '../../schemas';
+import {createUserSessionCtrl, deleteSessionCtrl, getUserSessionCtrl} from '../../controllers';
 
 const sessionRouter = express.Router();
 

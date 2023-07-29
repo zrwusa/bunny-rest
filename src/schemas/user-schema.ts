@@ -1,31 +1,29 @@
 import {object, string, TypeOf} from 'zod';
 import {openApiRegistry} from '../helpers/zod-openapi';
 
-const body = object({
-    name: string({
-        required_error: 'Name is required',
-    }),
-    password: string({
-        required_error: 'Password is required',
-    })
-        .min(6, 'Password too short - should be 6 chars minimum'),
-    passwordConfirmation: string({
-        required_error: 'passwordConfirmation is required',
-    }),
-    email: string({
-        required_error: 'Email is required',
-    })
-        .email('Not a valid email'),
-})
-    .refine((data) => data.password === data.passwordConfirmation, {
-        message: 'Passwords do not match',
-        path: ['passwordConfirmation'],
-    });
+const name = string({required_error: 'Name is required'});
 
-const params = object({
-    id: string({
-        required_error: 'user id is required',
-    }),
+const password = string({required_error: 'Password is required'}).min(6, 'Password too short - should be 6 chars minimum');
+
+const passwordConfirmation = string({required_error: 'passwordConfirmation is required'});
+
+const email = string({required_error: 'Email is required'}).email('Not a valid email');
+
+const body = object({
+    name,
+    password,
+    passwordConfirmation,
+    email,
+}).refine((data) => data.password === data.passwordConfirmation, {
+    message: 'Passwords do not match',
+    path: ['passwordConfirmation'],
+});
+
+const params = object({id: string({required_error: 'user id is required'})});
+
+const deleteBody = object({
+    name,
+    email,
 });
 
 // For OpenAPI .yaml generating
@@ -75,8 +73,14 @@ export const createUserSchema = object({
     body,
 });
 
+export const deleteUserByBodySchema = object({
+    body: deleteBody
+});
+
 export type CreateUserBody = TypeOf<typeof body>;
 
 export type DeleteUserParams = TypeOf<typeof params>;
+
+export type DeleteUserBody = TypeOf<typeof deleteBody>;
 
 

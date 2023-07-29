@@ -49,7 +49,7 @@
 							"script": {
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"userId\", jsonData.bunnyData.id);"
+									"postman.setEnvironmentVariable(\"userId\", jsonData.resData.id);"
 								],
 								"type": "text/javascript"
 							}
@@ -268,7 +268,7 @@
 							"script": {
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"productId\", jsonData.bunnyData.id);"
+									"postman.setEnvironmentVariable(\"productId\", jsonData.resData.id);"
 								],
 								"type": "text/javascript"
 							}
@@ -444,7 +444,7 @@
 							"script": {
 								"exec": [
 									"const jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"orderId\", jsonData.bunnyData.id);"
+									"postman.setEnvironmentVariable(\"orderId\", jsonData.resData.id);"
 								],
 								"type": "text/javascript"
 							}
@@ -649,7 +649,7 @@
 							"script": {
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"postId\", jsonData.bunnyData.id);"
+									"postman.setEnvironmentVariable(\"postId\", jsonData.resData.id);"
 								],
 								"type": "text/javascript"
 							}
@@ -794,7 +794,7 @@
 							"script": {
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"demoThunkId\", jsonData.bunnyData.id);"
+									"postman.setEnvironmentVariable(\"demoThunkId\", jsonData.resData.id);"
 								],
 								"type": "text/javascript"
 							}
@@ -1036,6 +1036,58 @@
 					"response": []
 				},
 				{
+					"name": "Delete DemoThunk",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-refresh",
+								"value": "{{refreshToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "zh",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/v1/demo-thunks/{{demoThunkId}}",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"demo-thunks",
+								"{{demoThunkId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Delete Session",
 					"event": [
 						{
@@ -1088,7 +1140,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\",\n    \"passwordConfirmation\": \"{{password}}\",\n    \"name\": \"{{name}}\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1105,6 +1157,40 @@
 								"v1",
 								"users",
 								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User By Body",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-refresh",
+								"value": "{{refreshToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{email}}\",\n    \"name\": \"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/v1/users",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
 							]
 						}
 					},

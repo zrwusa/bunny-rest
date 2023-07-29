@@ -1,17 +1,17 @@
 import express from 'express';
 import client from 'prom-client';
-import log from './logger';
+import {logger} from './logger';
 import config from 'config';
 
 const app = express();
 
-export const restResponseTimeHistogram = new client.Histogram({
+export const apiRTHistogram = new client.Histogram({
     name: 'rest_response_time_duration_seconds',
     help: 'REST API response time in seconds',
     labelNames: ['method', 'route', 'status_code'],
 });
 
-export const databaseResponseTimeHistogram = new client.Histogram({
+export const dbRTHistogram = new client.Histogram({
     name: 'db_response_time_duration_seconds',
     help: 'Database response time in seconds',
     labelNames: ['operation', 'success'],
@@ -31,6 +31,6 @@ export function startMetricsServer() {
     const METRICS_PORT = config.get<number>('METRICS_PORT');
 
     app.listen(METRICS_PORT, () => {
-        log.info(`Metrics server started http://localhost:${METRICS_PORT}/metrics`);
+        logger.info(`Metrics server started http://localhost:${METRICS_PORT}/metrics`);
     });
 }

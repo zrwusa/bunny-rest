@@ -1,10 +1,12 @@
-import jwtAuth from '../../middlewares/jwt-auth';
-import {createOrderCtrl, deleteOrdersCtrl, getOrdersCtrl} from '../../controllers/order-controller';
-import validateRequest from '../../middlewares/validate-request';
-import {createOrderProductsSchema} from '../../schemas/order-products-schema';
-import {createOrderProductsCtrl} from '../../controllers/order-pruducts-controller';
-import {getOrdersProductsSchema} from '../../schemas/orders-products-schema';
-import {getOrdersProductsCtrl} from '../../controllers/orders-products-controller';
+import {jwtAuth, validateRequest} from '../../middlewares';
+import {
+    createOrderCtrl,
+    createOrderProductsCtrl,
+    deleteOrderCtrl,
+    getOrdersCtrl,
+    getOrdersProductsAssocCtrl
+} from '../../controllers';
+import {createOrderProductsSchema, getOrdersProductsAssocSchema} from '../../schemas';
 import express from 'express';
 
 const orderRouter = express.Router();
@@ -13,12 +15,10 @@ orderRouter.post('/', [jwtAuth], createOrderCtrl);
 
 orderRouter.get('/', [jwtAuth], getOrdersCtrl);
 
-orderRouter.delete('/:id', [jwtAuth], deleteOrdersCtrl);
+orderRouter.delete('/:id', [jwtAuth], deleteOrderCtrl);
 
 orderRouter.post('/:id/products', [validateRequest(createOrderProductsSchema), jwtAuth], createOrderProductsCtrl);
 
-orderRouter.get('/products', [validateRequest(getOrdersProductsSchema), jwtAuth], getOrdersProductsCtrl);
+orderRouter.get('/products', [validateRequest(getOrdersProductsAssocSchema), jwtAuth], getOrdersProductsAssocCtrl);
 
-export {
-    orderRouter
-}
+export {orderRouter};

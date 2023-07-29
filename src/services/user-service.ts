@@ -1,40 +1,55 @@
 import {omit} from 'lodash';
-import {UserEntity} from '../entities/user-entity';
+import {AddressEntity, UserEntity} from '../entities';
 import bcrypt from 'bcrypt';
 import {FindOptionsWhere} from 'typeorm';
-import {PgDS} from '../helpers/postgres-data-source';
+import {BizLogicFailed, RESTFul, serviceProfile} from '../helpers';
+import {BL} from '../constants';
 
 export async function createUser(input: Partial<UserEntity>) {
-    const userRepo = PgDS.getRepository(UserEntity);
-    const user = await userRepo.save(userRepo.create(input));
-    return omit(user, 'password');
-}
-
-export async function findUser(query: FindOptionsWhere<UserEntity>) {
-    const userRepo = PgDS.getRepository(UserEntity);
-    return userRepo.findOneBy(query);
-}
-
-export async function deleteUser(query: Pick<UserEntity, 'id'>) {
-    const userRepo = PgDS.getRepository(UserEntity);
-    return await userRepo.delete(query);
-
-}
-
-export async function validatePassword({email, password}: Pick<FindOptionsWhere<UserEntity>, 'email' | 'password'>) {
-    const userRepo = PgDS.getRepository(UserEntity);
-
-
-    const user = await userRepo.findOneBy({email});
-
-    if (!user) return;
-
-    if (typeof password !== 'string') return;
-
-    const isValid = bcrypt.compare(password, user.password).catch(e => false);
-
-    if (!isValid) return;
-
+    const user = await serviceProfile('createUser', async () => await UserEntity.save(UserEntity.create(input)));
     return omit(user, 'password') as UserEntity;
 }
 
+export async function findUser(query: FindOptionsWhere<UserEntity>) {
+    return await serviceProfile('findUser', async () => await UserEntity.findOneBy(query));
+}
+
+export async function deleteUserById(query: Pick<UserEntity, 'id'>) {
+    return await serviceProfile('deleteUserById', async () => await UserEntity.delete(query));
+}
+
+export async function deleteUserByBody(query: Pick<UserEntity, 'name' | 'email'>) {
+    return await serviceProfile('deleteUserByBody', async () => await UserEntity.delete(query));
+}
+
+export async function validatePassword({email, password}: Pick<FindOptionsWhere<UserEntity>, 'email' | 'password'>) {
+
+    return await serviceProfile('validatePassword', async () => {
+        const user = await UserEntity.findOneBy({email});
+
+        if (!user) return;
+
+        if (typeof password !== 'string') return;
+
+        const isValid = bcrypt.compare(password, user.password).catch(err => false);
+
+        if (!isValid) return;
+
+        return omit(user, 'password') as UserEntity;
+    });
+
+}
+
+export async function createUserAddresses(id: string, inputAddresses: []) {
+
+    return await serviceProfile('createUserAddresses', async () => {
+        const user = await UserEntity.findOneBy({id: id});
+        if (!user) return new BizLogicFailed(RESTFul.notFound, BL.NULL_USER);
+        else {
+            return await AddressEntity.save(AddressEntity.create({
+                ...inputAddresses,
+                user
+            }));
+        }
+    })
+}

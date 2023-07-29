@@ -1,10 +1,13 @@
 import {BaseEntity, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
 
 @Entity()
-export class CommonEntity extends BaseEntity {
+export class IdEntity extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id!: string;
+}
 
+@Entity()
+export class CommonEntity extends IdEntity {
     @CreateDateColumn()
     create_at!: Date;
 

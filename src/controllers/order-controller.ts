@@ -1,12 +1,10 @@
-import {NextFunction, Request, Response} from 'express';
-import {createOrder} from '../services/order-service';
-import RESTFul from '../helpers/restful';
-import {wrapSend} from '../helpers/protocol';
-import {OrderEntity} from '../entities/order-entity';
-import {ParamsDictionary} from '../types/express-enhanced';
-import {CreateOrderBody} from '../schemas/order-schema';
-import {PgDS} from '../helpers/postgres-data-source';
-import {BL} from '../constants/biz-logics';
+import type {NextFunction, Request, Response} from 'express';
+import type {ParamsDictionary} from '../types';
+
+import {createOrder, deleteOrder, findOrders} from '../services';
+import {RESTFul, wrapSend} from '../helpers';
+import {CreateOrderBody} from '../schemas';
+import {BL} from '../constants';
 
 export async function createOrderCtrl(req: Request<ParamsDictionary, any, CreateOrderBody>, res: Response, next: NextFunction) {
     const {body} = req;
@@ -14,28 +12,26 @@ export async function createOrderCtrl(req: Request<ParamsDictionary, any, Create
     try {
         const order = await createOrder(body);
         return wrapSend(res, RESTFul.ok, BL.CREATE_ORDER_SUCCESS, order);
-    } catch (e) {
-        next(e);
+    } catch (err) {
+        next(err);
     }
 }
 
 export async function getOrdersCtrl(req: Request, res: Response, next: NextFunction) {
-    const orderRepo = PgDS.getRepository(OrderEntity);
     try {
-        const orders = await orderRepo.find();
+        const orders = await findOrders();
         return wrapSend(res, RESTFul.ok, BL.GET_ORDERS_SUCCESS, orders);
-    } catch (e) {
-        next(e);
+    } catch (err) {
+        next(err);
     }
 }
 
-export async function deleteOrdersCtrl(req: Request, res: Response, next: NextFunction) {
-    const orderRepo = PgDS.getRepository(OrderEntity);
+export async function deleteOrderCtrl(req: Request, res: Response, next: NextFunction) {
     const {id} = req.params;
     try {
-        const orders = await orderRepo.delete(id);
+        const orders = await deleteOrder(id);
         return wrapSend(res, RESTFul.ok, BL.DELETE_ORDER_SUCCESS, orders);
-    } catch (e) {
-        next(e);
+    } catch (err) {
+        next(err);
     }
 }

@@ -1,7 +1,7 @@
-import validateRequest from '../../middlewares/validate-request';
-import {createPostSchema, deletePostSchema, getPostSchema} from '../../schemas/post-schema';
-import {createPostCtrl, deletePostCtrl, getPostCtrl, getPostsCtrl} from '../../controllers/post-controller';
-import jwtAuth from '../../middlewares/jwt-auth';
+import {validateRequest} from '../../middlewares';
+import {createPostSchema, deletePostSchema, getPostSchema} from '../../schemas';
+import {createPostCtrl, deletePostCtrl, getPostCtrl, getPostsCtrl} from '../../controllers';
+import {jwtAuth} from '../../middlewares';
 import express from 'express';
 
 const postRouter = express.Router();
@@ -14,4 +14,4 @@ postRouter.get('/', getPostsCtrl);
 
 postRouter.delete('/:id', [jwtAuth, validateRequest(deletePostSchema)], deletePostCtrl);
 
-export {postRouter} ;
+export {postRouter};

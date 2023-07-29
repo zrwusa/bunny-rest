@@ -1,62 +1,27 @@
-import {databaseResponseTimeHistogram} from '../helpers/metrics';
-import {DemoThunkEntity} from '../entities/demo-thunk-entity';
+import {DemoThunkEntity} from '../entities';
 import {FindOptionsWhere} from 'typeorm';
+import {serviceProfile} from '../helpers';
 
 export async function createDemoThunk(input: Partial<DemoThunkEntity>) {
-    const metricsLabels = {
-        operation: 'createDemoThunk',
-    };
     const post = DemoThunkEntity.create(input);
-    const timer = databaseResponseTimeHistogram.startTimer();
-    try {
-        const result = await DemoThunkEntity.save(post);
-        timer({...metricsLabels, success: 'true'});
-        return result;
-    } catch (e) {
-        timer({...metricsLabels, success: 'false'});
-        throw e;
-    }
+    return await serviceProfile('createDemoThunk', async () => await DemoThunkEntity.save(post));
 }
 
 export async function findDemoThunk(
     query: Pick<FindOptionsWhere<DemoThunkEntity>, 'id'>
 ) {
-    const metricsLabels = {
-        operation: 'findDemoThunk',
-    };
-
-    const timer = databaseResponseTimeHistogram.startTimer();
-    try {
-        const result = await DemoThunkEntity.findOneBy(query);
-        timer({...metricsLabels, success: 'true'});
-        return result;
-    } catch (e) {
-        timer({...metricsLabels, success: 'false'});
-        throw e;
-    }
+    return await serviceProfile('findDemoThunk', async () => await DemoThunkEntity.findOneBy(query));
 }
 
 export async function findAndUpdateDemoThunk(query: Pick<DemoThunkEntity, 'id'>, update: Partial<DemoThunkEntity>) {
-    return DemoThunkEntity.save({...update, ...query} as DemoThunkEntity);
+    return await serviceProfile('findAndUpdateDemoThunk', async () => await DemoThunkEntity.save({...update, ...query} as DemoThunkEntity));
 }
 
 export async function deleteDemoThunk(query: Pick<DemoThunkEntity, 'id'>) {
-    return await DemoThunkEntity.delete({...query});
+    return await serviceProfile('deleteDemoThunk', async () => await DemoThunkEntity.delete({...query}))
 }
 
 export async function findDemoThunks(query: Partial<{ from: number, offset: number }>) {
-    const metricsLabels = {
-        operation: 'findDemoThunks',
-    };
     const {from, offset} = query;
-    const timer = databaseResponseTimeHistogram.startTimer();
-    try {
-
-        const posts = DemoThunkEntity.find();
-        timer({...metricsLabels, success: 'true'});
-        return posts;
-    } catch (e) {
-        timer({...metricsLabels, success: 'false'});
-        throw e;
-    }
+    return await serviceProfile('findDemoThunks', async () => DemoThunkEntity.find());
 }

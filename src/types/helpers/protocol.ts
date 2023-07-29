@@ -1,4 +1,4 @@
-export interface BunnyProtocol {
+export interface APIProtocol {
     http: {
         code: number,
         message?: string,
@@ -14,5 +14,5 @@ export interface BunnyProtocol {
         message?: string,
         stack?: string,
     }
-    bunnyData?: any,
+    resData?: any,
 }

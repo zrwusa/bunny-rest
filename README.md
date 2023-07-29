@@ -32,7 +32,7 @@
         "code": "APP_ORDER_0060",
         "message": "Associate order with products success"
     },
-    "bunnyData": {
+    "resData": {
         "id": "95da24dd-9200-4e87-90b4-bff84e52011f",
         "create_at": "2023-07-19T16:27:29.429Z",
         "update_at": "2023-07-19T16:27:29.429Z",
@@ -79,7 +79,7 @@
             }
         ]
     },
-    "bunnyData": null
+    "resData": null
 }
 ```
 

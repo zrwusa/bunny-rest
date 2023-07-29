@@ -1,0 +1,1 @@
+export type PureEntity<T> = Omit<T, 'hasId' | 'save' | 'remove' | 'softRemove' | 'recover' | 'reload'>
