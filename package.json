@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "install:all": "yarn --cwd src/libs/zod-to-openapi install && yarn install",
     "dev:prepare": "docker-compose -f docker-compose.dev.yml up -d --build",
     "dev": "cross-env NODE_ENV=development ts-node-dev --ignore-watch='src/openapi/' --respawn --transpile-only src/index.ts",
     "dev:nodemon": "cross-env NODE_ENV=development nodemon src/index.ts",

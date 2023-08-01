@@ -28,13 +28,13 @@ export function getOpenApiDocumentation() {
 export function writeDocumentation() {
     // OpenAPI JSON
     const docs = getOpenApiDocumentation();
-    fs.writeFileSync(`${__dirname}/../openapi/generated.json`, JSON.stringify(docs), {
+    fs.writeFileSync(`${process.cwd()}/src/openapi/generated.json`, JSON.stringify(docs), {
         encoding: 'utf-8',
     });
 
     // YAML equivalent
     const fileContent = yaml.stringify(docs);
-    fs.writeFileSync(`${__dirname}/../openapi/generated.yaml`, fileContent, {
+    fs.writeFileSync(`${process.cwd()}/src/openapi/generated.yaml`, fileContent, {
         encoding: 'utf-8',
     });
 }
