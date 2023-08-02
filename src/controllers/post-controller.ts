@@ -1,16 +1,15 @@
 import type {NextFunction, Request, Response} from 'express';
-import {RESTFul} from '../helpers/restful';
 import {wrapSend} from '../helpers';
 import type {ParamsDictionary} from '../types';
 import {createPost, deletePost, findAndUpdatePost, findPost, findPosts} from '../services';
 import {CreatePostBody, GetPostParams, GetPostsQuery, UpdatePostBody, UpdatePostParams} from '../schemas';
-import {BL} from '../constants';
+import {BL, httpStatusMap} from '../constants';
 
 export async function getPostsCtrl(req: Request<ParamsDictionary, any, any, GetPostsQuery>, res: Response, next: NextFunction) {
     const {from, offset} = req.query;
     try {
         const posts = await findPosts({from: parseInt(from), offset: parseInt(offset)});
-        return wrapSend(res, RESTFul.ok, BL.GET_POSTS_SUCCESS, posts);
+        return wrapSend(res, httpStatusMap.ok, BL.GET_POSTS_SUCCESS, posts);
     } catch (err) {
         next(err);
     }
@@ -20,7 +19,7 @@ export async function getPostCtrl(req: Request<ParamsDictionary, any, any, GetPo
     const {id} = req.query;
     try {
         const post = await findPost({id});
-        return wrapSend(res, RESTFul.ok, BL.GET_POST_SUCCESS, post);
+        return wrapSend(res, httpStatusMap.ok, BL.GET_POST_SUCCESS, post);
     } catch (err) {
         next(err);
     }
@@ -31,7 +30,7 @@ export async function createPostCtrl(req: Request<ParamsDictionary, any, CreateP
 
     try {
         const post = await createPost(body);
-        return wrapSend(res, RESTFul.ok, BL.CREATE_POST_SUCCESS, post);
+        return wrapSend(res, httpStatusMap.ok, BL.CREATE_POST_SUCCESS, post);
     } catch (err) {
         next(err);
     }
@@ -45,12 +44,12 @@ export async function updatePostCtrl(req: Request<UpdatePostParams, any, UpdateP
         const post = await findPost({id});
 
         if (!post) {
-            return wrapSend(res, RESTFul.notFound, BL.NULL_POST);
+            return wrapSend(res, httpStatusMap.notFound, BL.NULL_POST);
         }
 
         const updatedPost = await findAndUpdatePost({id}, body);
 
-        return wrapSend(res, RESTFul.ok, BL.UPDATE_POST_SUCCESS, updatedPost);
+        return wrapSend(res, httpStatusMap.ok, BL.UPDATE_POST_SUCCESS, updatedPost);
     } catch (err) {
         next(err);
     }
@@ -63,12 +62,12 @@ export async function deletePostCtrl(req: Request, res: Response, next: NextFunc
         const post = await findPost({id});
 
         if (!post) {
-            return wrapSend(res, RESTFul.notFound, BL.NULL_POST);
+            return wrapSend(res, httpStatusMap.notFound, BL.NULL_POST);
         }
 
         const deletedPost = await deletePost({id});
 
-        return wrapSend(res, RESTFul.ok, BL.DELETE_POST_SUCCESS, deletedPost);
+        return wrapSend(res, httpStatusMap.ok, BL.DELETE_POST_SUCCESS, deletedPost);
     } catch (err) {
         next(err);
     }

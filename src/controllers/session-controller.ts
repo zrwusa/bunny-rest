@@ -2,15 +2,14 @@ import type {NextFunction, Request, Response} from 'express';
 import config from 'config';
 import {createSession, deleteSession, findSession, validatePassword,} from '../services';
 import {signJwt, wrapSend} from '../helpers';
-import {RESTFul} from '../helpers/restful';
-import {BL} from '../constants';
+import {BL, httpStatusMap} from '../constants';
 
 export async function createUserSessionCtrl(req: Request, res: Response, next: NextFunction) {
     // Validate the user's password
     const user = await validatePassword(req.body);
 
     if (!user) {
-        wrapSend(res, RESTFul.unauthorized, BL.INCORRECT_EMAIL_OR_PASSWORD);
+        wrapSend(res, httpStatusMap.unauthorized, BL.INCORRECT_EMAIL_OR_PASSWORD);
     } else {
         try {
             // create access token
@@ -30,7 +29,7 @@ export async function createUserSessionCtrl(req: Request, res: Response, next: N
 
             res.setHeader('x-access-token', accessToken);
             res.setHeader('x-refresh-token', refreshToken);
-            return wrapSend(res, RESTFul.ok, BL.LOGIN_SUCCESS);
+            return wrapSend(res, httpStatusMap.ok, BL.LOGIN_SUCCESS);
         } catch (err) {
             next(err);
         }
@@ -42,7 +41,7 @@ export async function getUserSessionCtrl(req: Request, res: Response, next: Next
 
     try {
         const userSession = await findSession({user_id: userId});
-        wrapSend(res, RESTFul.ok, BL.GET_SESSION_SUCCESS, userSession);
+        wrapSend(res, httpStatusMap.ok, BL.GET_SESSION_SUCCESS, userSession);
     } catch (err) {
         next(err);
     }
@@ -55,9 +54,9 @@ export async function deleteSessionCtrl(req: Request, res: Response, next: NextF
         if (deletedCount > 0) {
             res.setHeader('x-access-token', '');
             res.setHeader('x-refresh-token', '');
-            wrapSend(res, RESTFul.ok, BL.LOGOUT_SUCCESS);
+            wrapSend(res, httpStatusMap.ok, BL.LOGOUT_SUCCESS);
         } else {
-            wrapSend(res, RESTFul.unprocessableEntity, BL.LOGOUT_FAILED);
+            wrapSend(res, httpStatusMap.unprocessableEntity, BL.LOGOUT_FAILED);
         }
     } catch (err) {
         next(err);

@@ -1,4 +1,5 @@
-import {BLCodeAndTrans} from './biz-logic';
+import { BLCodeAndTrans } from "./common";
+
 
 export type BLAndTransPost = {
     CREATE_POST_SUCCESS: BLCodeAndTrans;

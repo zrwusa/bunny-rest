@@ -1,7 +1,7 @@
 import type {NextFunction, Request, Response} from 'express';
 import {logger} from '../helpers/logger';
 import {wrapSend} from '../helpers';
-import {RESTFul} from '../helpers/restful';
+import {httpStatusMap} from '../constants/http-status-map';
 import {BL} from '../constants';
 
 export const errorResponse = (err: any, req: Request, res: Response, next: NextFunction) => {
@@ -9,7 +9,7 @@ export const errorResponse = (err: any, req: Request, res: Response, next: NextF
 
     const status = err.code || err.statusCode;
 
-    wrapSend(res, RESTFul.internalServerError, BL.INTERNAL_SERVER_ERROR, null, {
+    wrapSend(res, httpStatusMap.internalServerError, BL.INTERNAL_SERVER_ERROR, null, {
         code: status,
         message: err.message,
         stack: err.stack

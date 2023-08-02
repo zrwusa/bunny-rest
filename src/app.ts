@@ -10,8 +10,7 @@ import {
     mongoConnect,
     postgresConnect,
     redisConnect,
-    RESTFul,
-    startApollo,
+    httpStatusMap,
     startMetricsServer,
     startSwaggerDocs,
     wrapSend,
@@ -22,6 +21,7 @@ import config from 'config';
 import cors from 'cors';
 import {BL} from './constants';
 import {writeDocumentation} from './helpers/zod-openapi';
+import {startApollo} from './helpers/apollo-server';
 
 const app = express();
 
@@ -91,7 +91,7 @@ app.listen(port, async () => {
     startSwaggerDocs(app, port);
 
     app.all('*', async (req: Request, res: Response) => {
-        wrapSend(res, RESTFul.notFound, BL.URI_NOT_FOUND);
+        wrapSend(res, httpStatusMap.notFound, BL.URI_NOT_FOUND);
     });
 });
 

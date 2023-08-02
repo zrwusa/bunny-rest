@@ -1,14 +1,14 @@
 import type {Request, Response} from 'express';
 import type {EnvVariables} from '../types';
 
-import {RESTFul, wrapSend} from '../helpers';
-import {BL} from '../constants';
+import {wrapSend} from '../helpers';
+import {BL, httpStatusMap} from '../constants';
 import config from 'config';
 import {logger} from '../helpers/logger';
 
 export async function getPingCtrl(req: Request, res: Response) {
     logger.info('yeah it ran');
-    wrapSend(res, RESTFul.ok, BL.PONG);
+    wrapSend(res, httpStatusMap.ok, BL.PONG);
 }
 
 export async function getConfigCtrl(req: Request, res: Response) {
@@ -36,5 +36,5 @@ export async function getConfigCtrl(req: Request, res: Response) {
             }
         }
     }
-    wrapSend(res, RESTFul.ok, BL.GET_CONFIG_SUCCESS, configGot);
+    wrapSend(res, httpStatusMap.ok, BL.GET_CONFIG_SUCCESS, configGot);
 }

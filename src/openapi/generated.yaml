@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: Bunny RESTFul API
-  description: Bunny RESTFul API description
+  title: Bunny httpStatusMap API
+  description: Bunny httpStatusMap API description
 servers:
   - url: http://example.com
 components:
@@ -11,7 +11,167 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-  schemas: {}
+  schemas:
+    SuccessProtocol:
+      type: object
+      properties:
+        http:
+          type: object
+          properties:
+            code:
+              type: number
+              example: 200
+            message:
+              type: string
+              example: OK
+            description:
+              type: string
+              example: indicates that the request has succeeded.
+          required:
+            - code
+            - message
+            - description
+        bizLogic:
+          type: object
+          properties:
+            code:
+              type: string
+              example: APP_PRODUCT_0003
+            message:
+              type: string
+              example: Get product success
+          required:
+            - code
+            - message
+        resData:
+          nullable: true
+          example:
+            id: dc36b869-8c59-4036-8ec9-14eb389928c6
+            create_at: 2023-08-01T06:18:23.531Z
+            update_at: 2023-08-01T06:18:41.421Z
+            title: Canon EOS 1500D DSLR Camera with 18-55mm Lens
+            description: Designed for first-time DSLR owners who want impressive results
+              straight out of the box, capture those magic moments no matter
+              your level with the EOS 1500D. With easy to use automatic shooting
+              modes, large 24.1 MP sensor, Canon Camera Connect app integration
+              and built-in feature guide, EOS 1500D is always ready to go.
+            price: "6068.98"
+            image: https://i.imgur.com/QlRphfQ.jpg
+      required:
+        - http
+        - bizLogic
+    ValidationFailedProtocol:
+      type: object
+      properties:
+        http:
+          type: object
+          properties:
+            code:
+              type: number
+              example: 400
+            message:
+              type: string
+              example: Bad Request
+            description:
+              type: string
+              example: indicates that the server cannot or will not process the request
+                because the received syntax is invalid, nonsensical, or exceeds
+                some limitation on what the server is willing to process.
+          required:
+            - code
+            - message
+            - description
+        bizLogic:
+          type: object
+          properties:
+            code:
+              type: string
+              example: SYSTEM_0002
+            message:
+              type: string
+              example: Request validated failed
+            payload:
+              type: array
+              items:
+                nullable: true
+              example:
+                - code: invalid_type
+                  expected: string
+                  received: undefined
+                  path:
+                    - query
+                    - skip
+                  message: skip is required
+                - code: invalid_type
+                  expected: string
+                  received: undefined
+                  path:
+                    - query
+                    - take
+                  message: take is required
+          required:
+            - code
+            - message
+            - payload
+        resData:
+          nullable: true
+          example: {}
+      required:
+        - http
+        - bizLogic
+    InternalServerErrorProtocol:
+      type: object
+      properties:
+        http:
+          type: object
+          properties:
+            code:
+              type: number
+              example: 500
+            message:
+              type: string
+              example: Internal Server Error
+            description:
+              type: string
+              example: indicates that the server encountered an unexpected condition that
+                prevented it from fulfilling the request.
+          required:
+            - code
+            - message
+            - description
+        bizLogic:
+          type: object
+          properties:
+            code:
+              type: string
+              example: SYSTEM_0001
+            message:
+              type: string
+              example: Internal server error
+            payload:
+              nullable: true
+              example:
+                code: "23505"
+                message: duplicate key value violates unique constraint
+                  "UQ_e12875dfb3b1d92d7d7c5377e22"
+                stack: >-
+                  QueryFailedError: duplicate key value violates unique
+                  constraint "UQ_e12875dfb3b1d92d7d7c5377e22"
+                      at PostgresQueryRunner.query (/Users/revone/projects/bunny-rest/src/driver/postgres/PostgresQueryRunner.ts:299:19)
+                      at processTicksAndRejections (node:internal/process/task_queues:95:5)
+                      at InsertQueryBuilder.execute (/Users/revone/projects/bunny-rest/src/query-builder/InsertQueryBuilder.ts:163:33)
+                      at SubjectExecutor.executeInsertOperations (/Users/revone/projects/bunny-rest/src/persistence/SubjectExecutor.ts:434:42)
+                      at SubjectExecutor.execute (/Users/revone/projects/bunny-rest/src/persistence/SubjectExecutor.ts:137:9)
+                      at EntityPersistExecutor.execute (/Users/revone/projects/bunny-rest/src/persistence/EntityPersistExecutor.ts:182:21)
+          required:
+            - code
+            - message
+        resData:
+          nullable: true
+          example: {}
+      required:
+        - http
+        - bizLogic
   parameters: {}
 paths:
   /api/v1/posts:
@@ -83,10 +243,23 @@ paths:
           description: Refresh token
       responses:
         "200":
-          description: Success
-          content: {}
-        "404":
-          description: Product not found
+          description: Get product success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessProtocol"
+        "400":
+          description: Request validated failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationFailedProtocol"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorProtocol"
   /api/v1/sessions:
     post:
       description: Create a session

@@ -1,12 +1,11 @@
-import {BLAndTransProduct} from '../../types';
-import {E_BL_CATE} from './biz-logic-category';
+import {BLAndTransProduct, E_BL_CATE} from '../../types';
 
 export const BLProduct: BLAndTransProduct = {
-    DELETE_PRODUCT_SUCCESS: {
-        key: 'DELETE_PRODUCT_SUCCESS',
+    CREATE_PRODUCT_SUCCESS: {
+        key: 'CREATE_PRODUCT_SUCCESS',
         code: `${E_BL_CATE.APP_PRODUCT}_0001`,
-        en: 'Delete product success',
-        zh: '删除产品成功'
+        en: 'Create product success',
+        zh: '创建产品成功'
     },
     NULL_PRODUCT: {
         key: 'NULL_PRODUCT',
@@ -20,16 +19,22 @@ export const BLProduct: BLAndTransProduct = {
         en: 'Get product success',
         zh: '获取产品成功'
     },
-    CREATE_PRODUCT_SUCCESS: {
-        key: 'CREATE_PRODUCT_SUCCESS',
+    GET_PRODUCT_LIST_SUCCESS: {
+        key: 'GET_PRODUCT_LIST_SUCCESS',
         code: `${E_BL_CATE.APP_PRODUCT}_0004`,
-        en: 'Create product success',
-        zh: '创建产品成功'
+        en: 'Get product list success',
+        zh: '获取产品列表成功'
     },
     UPDATE_PRODUCT_SUCCESS: {
         key: 'UPDATE_PRODUCT_SUCCESS',
         code: `${E_BL_CATE.APP_PRODUCT}_0005`,
         en: 'Update product success',
         zh: '更新产品成功'
+    },
+    DELETE_PRODUCT_SUCCESS: {
+        key: 'DELETE_PRODUCT_SUCCESS',
+        code: `${E_BL_CATE.APP_PRODUCT}_0006`,
+        en: 'Delete product success',
+        zh: '删除产品成功'
     },
 }

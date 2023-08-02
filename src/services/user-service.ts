@@ -2,8 +2,8 @@ import {omit} from 'lodash';
 import {AddressEntity, UserEntity} from '../entities';
 import bcrypt from 'bcrypt';
 import {FindOptionsWhere} from 'typeorm';
-import {BizLogicFailed, RESTFul, serviceProfile} from '../helpers';
-import {BL} from '../constants';
+import {BizLogicFailed, serviceProfile} from '../helpers';
+import {BL, httpStatusMap} from '../constants';
 
 export async function createUser(input: Partial<UserEntity>) {
     const user = await serviceProfile('createUser', async () => await UserEntity.save(UserEntity.create(input)));
@@ -44,7 +44,7 @@ export async function createUserAddresses(id: string, inputAddresses: []) {
 
     return await serviceProfile('createUserAddresses', async () => {
         const user = await UserEntity.findOneBy({id: id});
-        if (!user) return new BizLogicFailed(RESTFul.notFound, BL.NULL_USER);
+        if (!user) return new BizLogicFailed(httpStatusMap.notFound, BL.NULL_USER);
         else {
             return await AddressEntity.save(AddressEntity.create({
                 ...inputAddresses,

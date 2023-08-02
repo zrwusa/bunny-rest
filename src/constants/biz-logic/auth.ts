@@ -1,5 +1,4 @@
-import {BLAndTransAuth} from '../../types';
-import {E_BL_CATE} from './biz-logic-category';
+import {BLAndTransAuth, E_BL_CATE} from '../../types';
 
 export const BLAuth: BLAndTransAuth = {
     LOGIN_SUCCESS: {

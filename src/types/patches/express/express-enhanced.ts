@@ -1,3 +1,3 @@
-import {ParamsDictionary} from 'express-serve-static-core';
-
-export {ParamsDictionary};
+export interface ParamsDictionary {
+    [key: string]: string;
+}

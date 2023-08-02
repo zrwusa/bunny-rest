@@ -1,5 +1,4 @@
-import {BLAndTransSystem} from '../../types';
-import {E_BL_CATE} from './biz-logic-category';
+import {BLAndTransSystem, E_BL_CATE} from '../../types';
 
 export const BLSystem: BLAndTransSystem = {
     INTERNAL_SERVER_ERROR: {

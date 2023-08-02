@@ -1,5 +1,4 @@
-import {BLAndTransOrder} from '../../types';
-import {E_BL_CATE} from './biz-logic-category';
+import {BLAndTransOrder, E_BL_CATE} from '../../types';
 
 export const BLOrder: BLAndTransOrder = {
     ORDER_NOT_EXIST: {

@@ -1,4 +1,4 @@
-import {BLCodeAndTrans} from './biz-logic';
+import {BLCodeAndTrans} from './common';
 
 export type BLAndTransUser = {
     CREATE_USER_SUCCESS: BLCodeAndTrans;

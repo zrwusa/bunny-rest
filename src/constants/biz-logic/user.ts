@@ -1,5 +1,4 @@
-import {BLAndTransUser} from '../../types';
-import {E_BL_CATE} from './biz-logic-category';
+import {BLAndTransUser, E_BL_CATE} from '../../types';
 
 export const BLUser: BLAndTransUser = {
     CREATE_USER_SUCCESS: {

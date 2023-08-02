@@ -1,4 +1,4 @@
-import {BLCodeAndTrans} from './biz-logic';
+import { BLCodeAndTrans } from "./common";
 
 export type BLAndTransOrder = {
     ORDER_NOT_EXIST: BLCodeAndTrans;

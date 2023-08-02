@@ -1,20 +1,24 @@
+import type {DeepPartial, FindManyOptions, FindOptionsWhere} from 'typeorm';
 import {ProductEntity} from '../entities';
-import {FindOptionsWhere} from 'typeorm';
 import {serviceProfile} from '../helpers';
 
-export async function createProduct(input: Partial<ProductEntity>) {
+export async function createProduct(input: DeepPartial<ProductEntity>) {
     const product = ProductEntity.create(input);
     return await serviceProfile('createProduct', async () => await ProductEntity.save(product));
 }
 
-export async function findProduct(query: Pick<FindOptionsWhere<ProductEntity>, 'id'>) {
-    return await serviceProfile('findProduct', async () => await ProductEntity.findOneBy(query));
+export async function getProduct(options: FindOptionsWhere<ProductEntity>) {
+    return await serviceProfile('getProduct', async () => await ProductEntity.findOneBy(options));
 }
 
-export async function findAndUpdateProduct(query: Pick<ProductEntity, 'id'>, update: Partial<ProductEntity>) {
-    return await serviceProfile('findAndUpdateProduct', async () => await ProductEntity.save({id: query.id, ...update}));
+export async function getProductList(options: FindManyOptions<ProductEntity>) {
+    return await serviceProfile('getProductList', async () => await ProductEntity.find(options));
 }
 
-export async function deleteProduct(query: Pick<ProductEntity, 'id'>) {
-    return await serviceProfile('deleteProduct', async () => await ProductEntity.delete(query));
+export async function updateProduct(id: ProductEntity['id'], update: DeepPartial<ProductEntity>) {
+    return await serviceProfile('updateProduct', async () => await ProductEntity.update(id, {...update}));
+}
+
+export async function deleteProduct(options: Pick<FindOptionsWhere<ProductEntity>, 'id'>) {
+    return await serviceProfile('deleteProduct', async () => await ProductEntity.delete(options));
 }

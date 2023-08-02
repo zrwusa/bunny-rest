@@ -20,8 +20,6 @@ let logger = pino({
     },
 });
 
-logger.info(process.env.NODE_ENV)
-
 if (isProduction) {
     logger = pino({
         level: 'info',

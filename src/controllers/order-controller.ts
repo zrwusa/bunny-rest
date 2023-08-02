@@ -2,16 +2,16 @@ import type {NextFunction, Request, Response} from 'express';
 import type {ParamsDictionary} from '../types';
 
 import {createOrder, deleteOrder, findOrders} from '../services';
-import {RESTFul, wrapSend} from '../helpers';
+import {wrapSend} from '../helpers';
 import {CreateOrderBody} from '../schemas';
-import {BL} from '../constants';
+import {BL, httpStatusMap} from '../constants';
 
 export async function createOrderCtrl(req: Request<ParamsDictionary, any, CreateOrderBody>, res: Response, next: NextFunction) {
     const {body} = req;
 
     try {
         const order = await createOrder(body);
-        return wrapSend(res, RESTFul.ok, BL.CREATE_ORDER_SUCCESS, order);
+        return wrapSend(res, httpStatusMap.ok, BL.CREATE_ORDER_SUCCESS, order);
     } catch (err) {
         next(err);
     }
@@ -20,7 +20,7 @@ export async function createOrderCtrl(req: Request<ParamsDictionary, any, Create
 export async function getOrdersCtrl(req: Request, res: Response, next: NextFunction) {
     try {
         const orders = await findOrders();
-        return wrapSend(res, RESTFul.ok, BL.GET_ORDERS_SUCCESS, orders);
+        return wrapSend(res, httpStatusMap.ok, BL.GET_ORDERS_SUCCESS, orders);
     } catch (err) {
         next(err);
     }
@@ -30,7 +30,7 @@ export async function deleteOrderCtrl(req: Request, res: Response, next: NextFun
     const {id} = req.params;
     try {
         const orders = await deleteOrder(id);
-        return wrapSend(res, RESTFul.ok, BL.DELETE_ORDER_SUCCESS, orders);
+        return wrapSend(res, httpStatusMap.ok, BL.DELETE_ORDER_SUCCESS, orders);
     } catch (err) {
         next(err);
     }

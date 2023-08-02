@@ -11,6 +11,8 @@ export const openApiBearerAuth = openApiRegistry.registerComponent('securitySche
     bearerFormat: 'JWT',
 });
 
+export const security = [{[openApiBearerAuth.name]: []}];
+
 export function getOpenApiDocumentation() {
     const generator = new OpenApiGeneratorV3(openApiRegistry.definitions);
     const OPEN_API_URL = config.get<string>('OPEN_API_URL');
@@ -18,8 +20,8 @@ export function getOpenApiDocumentation() {
         openapi: '3.0.0',
         info: {
             version: '1.0.0',
-            title: 'Bunny RESTFul API',
-            description: 'Bunny RESTFul API description',
+            title: 'Bunny httpStatusMap API',
+            description: 'Bunny httpStatusMap API description',
         },
         servers: [{url: OPEN_API_URL}],
     });

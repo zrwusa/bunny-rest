@@ -1,6 +1,6 @@
 import type {NextFunction, Request, Response} from 'express';
-import {BizLogicFailed, RESTFul, wrapSend} from '../helpers';
-import {BL} from '../constants';
+import {BizLogicFailed, wrapSend} from '../helpers';
+import {BL, httpStatusMap} from '../constants';
 import {createOrderProducts} from '../services';
 
 export async function createOrderProductsCtrl(req: Request, res: Response, next: NextFunction) {
@@ -13,7 +13,7 @@ export async function createOrderProductsCtrl(req: Request, res: Response, next:
             const {restful, bizLogic} = result;
             return wrapSend(res, restful, bizLogic);
         } else {
-            return wrapSend(res, RESTFul.ok, BL.ASSOCIATE_ORDER_PRODUCTS_SUCCESS, result);
+            return wrapSend(res, httpStatusMap.ok, BL.ASSOCIATE_ORDER_PRODUCTS_SUCCESS, result);
         }
     } catch (err) {
         next(err);

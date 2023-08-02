@@ -1,6 +1,6 @@
 import type {NextFunction, Request, Response} from 'express';
 import {wrapSend} from '../helpers';
-import {RESTFul} from '../helpers/restful';
+import {httpStatusMap} from '../constants/http-status-map';
 import {BL} from '../constants';
 import {ValidateSchema} from '../types';
 
@@ -9,7 +9,7 @@ export const validateRequest = (schema: ValidateSchema) =>
         const {body, query, params} = req;
 
         if (!body && !query && !params) {
-            return wrapSend(res, RESTFul.internalServerError, BL.VALIDATE_REQUEST_FAILED, null, {error: 'Invalid schema, the schema must include one of body, query, params keys'});
+            return wrapSend(res, httpStatusMap.internalServerError, BL.VALIDATE_REQUEST_FAILED, null, {error: 'Invalid schema, the schema must include one of body, query, params keys'});
         }
 
         try {
@@ -20,7 +20,7 @@ export const validateRequest = (schema: ValidateSchema) =>
             });
             next();
         } catch (e: any) {
-            return wrapSend(res, RESTFul.badRequest, BL.VALIDATE_REQUEST_FAILED, null, e.errors);
+            return wrapSend(res, httpStatusMap.badRequest, BL.VALIDATE_REQUEST_FAILED, null, e.errors);
         }
     };
 

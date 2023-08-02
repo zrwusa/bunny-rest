@@ -1,14 +1,14 @@
 import type {NextFunction, Request, Response} from 'express';
 import {verifyJwt} from '../helpers';
 import {findSession, reIssueAccessToken} from '../services/session-service';
-import {RESTFul} from '../helpers/restful';
+import {httpStatusMap} from '../constants/http-status-map';
 import {wrapSend} from '../helpers';
 import {BL} from '../constants';
 
 export const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
     const accessTokenRaw = req.headers.authorization;
     if (typeof accessTokenRaw !== 'string') {
-        return wrapSend(res, RESTFul.unauthorized, BL.ACCESS_TOKEN_MALFORMED);
+        return wrapSend(res, httpStatusMap.unauthorized, BL.ACCESS_TOKEN_MALFORMED);
     }
     const accessToken = accessTokenRaw.replace(/^Bearer\s/, '');
     if (accessToken) {
@@ -18,7 +18,7 @@ export const jwtAuth = async (req: Request, res: Response, next: NextFunction) =
             const userSession = await findSession({user_id: res.locals.user.id});
             // We can implement more features here, e.g. blacklist
             if (!userSession) {
-                return wrapSend(res, RESTFul.unauthorized, BL.SESSION_NOT_EXIST);
+                return wrapSend(res, httpStatusMap.unauthorized, BL.SESSION_NOT_EXIST);
             } else {
                 return next();
             }
@@ -27,7 +27,7 @@ export const jwtAuth = async (req: Request, res: Response, next: NextFunction) =
             if (refreshToken && typeof refreshToken === 'string') {
                 const {expired} = verifyJwt(refreshToken);
                 if (expired) {
-                    return wrapSend(res, RESTFul.unauthorized, BL.REFRESH_TOKEN_EXPIRED);
+                    return wrapSend(res, httpStatusMap.unauthorized, BL.REFRESH_TOKEN_EXPIRED);
                 }
 
                 const newAccessToken = await reIssueAccessToken(refreshToken);
@@ -38,16 +38,16 @@ export const jwtAuth = async (req: Request, res: Response, next: NextFunction) =
                     res.locals.user = result.decoded;
                     return next();
                 } else {
-                    return wrapSend(res, RESTFul.unauthorized, BL.REISSUE_ACCESS_TOKEN_FAILED);
+                    return wrapSend(res, httpStatusMap.unauthorized, BL.REISSUE_ACCESS_TOKEN_FAILED);
                 }
             } else {
-                return wrapSend(res, RESTFul.unauthorized, BL.REFRESH_TOKEN_NOT_PROVIDED);
+                return wrapSend(res, httpStatusMap.unauthorized, BL.REFRESH_TOKEN_NOT_PROVIDED);
             }
         } else {
-            return wrapSend(res, RESTFul.unauthorized, BL.REFRESH_TOKEN_MALFORMED);
+            return wrapSend(res, httpStatusMap.unauthorized, BL.REFRESH_TOKEN_MALFORMED);
         }
     } else {
-        return wrapSend(res, RESTFul.unauthorized, BL.ACCESS_TOKEN_NOT_PROVIDED);
+        return wrapSend(res, httpStatusMap.unauthorized, BL.ACCESS_TOKEN_NOT_PROVIDED);
     }
 };
 

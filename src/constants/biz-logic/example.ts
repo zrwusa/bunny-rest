@@ -1,5 +1,4 @@
-import {BLAndTransExample} from '../../types';
-import {E_BL_CATE} from './biz-logic-category';
+import {BLAndTransExample, E_BL_CATE} from '../../types';
 
 export const BLExample: BLAndTransExample = {
     EXAMPLE_GET: {

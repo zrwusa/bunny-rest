@@ -21,7 +21,7 @@
     "undeploy:test": "docker-compose -f docker-compose.test.yml down",
     "deploy": "docker-compose -f docker-compose.yml up -d --build",
     "undeploy": "docker-compose -f docker-compose.yml down",
-    "detect:circular-deps": "dependency-cruiser --exclude '^src/(openapi|libs)/' src"
+    "deps:check": "dependency-cruiser src"
   },
   "dependencies": {
     "apollo-server": "^3.12.0",
