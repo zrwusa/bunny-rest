@@ -27,13 +27,11 @@ export async function getConfigCtrl(req: Request, res: Response) {
         OPEN_API_URL: ''
     };
 
-    for (let key in configGot) {
-        if (configGot.hasOwnProperty(key)) {
-            if (key === 'CORS_ORIGINS') {
-                configGot['CORS_ORIGINS'] = config.get<string[]>(key);
-            } else {
-                configGot[key as keyof Omit<EnvVariables, 'CORS_ORIGINS'>] = config.get<string>(key);
-            }
+    for (const key of Object.keys(configGot)) {
+        if (key === 'CORS_ORIGINS') {
+            configGot['CORS_ORIGINS'] = config.get<string[]>(key);
+        } else {
+            configGot[key as keyof Omit<EnvVariables, 'CORS_ORIGINS'>] = config.get<string>(key);
         }
     }
     wrapSend(res, httpStatusMap.ok, BL.GET_CONFIG_SUCCESS, configGot);

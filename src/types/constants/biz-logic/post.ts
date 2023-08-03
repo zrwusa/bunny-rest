@@ -1,6 +1,5 @@
 import { BLCodeAndTrans } from "./common";
 
-
 export type BLAndTransPost = {
     CREATE_POST_SUCCESS: BLCodeAndTrans;
     GET_POSTS_SUCCESS: BLCodeAndTrans;

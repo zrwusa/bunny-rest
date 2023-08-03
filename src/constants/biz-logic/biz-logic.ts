@@ -21,11 +21,9 @@ export const BL: BLAndTrans = {
 const set = new Set<string>();
 
 
-for (let key in BL) {
-    if (BL.hasOwnProperty(key)) {
-        const {code, key:blKey} = BL[key as BLAndTransKeys];
-        if (set.has(code)) throw new Error(`Duplicated code, BizLogic definition error:${code}`)
-        if (key !== blKey) throw (new Error(`Duplicated key, BizLogic definition error:${blKey}`))
-        set.add(BL[key as BLAndTransKeys].code);
-    }
+for (const key of Object.keys(BL)) {
+    const {code, key: blKey} = BL[key as BLAndTransKeys];
+    if (set.has(code)) throw new Error(`Duplicated code, BizLogic definition error:${code}`)
+    if (key !== blKey) throw (new Error(`Duplicated key, BizLogic definition error:${blKey}`))
+    set.add(BL[key as BLAndTransKeys].code);
 }

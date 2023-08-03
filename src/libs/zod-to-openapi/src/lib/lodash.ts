@@ -53,7 +53,7 @@ export function omitBy<
   return result;
 }
 
-export function compact<T extends any>(arr: (T | null | undefined)[]) {
+export function compact<T>(arr: (T | null | undefined)[]) {
   return arr.filter((elem): elem is T => !isNil(elem));
 }
 

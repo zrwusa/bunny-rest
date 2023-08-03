@@ -298,7 +298,7 @@ export class OpenAPIGenerator {
 
       const entries = Object.entries(propTypes);
       const parameters = [];
-      for (let [key, schema] of entries) {
+      for (const [key, schema] of entries) {
         const innerMetadata = this.getMetadata(schema);
 
         const referencedSchema = this.getParameterRef(innerMetadata, {
@@ -1212,7 +1212,7 @@ export class OpenAPIGenerator {
     return omitBy(metadata, isNil);
   }
 
-  private getMetadata<T extends any>(
+  private getMetadata<T>(
     zodSchema: ZodType<T>
   ): ZodOpenApiFullMetadata<T> | undefined {
     const innerSchema = this.unwrapChained(zodSchema);
@@ -1240,7 +1240,7 @@ export class OpenAPIGenerator {
     };
   }
 
-  private getInternalMetadata<T extends any>(zodSchema: ZodType<T>) {
+  private getInternalMetadata<T>(zodSchema: ZodType<T>) {
     const innerSchema = this.unwrapChained(zodSchema);
     const openapi = zodSchema._def.openapi
       ? zodSchema._def.openapi
@@ -1249,7 +1249,7 @@ export class OpenAPIGenerator {
     return openapi?._internal;
   }
 
-  private getRefId<T extends any>(zodSchema: ZodType<T>) {
+  private getRefId<T>(zodSchema: ZodType<T>) {
     return this.getInternalMetadata(zodSchema)?.refId;
   }
 

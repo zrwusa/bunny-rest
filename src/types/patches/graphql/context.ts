@@ -1,5 +1,5 @@
-import {Connection} from 'typeorm';
+import {DataSource} from 'typeorm';
 
 export type Context = {
-    pgConn: Connection
+    pgConn: DataSource
 }

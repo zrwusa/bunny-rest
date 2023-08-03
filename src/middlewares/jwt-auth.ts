@@ -1,6 +1,6 @@
 import type {NextFunction, Request, Response} from 'express';
 import {verifyJwt} from '../helpers';
-import {findSession, reIssueAccessToken} from '../services/session-service';
+import {findSession, reIssueAccessToken} from '../services';
 import {httpStatusMap} from '../constants/http-status-map';
 import {wrapSend} from '../helpers';
 import {BL} from '../constants';

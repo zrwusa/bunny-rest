@@ -1,6 +1,5 @@
 import { BLCodeAndTrans } from "./common";
 
-
 export type BLAndTransProduct = {
     CREATE_PRODUCT_SUCCESS: BLCodeAndTrans;
     NULL_PRODUCT: BLCodeAndTrans;

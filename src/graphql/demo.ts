@@ -1,7 +1,7 @@
 import type {Context} from '../types';
 
 import {extendType, floatArg, nonNull, objectType, stringArg} from 'nexus';
-import {NexusGenObjects} from '../schemas/nexus-typegen';
+import {NexusGenObjects} from '../schemas';
 import {DemoGraphql} from '../entities';
 
 export const demo = objectType({
@@ -13,7 +13,7 @@ export const demo = objectType({
     }
 });
 
-let demos: NexusGenObjects['Demo'][] = [{
+const demos: NexusGenObjects['Demo'][] = [{
     id: 1,
     name: 'Demo name 1',
     price: 12.68
